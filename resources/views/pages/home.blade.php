@@ -10,7 +10,7 @@
                 <div class="col-lg-7 ftco-animate">
                     <div class="mt-5">
                         <h1 class="mb-4">
-                            ਸਰਕਾਰੀ ਸੇਵਾਵਾਂ Online<br>
+                            ਸਰਕਾਰੀ ਸੇਵਾਵਾਂ<br>
                             <span style="color:#f4c542;">ਹੁਣ ਔਨਲਾਈਨ - ਘਰ ਬੈਠੇ </span>
                         </h1>
                         <p class="mb-2" style="font-size:1.1rem;">
