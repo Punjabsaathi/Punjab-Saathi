@@ -181,42 +181,42 @@
                         </button>
 
                         @php
-    // category key => [label, icon]
-    $categoryMeta = [
-        'identity'      => ['Identity & ID Cards', 'fa-id-card'],
-        'registrations' => ['Registrations & Certificates', 'fa-file-text'],
-        'schemes'       => ['Govt. Schemes', 'fa-registered'],
-        'jobs'          => ['Jobs & Forms', 'fa-briefcase'],
-    ];
-@endphp
+                        // category key => [label, icon]
+                        $categoryMeta = [
+                            'identity'      => ['Identity & ID Cards', 'fa-id-card'],
+                            'registrations' => ['Registrations & Certificates', 'fa-file-text'],
+                            'schemes'       => ['Govt. Schemes', 'fa-registered'],
+                            'jobs'          => ['Jobs & Forms', 'fa-briefcase'],
+                        ];
+                    @endphp
 
-<div class="psk-mega-panel" id="pskMegaPanel">
-    <div class="container">
-        <div class="row">
-            @foreach($megaServices as $categoryKey => $categoryServices)
-                <div class="col-lg-3 psk-mega-col">
-                    <div class="psk-mega-heading">
-                        <span class="fa {{ $categoryMeta[$categoryKey][1] ?? 'fa-list' }}"></span>
-                        {{ $categoryMeta[$categoryKey][0] ?? ucfirst($categoryKey) }}
+                    <div class="psk-mega-panel" id="pskMegaPanel">
+                        <div class="container">
+                            <div class="row">
+                                @foreach($megaServices as $categoryKey => $categoryServices)
+                                    <div class="col-lg-3 psk-mega-col">
+                                        <div class="psk-mega-heading">
+                                            <span class="fa {{ $categoryMeta[$categoryKey][1] ?? 'fa-list' }}"></span>
+                                            {{ $categoryMeta[$categoryKey][0] ?? ucfirst($categoryKey) }}
+                                        </div>
+
+                                        @foreach($categoryServices as $service)
+                                            <a class="psk-mega-link" href="{{ url('/services/' . $service->slug) }}">
+                                                {{ $service->title }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+
+                                <div class="col-lg-3 psk-mega-col">
+                                    <a class="psk-mega-link" href="{{ url('/services') }}"
+                                    style="color:#fc5e28; font-weight:700; margin-top:10px; display:inline-block;">
+                                        View All Services →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    @foreach($categoryServices as $service)
-                        <a class="psk-mega-link" href="{{ url('/services/' . $service->slug) }}">
-                            {{ $service->title }}
-                        </a>
-                    @endforeach
-                </div>
-            @endforeach
-
-            <div class="col-lg-3 psk-mega-col">
-                <a class="psk-mega-link" href="{{ url('/services') }}"
-                   style="color:#fc5e28; font-weight:700; margin-top:10px; display:inline-block;">
-                    View All Services →
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
                     </li>
 
                     <li class="nav-item {{ request()->is('jobs') ? 'active' : '' }}">
