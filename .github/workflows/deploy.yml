@@ -1,0 +1,33 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 145.223.17.219
+          port: 65002
+          username: u143094305
+          password: ${{ secrets.SSH_PASSWORD }}
+          command_timeout: 10m
+          script_stop: true
+          debug: true
+          script: |
+            set -e
+            cd ~/domains/punjabsaathi.in/public_html
+            echo "Current directory: $(pwd)"
+            git fetch origin
+            git reset --hard origin/main
+            echo "Latest commit: $(git log -1 --oneline)"
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            echo "Deployment finished successfully"

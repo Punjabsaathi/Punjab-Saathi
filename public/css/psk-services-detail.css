@@ -1,0 +1,649 @@
+/* ═══════════════════════════════════════════════════════════════
+   Punjab Seva Kendra — Service Detail Page
+   File: public/css/psk-services-detail.css
+   Load AFTER: bootstrap.min.css, style.css
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── HERO ───────────────────────────────────────────────────── */
+.psk-detail-hero {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0 50px;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+}
+.psk-detail-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(4,14,38,0.88) 0%, rgba(4,14,38,0.72) 100%);
+}
+.psk-detail-hero .container { position: relative; z-index: 2; }
+
+.psk-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+.psk-breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+.psk-breadcrumb a:hover { color: #fc5e28; text-decoration: none; }
+.psk-breadcrumb .fa { font-size: 0.6rem; opacity: 0.6; }
+.psk-breadcrumb span:last-child { color: #fc5e28; font-weight: 600; }
+
+.psk-detail-hero__body {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+.psk-detail-hero__icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.15);
+}
+.psk-detail-hero__icon-wrap .fa { font-size: 1.9rem; }
+.psk-detail-hero__tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fc5e28;
+    background: rgba(252,94,40,0.15);
+    border: 1px solid rgba(252,94,40,0.3);
+    border-radius: 30px;
+    padding: 3px 12px;
+    margin-bottom: 10px;
+}
+.psk-detail-hero__title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 10px;
+    line-height: 1.25;
+}
+.psk-detail-hero__desc {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.80);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    max-width: 580px;
+}
+.psk-detail-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 22px;
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.75);
+}
+.psk-detail-hero__meta .fa { margin-right: 4px; }
+.psk-detail-hero__popular { color: #fbbf24; font-weight: 600; }
+.psk-detail-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ── BUTTONS ────────────────────────────────────────────────── */
+.psk-btn-primary {
+    background: #fc5e28;
+    color: #fff !important;
+    border: 2px solid #fc5e28;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 10px 24px;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+    text-decoration: none !important;
+}
+.psk-btn-primary:hover {
+    background: #e04e1f;
+    border-color: #e04e1f;
+    transform: translateY(-2px);
+    color: #fff !important;
+}
+.psk-btn-whatsapp {
+    background: #25D366;
+    color: #fff !important;
+    border: 2px solid #25D366;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 10px 24px;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+    text-decoration: none !important;
+}
+.psk-btn-whatsapp:hover {
+    background: #1aad52;
+    border-color: #1aad52;
+    transform: translateY(-2px);
+    color: #fff !important;
+}
+.psk-btn-submit {
+    background: #fc5e28;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 36px;
+    width: 100%;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 8px;
+    cursor: pointer;
+}
+.psk-btn-submit:hover {
+    background: #e04e1f;
+    transform: translateY(-2px);
+}
+
+/* ── DISCLAIMER BAR ─────────────────────────────────────────── */
+.psk-disclaimer-bar {
+    background: #fff8f0;
+    border-bottom: 2px solid #fde8d8;
+    padding: 10px 0;
+    font-size: 0.82rem;
+    color: #7c3d0a;
+}
+.psk-disclaimer-bar .container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.psk-disclaimer-bar .fa { color: #fc5e28; flex-shrink: 0; }
+
+/* ── BODY LAYOUT ────────────────────────────────────────────── */
+.psk-detail-body { padding-top: 40px !important; }
+
+/* ── DETAIL CARDS ───────────────────────────────────────────── */
+.psk-detail-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e8eaed;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 28px;
+    overflow: hidden;
+}
+.psk-detail-card__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+.psk-detail-card__header h2 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #040e26;
+    margin: 0;
+}
+.psk-detail-card__icon { font-size: 1.1rem; }
+.psk-detail-card__body { padding: 24px; }
+
+/* ── OVERVIEW CONTENT ───────────────────────────────────────── */
+.psk-overview-content { font-size: 0.9rem; line-height: 1.8; color: #444; }
+.psk-overview-content p { margin-bottom: 12px; }
+.psk-overview-content ul { padding-left: 20px; margin-bottom: 12px; }
+.psk-overview-content ul li { margin-bottom: 6px; }
+.psk-overview-content strong { color: #040e26; }
+
+/* ── DOCUMENTS GRID ─────────────────────────────────────────── */
+.psk-doc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.psk-doc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.83rem;
+    line-height: 1.4;
+    position: relative;
+}
+.psk-doc-item--mandatory {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+.psk-doc-item--optional {
+    background: #f8faff;
+    border: 1px solid #dbeafe;
+}
+.psk-doc-item__icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.psk-doc-item--mandatory .psk-doc-item__icon { color: #059669; }
+.psk-doc-item--optional  .psk-doc-item__icon { color: #3b82f6; }
+.psk-doc-item__note {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 2px;
+}
+.psk-doc-badge {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 4px;
+    padding: 1px 6px;
+    text-transform: uppercase;
+}
+.psk-doc-note {
+    font-size: 0.8rem;
+    color: #666;
+    background: #fff8f0;
+    border: 1px solid #fde8d8;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+/* ── INFO GRID (Fees) ───────────────────────────────────────── */
+.psk-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+}
+.psk-info-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 10px;
+}
+.psk-info-box--orange { background: #fff8f5; border: 1px solid #fde8d8; }
+.psk-info-box--blue   { background: #f0f7ff; border: 1px solid #dbeafe; }
+.psk-info-box--green  { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.psk-info-box__icon { font-size: 1.4rem; flex-shrink: 0; }
+.psk-info-box--orange .psk-info-box__icon { color: #fc5e28; }
+.psk-info-box--blue   .psk-info-box__icon { color: #3b82f6; }
+.psk-info-box--green  .psk-info-box__icon { color: #059669; }
+.psk-info-box__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    margin: 0 0 2px;
+}
+.psk-info-box__value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #040e26;
+    margin: 0;
+}
+.psk-fee-note {
+    font-size: 0.82rem;
+    color: #666;
+    background: #f9f9f9;
+    border-left: 3px solid #fc5e28;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 16px;
+}
+
+/* ── FAQ ACCORDION ──────────────────────────────────────────── */
+/* Reuses .psk-faq-card, .psk-faq-btn, .psk-faq-card__body
+   already defined in style.css / services.blade.php.
+   No duplication needed. */
+
+/* ── APPLICATION FORM ───────────────────────────────────────── */
+.psk-apply-card { border-color: #fc5e28; }
+.psk-apply-card .psk-detail-card__header { background: #fff8f5; }
+
+.psk-form-group { margin-bottom: 20px; }
+.psk-form-group > label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 6px;
+}
+.psk-required { color: #e11d48; }
+.psk-optional { color: #aaa; font-weight: 400; font-size: 0.75rem; }
+
+.psk-input-wrap { position: relative; }
+.psk-input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 1;
+}
+/* Override the global .form-control height / padding from style.css */
+.psk-apply-form .psk-input.form-control,
+.psk-apply-form input.psk-input,
+.psk-apply-form textarea.psk-input {
+    width: 100%;
+    height: auto !important;
+    min-height: 44px;
+    border: 1.5px solid #e2e6ea !important;
+    border-radius: 8px !important;
+    padding: 10px 14px 10px 36px !important;
+    font-size: 0.88rem !important;
+    color: #333 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+}
+.psk-apply-form .psk-input.form-control:focus,
+.psk-apply-form input.psk-input:focus,
+.psk-apply-form textarea.psk-input:focus {
+    border-color: #fc5e28 !important;
+    box-shadow: 0 0 0 3px rgba(252,94,40,0.12) !important;
+}
+.psk-apply-form textarea.psk-input {
+    padding-left: 14px !important;
+    resize: vertical;
+    min-height: 80px;
+}
+.psk-form-group--error .psk-input { border-color: #e11d48 !important; }
+.psk-field-error {
+    font-size: 0.78rem;
+    color: #e11d48;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Upload zone */
+.psk-upload-zone {
+    border: 2px dashed #d0d5dd;
+    border-radius: 10px;
+    background: #fafafa;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+}
+.psk-upload-zone:hover,
+.psk-upload-zone.psk-dragover {
+    border-color: #fc5e28;
+    background: #fff8f5;
+}
+.psk-upload-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.psk-upload-icon { font-size: 2rem; color: #ccc; display: block; margin-bottom: 8px; }
+.psk-upload-text { font-size: 0.88rem; color: #555; margin: 0 0 4px; }
+.psk-upload-hint { font-size: 0.75rem; color: #aaa; margin: 0; }
+.psk-upload-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+    justify-content: center;
+    position: relative;
+    z-index: 0;
+}
+.psk-file-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    color: #166534;
+    font-weight: 600;
+}
+.psk-file-chip .fa { color: #059669; }
+
+.psk-privacy-note {
+    font-size: 0.78rem;
+    color: #888;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Alerts */
+.psk-alert-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #059669;
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: #166534;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+}
+.psk-alert-error {
+    background: #fff0f0;
+    border: 1px solid #fecaca;
+    border-left: 4px solid #e11d48;
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: #991b1b;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+/* ── SIDEBAR ─────────────────────────────────────────────────── */
+.psk-sidebar { position: sticky; top: 90px; }
+
+.psk-sidebar-card {
+    background: #fff;
+    border: 1px solid #e8eaed;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.psk-sidebar-card__title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #040e26;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.psk-sidebar-card--highlight {
+    border-color: #fc5e28;
+    border-top-width: 3px;
+}
+
+.psk-sidebar-info-list { list-style: none; padding: 0; margin: 0; }
+.psk-sidebar-info-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 0.82rem;
+    gap: 8px;
+}
+.psk-sidebar-info-list li:last-child { border-bottom: none; }
+.psk-sidebar-info-list__label { color: #888; font-weight: 500; flex-shrink: 0; }
+.psk-sidebar-info-list__value { color: #040e26; font-weight: 700; text-align: right; }
+
+.psk-sidebar-wa {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border-color: #86efac;
+    text-align: center;
+}
+.psk-sidebar-wa__icon {
+    font-size: 2.4rem;
+    color: #25D366;
+    display: block;
+    margin-bottom: 8px;
+}
+.psk-sidebar-wa h4 { font-size: 1rem; font-weight: 800; color: #040e26; margin-bottom: 6px; }
+.psk-sidebar-wa p  { font-size: 0.82rem; color: #555; margin-bottom: 16px; }
+.psk-sidebar-wa .w-100 { width: 100% !important; }
+
+.psk-page-nav { list-style: none; padding: 0; margin: 0; }
+.psk-page-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.83rem;
+    color: #555;
+    text-decoration: none;
+    border-bottom: 1px solid #f5f5f5;
+    transition: color 0.2s;
+}
+.psk-page-nav li:last-child a { border-bottom: none; }
+.psk-page-nav li a:hover { color: #fc5e28; text-decoration: none; }
+.psk-page-nav li a .fa { color: #fc5e28; width: 16px; margin-right: 4px; }
+.psk-page-nav li a.psk-active { color: #fc5e28; font-weight: 700; }
+
+.psk-trust-list { list-style: none; padding: 0; margin: 0; }
+.psk-trust-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.83rem;
+    color: #333;
+    padding: 5px 0;
+}
+
+/* ── RELATED SERVICES ───────────────────────────────────────── */
+/* Reuses existing .psk-service-grid & .psk-service-card from services.blade.php */
+.psk-related-section { background: #f8f9fa; }
+
+/* ── CTA STRIP ──────────────────────────────────────────────── */
+.psk-cta-strip {
+    background: linear-gradient(135deg, #040e26 0%, #0f2050 100%);
+    padding: 40px 0;
+}
+.psk-cta-strip__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+.psk-cta-strip h3 { color: #fff; font-size: 1.3rem; font-weight: 800; margin: 0 0 6px; }
+.psk-cta-strip p  { color: rgba(255,255,255,0.75); font-size: 0.88rem; margin: 0; }
+.psk-cta-strip__btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ── NAVBAR DROPDOWN ────────────────────────────────────────── */
+#psk-svc-li { position: relative; }
+.psk-caret {
+    font-size: 0.72rem;
+    margin-left: 4px;
+    transition: transform 0.22s ease;
+    vertical-align: middle;
+    opacity: 0.75;
+}
+#psk-svc-li.psk-open .psk-caret {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+.psk-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9999;
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 6px 0;
+    min-width: 248px;
+    background: #1a1a2e;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.09);
+    box-shadow: 0 10px 36px rgba(0,0,0,0.40);
+}
+.psk-dropdown.psk-open { display: block; }
+.psk-dropdown li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    color: rgba(255,255,255,0.82) !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+}
+.psk-dropdown li a:hover {
+    background: rgba(252,94,40,0.13);
+    color: #fc5e28 !important;
+}
+.psk-dropdown li a .fa { font-size: 0.85rem; width: 15px; text-align: center; flex-shrink: 0; }
+.psk-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+
+@media (min-width: 992px) {
+    #psk-svc-li:hover .psk-dropdown { display: block; }
+    #psk-svc-li:hover .psk-caret { transform: rotate(180deg); opacity: 1; }
+}
+@media (max-width: 991px) {
+    .psk-dropdown { position: static; box-shadow: none; border-radius: 6px; margin: 4px 12px; }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 991px) {
+    .psk-sidebar { position: static; }
+}
+@media (max-width: 767px) {
+    .psk-detail-hero__body { flex-direction: column; gap: 16px; }
+    .psk-detail-hero__title { font-size: 1.4rem; }
+    .psk-doc-grid { grid-template-columns: 1fr; }
+    .psk-info-grid { grid-template-columns: 1fr; }
+    .psk-cta-strip__inner { flex-direction: column; text-align: center; }
+    .psk-cta-strip__btns { justify-content: center; }
+    .psk-detail-card__body { padding: 16px; }
+}
+/* ── NEW FAQ ───────────────────────────────────────── */
+.psk-faq-new { padding: 0; }
+.psk-faq-new__intro { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+.psk-faq-new__icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(252,94,40,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.psk-faq-new__icon .fa { font-size: 1.2rem; color: #fc5e28; }
+.psk-faq-new__title { font-size: 1.2rem; font-weight: 700; color: #040e26; margin: 0; }
+.psk-faq-new__sub { font-size: 0.82rem; color: #888; margin: 2px 0 0; }
+.psk-faq-new__item { border: 1px solid #eee; border-radius: 12px; margin-bottom: 10px; overflow: hidden; background: #fff; transition: border-color 0.2s; }
+.psk-faq-new__item--open { border-color: rgba(252,94,40,0.35); }
+.psk-faq-new__item--open .psk-faq-new__q { background: rgba(252,94,40,0.04); }
+.psk-faq-new__q { display: flex; align-items: center; gap: 12px; padding: 15px 18px; cursor: pointer; user-select: none; }
+.psk-faq-new__num { width: 26px; height: 26px; border-radius: 50%; background: #f4f4f4; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #888; flex-shrink: 0; transition: all 0.2s; }
+.psk-faq-new__item--open .psk-faq-new__num { background: #fc5e28; color: #fff; border-color: #fc5e28; }
+.psk-faq-new__q-text { flex: 1; font-size: 0.92rem; font-weight: 600; color: #040e26; line-height: 1.4; }
+.psk-faq-new__chevron { font-size: 0.75rem; color: #aaa; transition: transform 0.25s, color 0.25s; flex-shrink: 0; }
+.psk-faq-new__item--open .psk-faq-new__chevron { transform: rotate(180deg); color: #fc5e28; }
+.psk-faq-new__a { display: none; padding: 0 18px 16px 56px; font-size: 0.875rem; color: #555; line-height: 1.75; }
+.psk-faq-new__item--open .psk-faq-new__a { display: block; }
+.psk-faq-new__footer { margin-top: 1.25rem; padding: 14px 18px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; display: flex; align-items: center; gap: 12px; }
+.psk-faq-new__footer-icon { font-size: 1.4rem; color: #25D366; flex-shrink: 0; }
+.psk-faq-new__footer p { margin: 0; font-size: 0.85rem; color: #666; }
+.psk-faq-new__footer strong { color: #040e26; }
