@@ -21,7 +21,7 @@
                     <span class="fa fa-map-marker"></span>
                 </div>
                 <div class="text pl-3 pl-md-3">
-                    <p class="hr"><span>Our Location</span></p>
+                    <p class="hr"><span>Our Location</span></p> 
                     <p class="con">{{ config('site.address', 'Shop No : 1, Lal Market, Near Guru Nanake dev Universty, 143001') }}</p>
                 </div>
             </div>
