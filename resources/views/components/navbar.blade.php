@@ -189,7 +189,6 @@
                             'jobs'          => ['Jobs & Forms', 'fa-briefcase'],
                         ];
                     @endphp
-
                     <div class="psk-mega-panel" id="pskMegaPanel">
                         <div class="container">
                             <div class="row">
