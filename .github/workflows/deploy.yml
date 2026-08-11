@@ -2,14 +2,12 @@ name: Deploy to Hostinger
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [main]
+  workflow_dispatch: {}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.0
@@ -21,52 +19,16 @@ jobs:
           command_timeout: 10m
           script_stop: true
           debug: true
-
           script: |
             set -e
-
-            cd /home/u143094305/domains/punjabsaathi.in/public_html
-
-            echo "Current directory:"
-            pwd
-
-            echo "Connected repository:"
-            git remote -v
-
-            echo "Updating from GitHub main..."
-            git fetch origin main --prune
-            git checkout -B main origin/main
+            cd ~/domains/punjabsaathi.in/public_html
+            git fetch origin
             git reset --hard origin/main
-
-            echo "Deployed commit:"
-            git log -1 --oneline
-
-            if [ -f composer.json ]; then
-              if [ -f composer.lock ]; then
-                composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-              else
-                composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-              fi
-            fi
-
-            if [ -f package.json ]; then
-              if [ -f package-lock.json ]; then
-                npm ci --no-audit --no-fund
-              else
-                npm install --no-audit --no-fund
-              fi
-
-              npm run build --if-present
-            fi
-
-            if [ -f artisan ]; then
-              php artisan migrate --force
-              php artisan optimize:clear
-              php artisan config:cache
-              php artisan route:cache
-              php artisan view:cache
-            fi
-
+            git clean -fd
+            composer install --no-dev --optimize-autoloader --no-interaction
+            php artisan migrate --force
+            php artisan optimize:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
             echo "Deployment finished successfully"
-            echo "Final deployed commit:"
-            git log -1 --oneline
