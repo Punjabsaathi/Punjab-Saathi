@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch: {}
 
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,23 +16,37 @@ jobs:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: 145.223.17.219
-          port: 65002
-          username: u143094305
-          password: ${{ secrets.SSH_PASSWORD }}
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           command_timeout: 10m
           script_stop: true
-          debug: true
           script: |
             set -e
             cd ~/domains/punjabsaathi.in/public_html
+
+            echo "== Fetching latest code =="
             git fetch origin
             git reset --hard origin/main
-            git clean -fd -e .htaccess
+            git clean -fd -e .htaccess -e .env
+
+            echo "== Installing dependencies =="
             composer install --no-dev --optimize-autoloader --no-interaction
+
+            echo "== Running migrations =="
             php artisan migrate --force
+
+            echo "== Rebuilding storage symlink =="
+            php artisan storage:link
+
+            echo "== Fixing permissions =="
+            chmod -R 775 storage bootstrap/cache
+
+            echo "== Clearing and rebuilding caches =="
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
-            echo "Deployment finished successfully"
+
+            echo "Deployment finished at $(date)"
