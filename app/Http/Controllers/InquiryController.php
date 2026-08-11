@@ -17,8 +17,11 @@ class InquiryController extends Controller
             'message'    => 'nullable|string',
         ]);
 
-        Inquiry::create($validated);
+        Inquiry::create([
+            ...$validated,
+            'status' => 'new',
+        ]);
 
-        return redirect()->back()->with('success', 'Your inquiry has been submitted! We will contact you soon.');
+        return redirect()->back()->with('inquiry_success', 'Your inquiry has been submitted! We will contact you soon.');
     }
 }

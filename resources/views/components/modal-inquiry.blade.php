@@ -10,8 +10,8 @@
                 <form action="{{ route('inquiry.store') }}" method="POST" class="appointment-form ftco-animate">
                     @csrf
                     <h3>Request Quote</h3>
-                    @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @if(session('inquiry_success'))
+                        <div class="alert alert-success">{{ session('inquiry_success') }}</div>
                     @endif
                     <div class="form-group">
                         <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
@@ -46,16 +46,10 @@
         </div>
     </div>
 </div>
-    @if(session('success'))
+@if(session('inquiry_success'))
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             $('#exampleModalCenter').modal('show');
-            setTimeout(function () {
-                $('.alert-success').fadeOut('slow');
-            }, 2000);
-            setTimeout(function () {
-                $('#exampleModalCenter').modal('hide');
-            }, 3000);
         });
     </script>
-    @endif
+@endif
