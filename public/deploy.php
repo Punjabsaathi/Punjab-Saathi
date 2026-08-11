@@ -8,7 +8,7 @@ if (!hash_equals('sha256=' . hash_hmac('sha256', $payload, $secret), $signature)
     die('Unauthorized');
 }
 
-$base = '/home/u143094305/domains/punjabsevakendra.in/public_html';
+$base = '/home/u143094305/domains/punjabsaathi.in/public_html';
 
 $output = '';
 $output .= shell_exec("cd $base && git fetch origin 2>&1");
