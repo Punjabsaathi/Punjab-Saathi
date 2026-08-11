@@ -44,22 +44,27 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="ftco-footer-widget">
-                    <h2 class="ftco-heading-2">Popular Services</h2>
-                    <ul class="list-unstyled">
-                        @forelse(($megaServices ?? collect())->flatten() as $service)
-                            <li>
-                                <a href="{{ url('/services/' . $service->slug) }}">
-                                    <span class="fa fa-chevron-right mr-2"></span>{{ $service->title }}
-                                </a>
-                            </li>
-                        @empty
-                            <li><a href="{{ url('/services') }}"><span class="fa fa-chevron-right mr-2"></span>View Services</a></li>
-                        @endforelse
-                    </ul>
-                </div>
-            </div>
+           <div class="col-lg-3 col-md-6">
+    <div class="ftco-footer-widget">
+        <h2 class="ftco-heading-2">Popular Services</h2>
+        <ul class="list-unstyled">
+            @forelse(($megaServices ?? collect())->flatten()->take(7) as $service)
+                <li>
+                    <a href="{{ url('/services/' . $service->slug) }}">
+                        <span class="fa fa-chevron-right mr-2"></span>{{ $service->title }}
+                    </a>
+                </li>
+            @empty
+                <li><a href="{{ url('/services') }}"><span class="fa fa-chevron-right mr-2"></span>View Services</a></li>
+            @endforelse
+            <li>
+                <a href="{{ url('/services') }}" class="font-weight-bold">
+                    <span class="fa fa-chevron-right mr-2"></span>View All Services
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
             <div class="col-lg col-md-6">
                 <div class="ftco-footer-widget">
