@@ -10,8 +10,8 @@
                 <div class="col-lg-7 ftco-animate">
                     <div class="mt-5">
                         <h1 class="mb-4">
-                            ਸਰਕਾਰੀ ਸੇਵਾਵਾਂ<br>
-                            <span style="color:#f4c542;">ਹੁਣ ਔਨਲਾਈਨ - ਘਰ ਬੈਠੇ</span>
+                            ਸਰਕਾਰੀ ਸੇਵਾਵਾਂ Online<br>
+                            <span style="color:#f4c542;">ਹੁਣ ਔਨਲਾਈਨ - ਘਰ ਬੈਠੇ </span>
                         </h1>
                         <p class="mb-2" style="font-size:1.1rem;">
                             Get  your government certificates online now, documents, and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
