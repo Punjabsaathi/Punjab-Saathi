@@ -23,7 +23,6 @@ class ContactQuery extends Model
         'user_agent',
         'replied_at',
     ];
-
     protected $casts = [
         'replied_at' => 'datetime',
     ];
