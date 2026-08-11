@@ -19,7 +19,7 @@ class ContactQueryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
     protected static ?string $navigationLabel = 'Contact Form Queries';
-    protected static ?string $navigationGroup = 'Services';
+    protected static ?string $navigationGroup = 'Applications';
 
     // Disable create — queries come from the public contact form
     public static function canCreate(): bool
