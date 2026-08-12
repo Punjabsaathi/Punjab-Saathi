@@ -39,10 +39,6 @@
             overflow: hidden !important;
         }
 
-        .owl-stage {
-            width: auto !important;
-        }
-
         /* Fix sticky sidebar on service detail pages */
         .sticky-top {
             position: relative !important;
@@ -455,24 +451,15 @@
     }
 
     /* ══ OWL CAROUSEL MOBILE FIX ══ */
-   /* ══ OWL CAROUSEL MOBILE FIX ══ */
+        /* ══ OWL CAROUSEL MOBILE FIX ══ */
         @media (max-width: 767.98px) {
-            .owl-stage {
-                width: 100% !important;
-            }
-
             .owl-carousel {
-                width: 100% !important;
+                max-width: 100% !important;
                 overflow: hidden !important;
             }
 
             .owl-stage-outer {
                 overflow: hidden !important;
-                width: 100% !important;
-            }
-
-            .owl-item {
-                width: 100% !important;
             }
         }
 
