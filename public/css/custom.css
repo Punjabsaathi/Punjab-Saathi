@@ -397,3 +397,22 @@
         padding: 28px 20px !important;
     }
 }
+
+/* ══ OWL CAROUSEL MOBILE FIX ══ */
+.owl-stage {
+    width: 100% !important;
+}
+
+.owl-carousel {
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+.owl-stage-outer {
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.owl-item {
+    width: 100% !important;
+}
