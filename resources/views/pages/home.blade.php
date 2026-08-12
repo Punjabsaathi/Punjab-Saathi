@@ -1,5 +1,5 @@
     @extends('layouts.app')
-    @section('title', 'Punjab Saathi - Online Government Services in Punjab')
+    @section('title', 'Punjab Saathi - Online Public Services in Punjab')
 
     @section('content')
 
@@ -83,7 +83,7 @@
                     <div class="row justify-content-center mb-4 pt-md-4">
                         <div class="col-md-12 heading-section ftco-animate">
                             <span class="subheading">About Us</span>
-                            <h2 class="mb-4">Punjab Saathi - Your Digital Government Service Partner</h2>
+                            <h2 class="mb-4">Punjab Saathi - Your Digital Service Partner</h2>
                             <div class="d-flex about">
                                 <div class="icon"><span class="flaticon-hammer"></span></div>
                                 <h3>Helping Punjab citizens with government paperwork</h3>
@@ -224,7 +224,7 @@
                     <div class="heading-section heading-section-white p-4 pl-md-0 py-md-5 pr-md-5">
                         <span class="subheading">Punjab Saathi</span>
                         <h2 class="mb-4">Punjab's Most Trusted Online Service Provider</h2>
-                        <p>From Amritsar to Pathankot, from Ludhiana to Ferozepur — citizens across Punjab rely on us for fast, correct, and affordable government services. We are an authorised CSC with a team trained on all state and central government portals.</p>
+                        <p>From Amritsar to Pathankot, from Ludhiana to Ferozepur — people across Punjab rely on us for fast, correct, and affordable government services. We are an authorised CSC with a team trained on all state and central government portals.</p>
                         <a href="{{ url('/about') }}" class="btn btn-outline-light mt-2">Know More About Us</a>
                     </div>
                 </div>

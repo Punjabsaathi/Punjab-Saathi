@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Government Services in Punjab - Punjab Seva Kendra | Aadhaar, PAN, Certificates & More')
+@section('title', 'Public Services in Punjab - Punjab Saathi | Aadhaar, PAN, Certificates & More')
 
 @section('meta_description', 'Punjab Seva Kendra offers ' . $totalServices . '+ government services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more. Fast, affordable, doorstep delivery across all 22 districts of Punjab.')
 
@@ -22,7 +22,7 @@
                     </span>
                     <span>Services <i class="fa fa-chevron-right"></i></span>
                 </p>
-                <h1 class="mb-3 bread">Government Services in Punjab</h1>
+                <h1 class="mb-3 bread">Public Services in Punjab</h1>
                 <p style="color:rgba(255,255,255,0.85);font-size:1.05rem;max-width:600px;line-height:1.7;">
                     {{ $totalServices }}+ government services processed online — correctly, quickly, and delivered to your door.
                     Serving every district of Punjab.
@@ -66,7 +66,7 @@
         <div class="row justify-content-center mb-4">
             <div class="col-md-9 text-center heading-section ftco-animate">
                 <span class="subheading">What We Do</span>
-                <h2 class="mb-3">Punjab's Trusted Online Government Service Centre</h2>
+                <h2 class="mb-3">Punjab's Trusted Online Digitel Service Centre</h2>
                 <p class="text-muted" style="font-size:1rem;line-height:1.8;">
                     Punjab Seva Kendra is an authorised Common Service Centre (CSC) helping families, students,
                     farmers, and businesses across Punjab get government documents and certificates — without

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'About Us - Punjab Saathi | Trusted Government Services in Punjab')
+@section('title', 'About Us - Punjab Saathi | Trusted Public Services in Punjab')
 
 @section('content')
 
@@ -48,12 +48,12 @@
 
                         <div class="d-flex about mb-3">
                             <div class="icon"><span class="flaticon-hammer"></span></div>
-                            <h3>Making government services simple for every Punjabi</h3>
+                            <h3>Making Government Services Simple and Accessible for Everyone</h3>
                         </div>
 
                         <!-- <p>Punjab Saathi is a trusted digital service centre helping citizens across Punjab navigate complex government portals, certificates, and document processes — quickly, affordably, and without stress.</p> -->
 
-                        <p>We believe every citizen of Punjab deserves easy, fast, and honest access to government services — whether they live in Ludhiana, a small village in Sangrur, or anywhere across the state. You don't need to stand in long queues or make multiple trips to government offices. We handle everything for you, online, from the comfort of your home.</p>
+                        <p>We believe everyone in Punjab deserves easy, fast, and honest access to government services — whether they live in Ludhiana, a small village in Sangrur, or anywhere across the state. You don't need to stand in long queues or make multiple trips to government offices. We handle everything for you, online, from the comfort of your home.</p>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                     </span>
 
                     <h2 style="font-size:38px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:20px;">
-                        Serving Citizens Across<br>
+                        Serving People Across<br>
                         <span style="color:#fc5e28;">Every District of Punjab</span>
                     </h2>
 
@@ -387,7 +387,7 @@
         <div class="row justify-content-center mb-5 pb-2">
             <div class="col-md-8 text-center heading-section ftco-animate">
                 <span class="subheading">Why Choose Us</span>
-                <h2 class="mb-4">Why 50,000+ Punjab Citizens Trust Us</h2>
+                <h2 class="mb-4">Why 50,000+ Punjab People Trust Us</h2>
                 <p class="text-muted">There are many service centres in Punjab — here is what makes Punjab Saathi different.</p>
             </div>
         </div>
