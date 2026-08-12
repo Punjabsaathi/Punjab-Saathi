@@ -27,10 +27,17 @@
                             <div class="icon"><span class="fa fa-chevron-down"></span></div>
                             <select name="service" class="form-control">
                                 <option value="">Select Your Service</option>
-                                <option value="architecture">Architecture</option>
-                                <option value="renovation">Renovation</option>
-                                <option value="construction">Construction</option>
-                                <option value="interior">Interior &amp; Exterior</option>
+                                <option value="aadhar_card">Aadhar Card (New/Update)</option>
+                                <option value="pan_card">PAN Card (New/Correction)</option>
+                                <option value="voter_id">Voter ID Card</option>
+                                <option value="ration_card">Ration Card</option>
+                                <option value="driving_license">Driving License</option>
+                                <option value="passport">Passport Services</option>
+                                <option value="birth_certificate">Birth Certificate</option>
+                                <option value="death_certificate">Death Certificate</option>
+                                <option value="income_certificate">Income Certificate</option>
+                                <option value="caste_certificate">Caste Certificate</option>
+                                <option value="marriage_certificate">Marriage Certificate</option>
                                 <option value="other">Other Services</option>
                             </select>
                         </div>
