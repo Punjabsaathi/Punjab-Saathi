@@ -24,7 +24,7 @@ jobs:
           script_stop: true
           script: |
             set -e
-            cd ~/domains/punjabs  aathi.in/public_html
+            cd ~/domains/punjabsaathi.in/public_html
 
             PHP=/opt/alt/php83/usr/bin/php
             COMPOSER=/usr/local/bin/composer
