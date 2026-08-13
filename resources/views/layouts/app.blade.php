@@ -27,8 +27,11 @@
 <body>
 
     @include('components.topbar')
-    @include('components.header')
-    @include('components.navbar')
+
+    <div id="pskHeaderWrap" class="psk-header-wrap">
+        @include('components.header')
+        @include('components.navbar')
+    </div>
 
     <main>
         @yield('content')

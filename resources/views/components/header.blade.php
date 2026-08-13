@@ -1,8 +1,9 @@
 <div class="pt-4 pb-5">
     <div class="container">
-        <div class="row d-flex align-items-start align-items-center px-3 px-md-0">
+        <div class="row d-flex align-items-center">
             <div class="col-md-4 d-flex">
-                <img src="{{ asset('images/punjab_seva_kendra.png') }}" 
+                <a href="{{ url('/') }}" class="d-inline-flex align-items-center">
+                    <img src="{{ asset('images/punjab_seva_kendra.png') }}"
                          alt="Punjab Seva Kendra Logo"
                          style="height:100px; width:auto; object-fit:contain;">
                 </a>

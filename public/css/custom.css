@@ -1,3 +1,17 @@
+    /* ══ MODAL: must render above the sticky header ══ */
+    /* Bootstrap's .modal / .modal-backdrop are z-index 1050 / 1040, while
+       the sticky header is z-index 9998 (and the services mega menu 9999).
+       A modal is supposed to always be topmost — with the header's z-index
+       that high, the sticky header (logo + hamburger) was instead painting
+       on top of the "Request Quote" modal's upper portion, since the modal
+       is fixed near the top of the viewport too. */
+    .modal {
+        z-index: 10050 !important;
+    }
+    .modal-backdrop {
+        z-index: 10040 !important;
+    }
+
     /* ══════════════════════════════════════════
     GLOBAL MOBILE OVERFLOW FIX
     Fixes right-side space on ALL pages
@@ -9,7 +23,15 @@
     }
 
     body {
-        overflow-x: hidden !important;
+        /* style.css (loaded before this file) sets overflow-x:hidden on body
+           in TWO places (its reboot rules and its own theme rules). That
+           turns <body> into its own scroll container, which breaks
+           position:sticky for the header on every browser — merely not
+           re-declaring it here isn't enough, style.css's own rule still
+           applies. Explicitly force it back to visible. <html>'s
+           overflow-x:hidden below still fully stops horizontal scroll
+           site-wide, so this does not reopen the mobile overflow bug. */
+        overflow-x: visible !important;
         max-width: 100vw !important;
     }
 
@@ -640,4 +662,208 @@
         align-items: stretch !important;
     }
 
-    
+    /* ══ HERO: responsive height ══ */
+    /* style.css hard-codes .hero-wrap / .slider-text to a fixed 700px on
+       every screen size, with no mobile override. The actual text content
+       (heading + 2 paragraphs + buttons + phone line) doesn't come close to
+       filling 700px on mobile, and align-items-center then centers that
+       short block inside a much taller box — reading as huge empty space
+       above and below the text. Scale the height down for smaller screens
+       instead of leaving it fixed. */
+    @media (max-width: 991.98px) {
+        .hero-wrap,
+        .hero-wrap .slider-text {
+            height: 560px;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .hero-wrap,
+        .hero-wrap .slider-text {
+            height: 520px;
+        }
+    }
+
+    /* ══ HERO: fix oversized gap between wrapped buttons on mobile ══ */
+    /* These buttons are inline-block inside a flex row now instead of a
+       <p> — a <p> made the body's line-height:1.8 govern the space between
+       the buttons once they wrapped to separate lines on narrow screens,
+       producing a much bigger gap than a normal button margin. */
+    .psk-hero-btns {
+        gap: 12px;
+        margin-bottom: 1rem;
+    }
+    .psk-hero-btns .btn {
+        margin: 0;
+    }
+
+    /* ══ HEADER: fix invisible text on "Inquire Now" hover ══ */
+    /* style.css sets background AND text to the same orange on hover */
+    .btn.btn-primary:hover {
+        color: #fff !important;
+    }
+
+    /* ══ HEADER: sticky logo — smooth, non-cropping shrink ══ */
+    /* style.css only transitions height while scrolled (.psk-scrolled),
+       so growing back to full size on scroll-up snaps instantly instead of
+       easing — that instant jump is what reads as the logo getting "cut off".
+       Also style.css's scrolled state never shrinks the header's own
+       bottom padding (targets a ".pb-3" class that doesn't exist on this
+       markup — the header uses "pb-5"), so the box around the logo stays
+       tall while the image inside it shrinks. Both fixed here. */
+    .psk-header-wrap .pt-4 img {
+        transition: height 0.3s ease;
+    }
+    .psk-header-wrap.psk-scrolled .pt-4 {
+        padding-bottom: 8px !important;
+    }
+    /* ══ HEADER: compact mobile logo block ══ */
+    /* style.css's mobile rules (55px logo, 10px padding) were still loose,
+       and combined with .psk-header-wrap .row{margin:0} (needed to stop
+       horizontal overflow) plus the header row's own leftover px-3 padding,
+       the logo sat ~46px from the screen edge — much further in than the
+       topbar/nav content above and below it, reading as "extra white space
+       around the logo". px-3 was removed from header.blade.php; this locks
+       a single, consistent, tighter logo size and padding at all times on
+       mobile (previously it also toggled 55px<->60px between normal/scrolled
+       states — a second unwanted "zoom" on top of the flicker already fixed
+       in psk-services-detail.js). */
+    @media (max-width: 991px) {
+        .psk-header-wrap .pt-4 {
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+        }
+        .psk-header-wrap .pt-4 img,
+        .psk-header-wrap.psk-scrolled .pt-4 img {
+            height: 52px !important;
+        }
+        /* Center the logo instead of left-aligned. Bootstrap's grid gives
+           EVERY .col-* — including .col-md-4 — "width:100%" unconditionally
+           (only the flex-basis/max-width % is breakpoint-gated), so on
+           mobile the logo's column is already the row's full width; putting
+           justify-content:center on the ROW had nothing to distribute and
+           did nothing. The centering has to go on the column itself, to
+           center its content (the logo link) within that full-width
+           column. Scoped to .col-md-4 inside the header's own row so it
+           can't reach into the services mega menu's grid elsewhere in
+           .psk-header-wrap. */
+        .psk-header-wrap .pt-4 .row > .col-md-4 {
+            justify-content: center;
+        }
+    }
+
+    /* ══ HEADER: merge logo row + hamburger into one compact row ══ */
+    /* The logo (header.blade.php) and the hamburger (navbar.blade.php) are
+       two separate stacked blocks, so on mobile — where the phone/address
+       info is hidden and the nav links are collapsed — you got a logo row
+       with empty space to its right, THEN a whole separate near-empty row
+       below just for the hamburger on the far right. That's the two blank
+       boxes. Standard mobile pattern is logo-left/hamburger-right on ONE
+       row. The hamburger is a fixed, known-size element regardless of the
+       (collapsed, hidden) nav content, so it's pulled out of the navbar's
+       own flow with absolute positioning and placed into the header row.
+       .psk-header-wrap is position:sticky, which — like relative/absolute —
+       establishes the containing block for absolutely positioned
+       descendants, so this positions against the header+nav wrapper as a
+       whole. When the menu is opened, #ftco-nav is untouched and still
+       opens normally in-flow below. */
+    @media (max-width: 991px) {
+        #ftco-navbar {
+            padding: 0 16px !important;
+            border-bottom: none !important;
+        }
+        #ftco-navbar .navbar-toggler {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+            margin: 0 !important;
+            z-index: 10;
+        }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+    ABOUT PAGE
+    ══════════════════════════════════════════════════════════ */
+
+    /* ── Hero (breadcrumbs + title) — same fixed-height bug as the
+       home page hero: style.css hard-codes .hero-wrap-2 to 600px on
+       every screen size. This hero's content (a breadcrumb line + one
+       heading) is even shorter than the home page's, so on mobile the
+       empty space inside a fixed 600px box was proportionally worse.
+       !important because this element also matches the home page's
+       bare ".hero-wrap" mobile-height rule earlier in this file — same
+       specificity as style.css's own ".hero-wrap.hero-wrap-2" rule, so
+       relying on source order alone to win was fragile. !important
+       here removes any ambiguity. ── */
+    @media (max-width: 991.98px) {
+        .hero-wrap.hero-wrap-2,
+        .hero-wrap.hero-wrap-2 .slider-text {
+            height: 220px !important;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .hero-wrap.hero-wrap-2,
+        .hero-wrap.hero-wrap-2 .slider-text {
+            height: 200px !important;
+        }
+    }
+
+    /* ── "Serving People Across Every District" stats section — built
+       entirely with inline styles sized for desktop (38px heading,
+       40px stat numbers, 28px/22px card padding, a 2-column stat grid)
+       with no mobile consideration at all. Scale it down instead of
+       leaving desktop sizes on a 320-375px screen. ── */
+    @media (max-width: 767.98px) {
+        .psk-counter-section h2 {
+            font-size: 26px !important;
+        }
+        .psk-counter-section .psk-stat-grid {
+            gap: 12px !important;
+        }
+        .psk-counter-section .psk-stat-grid > div {
+            padding: 18px 14px !important;
+        }
+        .psk-counter-section .psk-stat-grid .number {
+            font-size: 28px !important;
+        }
+    }
+    @media (max-width: 420px) {
+        .psk-counter-section .psk-stat-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* ── Section top/bottom spacing on mobile ── */
+    /* .ftco-section is shared across every page (style.css: padding:6em 0
+       i.e. 96px on mobile), and each section's heading block additionally
+       carries mb-5 pb-2 (~56px) below it — so on a small screen there was
+       up to ~96px of empty space before a section's heading even starts.
+       This is a global class, not scoped to the About page, so tightening
+       it improves every page consistently rather than being a one-page
+       hack. Desktop sizing (7em / 3em) is untouched. */
+    @media (max-width: 767.98px) {
+        .ftco-section {
+            padding: 3.5em 0 !important;
+        }
+        .heading-section.ftco-animate,
+        .row.justify-content-center.mb-5 {
+            margin-bottom: 2rem !important;
+        }
+    }
+
+    /* ── Buttons full-width on mobile, with proper side spacing ── */
+    /* These CTAs sit alone in their own row/column rather than paired
+       next to other controls, so full-width reads as a clear primary
+       action instead of a narrow, awkwardly-placed button. Side spacing
+       comes from the existing .container/column padding already in
+       place — not touched here — so this only changes width, not margin. */
+    @media (max-width: 575.98px) {
+        .psk-counter-section a[href*="/services"] {
+            display: flex !important;
+            width: 100%;
+            justify-content: center;
+        }
+        #ai-assistant-section .psk-ai-notify .btn {
+            width: 100%;
+        }
+    }
+

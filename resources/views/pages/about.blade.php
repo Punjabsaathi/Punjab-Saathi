@@ -174,7 +174,7 @@
 
             {{-- RIGHT — Stat cards grid --}}
             <div class="col-md-6 d-flex align-items-center py-5 pl-md-4">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;">
+                <div class="psk-stat-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;">
 
                     {{-- Stat 1 --}}
                     <div class="ftco-animate" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px 22px;backdrop-filter:blur(8px);transition:transform 0.3s,background 0.3s;"

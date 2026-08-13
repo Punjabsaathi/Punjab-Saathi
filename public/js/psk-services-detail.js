@@ -237,14 +237,21 @@ document.querySelectorAll(".psk-faq-new__q").forEach(function (q) {
     var header = document.getElementById("pskHeaderWrap");
     if (!header) return;
 
-    var scrollThreshold = 80; // px before compacting
+    // Two different thresholds (hysteresis) instead of one shared value —
+    // a single threshold makes the header flip back and forth ("zoom in/out")
+    // whenever scroll position hovers near it, which happens constantly on
+    // mobile due to momentum/bounce scrolling.
+    var compactAt = 80; // px before compacting
+    var expandAt = 40;  // px before expanding back — must be less than compactAt
 
     function onScroll() {
-        if (window.scrollY > scrollThreshold) {
+        var y = window.scrollY;
+        if (y > compactAt) {
             header.classList.add("psk-scrolled");
-        } else {
+        } else if (y < expandAt) {
             header.classList.remove("psk-scrolled");
         }
+        // between expandAt and compactAt: keep whatever state it already has
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });

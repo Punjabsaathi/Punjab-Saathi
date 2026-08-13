@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
                 <div class="col-lg-7 ftco-animate">
-                    <div class="mt-5">
+                    <div class="mt-3 mt-md-5">
                         <h1 class="mb-4">
                             ਸਰਕਾਰੀ ਸੇਵਾਵਾਂ<br>
                             <span style="color:#f4c542;">ਹੁਣ ਔਨਲਾਈਨ - ਘਰ ਬੈਠੇ </span>
@@ -19,14 +19,14 @@
                         <p class="mb-4" style="font-size:0.95rem;opacity:0.85;">
                             Aadhaar &middot; PAN &middot; Income Certificate &middot; Caste Certificate &middot; Voter ID &middot; and 50+ more services across Punjab.
                         </p>
-                        <p>
+                        <div class="d-flex flex-wrap align-items-center psk-hero-btns">
                             <a href="{{ url('/services') }}" class="btn btn-primary px-4 py-3">
                                 <span class="fa fa-list mr-2"></span>All Services
                             </a>
                             <a href="https://wa.me/917710556330" class="btn btn-white px-4 py-3" target="_blank" rel="noopener">
                                 <span class="fa fa-whatsapp mr-2"></span>WhatsApp Us
                             </a>
-                        </p>
+                        </div>
                         <p class="mt-3" style="font-size:0.85rem;opacity:0.8;">
                             <span class="fa fa-phone mr-1"></span> Call: <strong>+91-7710556330</strong> &nbsp;|&nbsp;
                             <span class="fa fa-clock-o mr-1"></span> Mon-Sat: 9 AM - 7 PM
@@ -117,15 +117,14 @@
                         <div class="overlay"></div>
                         <h2>Need a Government Certificate or Document in Punjab?</h2>
                         <p>Apply online in minutes. Our operators handle the rest — correctly, the first time.</p>
-                        <p class="mb-0">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center psk-hero-btns">
                             <a href="#" class="btn btn-primary px-4 py-3" data-toggle="modal" data-target="#exampleModalCenter">
                                 <span class="fa fa-file-text mr-2"></span>Apply for a Service
                             </a>
-                            &nbsp;
                             <a href="https://wa.me/917710556330" class="btn btn-white px-4 py-3" target="_blank" rel="noopener">
                                 <span class="fa fa-whatsapp mr-2"></span>Chat on WhatsApp
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
