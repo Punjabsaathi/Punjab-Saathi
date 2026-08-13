@@ -43,25 +43,22 @@
 @if($faqJson)
 <script type="application/ld+json">{!! $faqJson !!}</script>
 @endif
+@endpush
 
-<style>
-#toc { background:#f8f9fa;border-left:4px solid #fc5e28;padding:20px 20px 20px 24px;border-radius:6px;margin-bottom:30px; }
-#toc h5 { font-weight:700;margin-bottom:12px;font-size:15px; }
-#toc ol { padding-left:20px;margin:0; }
-#toc li { margin-bottom:6px; }
-#toc a { color:#333;font-size:14px;text-decoration:none; }
-#toc a:hover { color:#fc5e28; }
-.blog-content h2 { font-size:24px;font-weight:700;margin:35px 0 15px;padding-top:10px; }
-.blog-content h3 { font-size:20px;font-weight:600;margin:28px 0 12px; }
-.blog-content p  { line-height:1.9;margin-bottom:18px; }
-.blog-content img { max-width:100%;border-radius:8px;margin:20px 0; }
-.blog-content blockquote { border-left:4px solid #fc5e28;padding:12px 20px;background:#fff8f5;margin:24px 0;font-style:italic; }
-.blog-content ul, .blog-content ol { padding-left:24px;margin-bottom:18px;line-height:1.9; }
-.blog-content a { color:#fc5e28; }
-</style>
+{{-- layouts.app only renders @stack('styles') / @stack('scripts') —
+     there's no @stack('head'), so anything pushed to 'head' (including
+     the canonical/OG tags and schema scripts above, which predate this
+     redesign) never actually renders. That's a separate, pre-existing
+     issue I'm not fixing here since it means editing the shared layout
+     — flagging it separately. This stylesheet link goes in 'styles',
+     which the layout does render, so the redesign actually loads. --}}
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/psk-blog.css') }}">
 @endpush
 
 @section('content')
+
+<div class="psk-reading-progress" id="pskReadingProgress"></div>
 
 @php $heroBg = $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/bg_1.jpg'); @endphp
 
@@ -82,20 +79,11 @@
     </div>
 </section>
 
-{{-- AD - LEADERBOARD --}}
-<div class="text-center py-3" style="background:#f8f9fa;border-top:1px solid #eee;border-bottom:1px solid #eee;">
+{{-- AD SLOT: leaderboard, 728x90. Empty and invisible until real ad
+     markup is placed inside. --}}
+<div class="text-center" style="background:#f7f8fa;border-bottom:1px solid #eef0f3;">
     <div class="container">
-        <div style="display:inline-flex;align-items:center;justify-content:space-between;width:100%;max-width:728px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:8px;overflow:hidden;height:90px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-            <div style="padding:16px 24px;color:#fff;">
-                <div style="font-size:11px;opacity:0.8;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Sponsored</div>
-                <div style="font-size:18px;font-weight:700;">Apply for Aadhaar Online</div>
-                <div style="font-size:13px;opacity:0.9;">Fast. Easy. Government Approved.</div>
-            </div>
-            <div style="padding:16px 24px;flex-shrink:0;">
-                <a href="#" style="background:#fff;color:#667eea;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none;display:inline-block;">Apply Now</a>
-            </div>
-        </div>
-        <div style="font-size:10px;color:#aaa;margin-top:4px;">Advertisement</div>
+        <div class="psk-ad-slot py-3 mb-0" data-ad-size="728x90"><!-- ad: 728x90 --></div>
     </div>
 </div>
 
@@ -107,85 +95,79 @@
             <div class="col-lg-8">
 
                 {{-- Post meta --}}
-                <div class="d-flex align-items-center flex-wrap mb-4 pb-3 border-bottom" style="gap:16px;">
+                <div class="psk-article-meta">
+                    <div class="psk-article-author">
+                        <div class="psk-article-author__avatar">{{ strtoupper(substr($post->author?->name ?? 'P', 0, 1)) }}</div>
+                        <div>
+                            <span class="psk-article-author__name">{{ $post->author?->name ?? 'Punjab Seva Kendra' }}</span>
+                            <span class="psk-article-author__role">Author</span>
+                        </div>
+                    </div>
                     @if($post->category)
-                    <a href="{{ route('blog.category', $post->category->slug) }}"
-                       class="badge badge-primary px-3 py-2" style="font-size:12px;">
-                        {{ $post->category->name }}
-                    </a>
+                    <a href="{{ route('blog.category', $post->category->slug) }}" class="psk-blog-card__cat">{{ $post->category->name }}</a>
                     @endif
-                    <span class="text-muted small"><i class="fa fa-user mr-1"></i> {{ $post->author?->name ?? 'Punjab Seva Kendra' }}</span>
-                    <span class="text-muted small"><i class="fa fa-calendar mr-1"></i> {{ $post->published_at?->format('d M Y') }}</span>
-                    <span class="text-muted small"><i class="fa fa-clock-o mr-1"></i> {{ $post->reading_time }} min read</span>
-                    <span class="text-muted small"><i class="fa fa-eye mr-1"></i> {{ number_format($post->views) }} views</span>
+                    <span class="psk-article-stat"><span class="fa fa-calendar"></span>{{ $post->published_at?->format('d M Y') }}</span>
+                    <span class="psk-article-stat"><span class="fa fa-clock-o"></span>{{ $post->reading_time }} min read</span>
+                    <span class="psk-article-stat"><span class="fa fa-eye"></span>{{ number_format($post->views) }} views</span>
                 </div>
 
                 {{-- Tags --}}
                 @if($post->tags && is_array($post->tags) && count($post->tags))
-                <div class="mb-3">
+                <div class="psk-article-tags">
+                    {{-- Non-clickable, matching the original: the tags
+                         array has nothing to link to (BlogController
+                         doesn't filter posts by tag), so a link here
+                         would be new dead-end behavior rather than a
+                         design change. --}}
                     @foreach($post->tags as $tag)
-                    <span class="badge badge-light border mr-1 mb-1 py-1 px-2" style="font-size:12px;">
-                        <i class="fa fa-tag mr-1 text-muted"></i>{{ $tag }}
-                    </span>
+                    <span><span class="fa fa-tag mr-1"></span>{{ $tag }}</span>
                     @endforeach
                 </div>
                 @endif
 
-                {{-- Table of Contents --}}
-                <div id="toc">
-                    <h5><i class="fa fa-list mr-2" style="color:#fc5e28;"></i> Table of Contents</h5>
-                    <ol id="toc-list"></ol>
-                </div>
+                {{-- Table of Contents now lives in the sidebar (top of the
+                     right column on desktop) — see blogs/partials/sidebar.
+                     The JS below still finds it by ID (#toc / #toc-list)
+                     regardless of where in the page it sits. --}}
 
-                {{-- AD - IN-CONTENT TOP --}}
-                <div class="text-center my-4">
-                    <div style="display:inline-block;width:100%;max-width:336px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:10px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.15);">
-                        <div style="padding:24px;color:#fff;text-align:center;">
-                            <div style="font-size:10px;opacity:0.8;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Advertisement</div>
-                            <div style="font-size:32px;margin-bottom:8px;">📄</div>
-                            <div style="font-size:17px;font-weight:700;margin-bottom:6px;">PAN Card in 48 Hours</div>
-                            <div style="font-size:13px;opacity:0.9;margin-bottom:16px;">No office visit needed. Apply from home.</div>
-                            <a href="#" style="background:#fff;color:#f5576c;font-weight:700;font-size:13px;padding:10px 24px;border-radius:20px;text-decoration:none;display:inline-block;">Get Started →</a>
-                        </div>
-                    </div>
-                    <div style="font-size:10px;color:#aaa;margin-top:4px;">Advertisement</div>
+                {{-- AD SLOT: in-content, 336x280 native. Empty and invisible
+                     until filled. --}}
+                <div class="text-center">
+                    <div class="psk-ad-slot" data-ad-size="336x280" style="max-width:336px;"><!-- ad: 336x280 --></div>
                 </div>
 
                 {{-- Blog Content --}}
-                <div class="blog-content" id="blog-content">
+                <div class="psk-article-body" id="blog-content">
                     {!! $post->content !!}
                 </div>
 
-                {{-- AD - IN-CONTENT BOTTOM --}}
-                <div class="text-center my-4">
-                    <div style="display:inline-block;width:100%;max-width:336px;background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);border-radius:10px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.15);">
-                        <div style="padding:24px;color:#fff;text-align:center;">
-                            <div style="font-size:10px;opacity:0.8;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Advertisement</div>
-                            <div style="font-size:32px;margin-bottom:8px;">🏛️</div>
-                            <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Income Certificate</div>
-                            <div style="font-size:13px;opacity:0.9;margin-bottom:16px;">Punjab Govt Approved. Fast Processing.</div>
-                            <a href="#" style="background:#fff;color:#4facfe;font-weight:700;font-size:13px;padding:10px 24px;border-radius:20px;text-decoration:none;display:inline-block;">Apply Now →</a>
-                        </div>
-                    </div>
-                    <div style="font-size:10px;color:#aaa;margin-top:4px;">Advertisement</div>
+                {{-- AD SLOT: in-content bottom, 336x280 native --}}
+                <div class="text-center">
+                    <div class="psk-ad-slot" data-ad-size="336x280" style="max-width:336px;"><!-- ad: 336x280 --></div>
                 </div>
 
-                {{-- FAQ Section --}}
+                {{-- FAQ Section — visual reskin only; still driven by the
+                     same Bootstrap data-toggle="collapse" wiring. --}}
                 @if($post->schema_faq && is_array($post->schema_faq) && count($post->schema_faq))
-                <div class="mt-5 mb-4">
-                    <h3 class="mb-4"><i class="fa fa-question-circle mr-2" style="color:#fc5e28;"></i> Frequently Asked Questions</h3>
+                <div class="psk-faq-section-block">
+                    <div class="psk-faq-block-head">
+                        <span class="psk-faq-eyebrow"><i class="fa fa-question-circle"></i> Have Questions?</span>
+                        <h3>Frequently Asked Questions</h3>
+                    </div>
                     <div id="accordion">
                         @foreach($post->schema_faq as $i => $faq)
-                        <div class="card border-0 mb-2 shadow-sm">
-                            <div class="card-header bg-white" id="faq-heading-{{ $i }}">
-                                <button class="btn btn-link text-dark text-left w-100 font-weight-bold"
+                        <div class="card psk-faq-card">
+                            <div class="card-header" id="faq-heading-{{ $i }}">
+                                <button class="btn btn-link psk-faq-btn text-left w-100"
                                         data-toggle="collapse" data-target="#faq-body-{{ $i }}"
                                         aria-expanded="{{ $i === 0 ? 'true' : 'false' }}">
-                                    <i class="fa fa-plus mr-2 text-primary"></i>{{ $faq['question'] }}
+                                    <span class="psk-faq-num">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                    <span class="psk-faq-q-text">{{ $faq['question'] }}</span>
+                                    <span class="psk-faq-chevron"><i class="fa fa-chevron-down"></i></span>
                                 </button>
                             </div>
                             <div id="faq-body-{{ $i }}" class="collapse {{ $i === 0 ? 'show' : '' }}">
-                                <div class="card-body text-muted">{{ $faq['answer'] }}</div>
+                                <div class="card-body psk-faq-answer">{{ $faq['answer'] }}</div>
                             </div>
                         </div>
                         @endforeach
@@ -194,42 +176,35 @@
                 @endif
 
                 {{-- Share --}}
-                <div class="mt-5 pt-4 border-top">
-                    <h5 class="mb-3">Share this post:</h5>
+                <div class="psk-share-bar">
+                    <span class="psk-share-bar__label">Share this post:</span>
                     @php
                         $shareUrl   = urlencode(route('blog.show', $post->slug));
                         $shareTitle = urlencode($post->title);
                     @endphp
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank"
-                       class="btn btn-sm btn-primary mr-2"><i class="fa fa-facebook mr-1"></i> Facebook</a>
+                       class="psk-share-btn psk-share-btn--fb" title="Share on Facebook"><i class="fa fa-facebook"></i></a>
                     <a href="https://twitter.com/intent/tweet?url={{ $shareUrl }}&text={{ $shareTitle }}" target="_blank"
-                       class="btn btn-sm btn-info mr-2"><i class="fa fa-twitter mr-1"></i> Twitter</a>
+                       class="psk-share-btn psk-share-btn--tw" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
                     <a href="https://wa.me/?text={{ $shareTitle }}%20{{ $shareUrl }}" target="_blank"
-                       class="btn btn-sm btn-success mr-2"><i class="fa fa-whatsapp mr-1"></i> WhatsApp</a>
+                       class="psk-share-btn psk-share-btn--wa" title="Share on WhatsApp"><i class="fa fa-whatsapp"></i></a>
                 </div>
 
                 {{-- Related Posts --}}
                 @if($related->count())
-                <div class="mt-5">
-                    <h4 class="mb-4">Related Posts</h4>
-                    <div class="row">
+                <div class="mb-5">
+                    <div class="psk-blog-section-head" style="margin-bottom:18px;">
+                        <h2 style="font-size:1.25rem;">Related Posts</h2>
+                    </div>
+                    <div class="psk-related-grid">
                         @foreach($related as $r)
-                        <div class="col-md-4 mb-3">
-                            <div class="card border-0 shadow-sm h-100">
-                                <a href="{{ route('blog.show', $r->slug) }}">
-                                    <img src="{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/image_1.jpg') }}"
-                                         class="card-img-top" style="height:140px;object-fit:cover;" alt="{{ $r->image_alt ?? '' }}">
-                                </a>
-                                <div class="card-body p-3">
-                                    <h6 class="card-title mb-1">
-                                        <a href="{{ route('blog.show', $r->slug) }}" class="text-dark" style="font-size:14px;">
-                                            {{ Str::limit($r->title, 60) }}
-                                        </a>
-                                    </h6>
-                                    <small class="text-muted">{{ $r->published_at?->format('d M Y') }}</small>
-                                </div>
+                        <a href="{{ route('blog.show', $r->slug) }}" class="psk-related-card">
+                            <div class="psk-related-card__img" style="background-image:url('{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/image_1.jpg') }}');"></div>
+                            <div class="psk-related-card__body">
+                                <div class="psk-related-card__title">{{ Str::limit($r->title, 60) }}</div>
+                                <span class="psk-related-card__date">{{ $r->published_at?->format('d M Y') }}</span>
                             </div>
-                        </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>
@@ -253,12 +228,10 @@
                     @forelse($comments as $comment)
                     <div class="d-flex mb-4" id="comment-{{ $comment->id }}">
                         <div class="mr-3 flex-shrink-0">
-                            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#fc5e28,#e04d1c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">
-                                {{ strtoupper(substr($comment->name, 0, 1)) }}
-                            </div>
+                            <div class="psk-comment__avatar">{{ strtoupper(substr($comment->name, 0, 1)) }}</div>
                         </div>
                         <div class="flex-grow-1">
-                            <div class="bg-light p-3 rounded">
+                            <div class="psk-comment__body">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <strong style="font-size:15px;">{{ $comment->name }}</strong>
                                     <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
@@ -274,12 +247,10 @@
                             @foreach($comment->replies as $reply)
                             <div class="d-flex mt-3 ml-4">
                                 <div class="mr-3 flex-shrink-0">
-                                    <div style="width:36px;height:36px;border-radius:50%;background:#6c757d;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;">
-                                        {{ strtoupper(substr($reply->name, 0, 1)) }}
-                                    </div>
+                                    <div class="psk-comment__reply-avatar">{{ strtoupper(substr($reply->name, 0, 1)) }}</div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <div class="bg-white border p-3 rounded">
+                                    <div class="psk-comment__reply-body">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                             <strong style="font-size:14px;">{{ $reply->name }}</strong>
                                             <small class="text-muted">{{ $reply->created_at->diffForHumans() }}</small>
@@ -296,7 +267,7 @@
                     @endforelse
 
                     {{-- Comment Form --}}
-                    <div class="mt-4" id="comment-form-wrap">
+                    <div class="psk-comment-form mt-4" id="comment-form-wrap">
                         <h5 class="mb-3 font-weight-bold">Leave a Comment</h5>
                         <p class="text-muted small mb-4">Your email will not be published. All comments are reviewed before appearing.</p>
 
@@ -344,7 +315,7 @@
             </div>
 
             {{-- SIDEBAR --}}
-            @include('blogs.partials.sidebar', ['categories' => $categories, 'recent' => $recent, 'popular' => $popular])
+            @include('blogs.partials.sidebar', ['categories' => $categories, 'recent' => $recent, 'popular' => $popular, 'tocPost' => $post])
 
         </div>
     </div>
@@ -396,6 +367,22 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('parent_id').value = '';
             document.getElementById('reply-notice').classList.add('d-none');
         });
+    }
+
+    // Reading progress bar — purely visual, tracks scroll position
+    // against the article body's own height.
+    var progressBar = document.getElementById('pskReadingProgress');
+    var articleBody = document.getElementById('blog-content');
+    if (progressBar && articleBody) {
+        var onScroll = function () {
+            var start = articleBody.offsetTop - 100;
+            var total = articleBody.offsetHeight;
+            var scrolled = window.scrollY - start;
+            var pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
+            progressBar.style.width = pct + '%';
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
     }
 
 });

@@ -30,7 +30,7 @@
 }
 .psk-contact-hero .overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(26,58,107,0.88) 0%, rgba(26,58,107,0.65) 100%);
+    background: linear-gradient(135deg, rgba(4,14,38,0.88) 0%, rgba(4,14,38,0.65) 100%);
 }
 .psk-contact-hero .container { position: relative; z-index: 2; }
 .psk-contact-hero .psk-breadcrumb {
@@ -54,7 +54,7 @@
     background: #fff8ed; border-bottom: 1px solid #fde68a;
     padding: 10px 0; font-size: 13px; color: #92400e;
 }
-.psk-stats-strip { background: #1a3a6b; padding: 22px 0; }
+.psk-stats-strip { background: #040e26; padding: 22px 0; }
 .psk-stats-strip .psk-stat {
     text-align: center; color: #fff;
     border-right: 1px solid rgba(255,255,255,0.15);
@@ -62,23 +62,23 @@
 .psk-stats-strip .psk-stat:last-child { border-right: none; }
 .psk-stats-strip .psk-stat__num {
     font-size: 1.8rem; font-weight: 800;
-    color: #f47920; display: block; line-height: 1.1;
+    color: #fc5e28; display: block; line-height: 1.1;
 }
 .psk-stats-strip .psk-stat__label { font-size: 12px; opacity: 0.8; margin-top: 3px; display: block; }
 .psk-contact-section { padding: 60px 0; }
 .psk-section-head { margin-bottom: 40px; }
 .psk-section-head .subheading {
-    display: inline-block; color: #f47920; font-size: 13px;
+    display: inline-block; color: #fc5e28; font-size: 13px;
     font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
 }
-.psk-section-head h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: #1a3a6b; margin-bottom: 10px; }
+.psk-section-head h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: #040e26; margin-bottom: 10px; }
 .psk-section-head p { color: #6b7280; font-size: 0.95rem; }
 .psk-contact-form-card {
     background: #fff; border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(26,58,107,0.10);
+    box-shadow: 0 4px 30px rgba(4,14,38,0.10);
     padding: 36px 32px; height: 100%;
 }
-.psk-contact-form-card h3 { font-size: 1.2rem; font-weight: 700; color: #1a3a6b; margin-bottom: 6px; }
+.psk-contact-form-card h3 { font-size: 1.2rem; font-weight: 700; color: #040e26; margin-bottom: 6px; }
 .psk-contact-form-card > p { color: #6b7280; font-size: 0.88rem; margin-bottom: 24px; }
 .psk-form-group { margin-bottom: 18px; }
 .psk-form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
@@ -95,18 +95,18 @@
     font-size: 13.5px; color: #1f2937; background: #f9fafb;
     outline: none; transition: border-color 0.15s, background 0.15s; font-family: inherit;
 }
-.psk-input:focus { border-color: #1a3a6b; background: #fff; }
+.psk-input:focus { border-color: #040e26; background: #fff; }
 .psk-textarea { min-height: 110px; resize: vertical; }
 .psk-form-group--error .psk-input { border-color: #ef4444; background: #fff5f5; }
 .psk-field-error { font-size: 11.5px; color: #ef4444; margin-top: 4px; display: block; }
 .psk-hp { display: none !important; }
 .psk-btn-submit {
-    background: linear-gradient(135deg, #1a3a6b, #2d5fa3);
+    background: linear-gradient(135deg, #040e26, #0f2050);
     color: #fff; border: none; padding: 12px 28px; border-radius: 10px;
     font-size: 14px; font-weight: 600; cursor: pointer; width: 100%;
     transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
 }
-.psk-btn-submit:hover { background: linear-gradient(135deg, #2d5fa3, #1a3a6b); transform: translateY(-1px); }
+.psk-btn-submit:hover { background: linear-gradient(135deg, #0f2050, #040e26); transform: translateY(-1px); }
 .psk-btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 .psk-recaptcha-note { font-size: 11px; color: #9ca3af; margin-top: 10px; text-align: center; }
 .psk-alert-success {
@@ -122,36 +122,36 @@
 .psk-info-cards { display: flex; flex-direction: column; gap: 16px; }
 .psk-info-card {
     background: #fff; border-radius: 14px;
-    box-shadow: 0 2px 16px rgba(26,58,107,0.08);
+    box-shadow: 0 2px 16px rgba(4,14,38,0.08);
     padding: 20px 22px; display: flex; align-items: flex-start; gap: 16px;
     transition: box-shadow 0.2s, transform 0.2s; text-decoration: none;
 }
-.psk-info-card:hover { box-shadow: 0 6px 28px rgba(26,58,107,0.14); transform: translateY(-2px); }
+.psk-info-card:hover { box-shadow: 0 6px 28px rgba(4,14,38,0.14); transform: translateY(-2px); }
 .psk-info-card__icon-wrap {
     width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
 }
-.psk-info-card__icon-wrap.orange { background: #fff3e8; color: #f47920; }
-.psk-info-card__icon-wrap.blue   { background: #eef2f9; color: #1a3a6b; }
+.psk-info-card__icon-wrap.orange { background: #fff3e8; color: #fc5e28; }
+.psk-info-card__icon-wrap.blue   { background: #eef2f9; color: #040e26; }
 .psk-info-card__icon-wrap.green  { background: #f0fdf4; color: #22c55e; }
 .psk-info-card__icon-wrap.red    { background: #fff5f5; color: #ef4444; }
 .psk-info-card__label { font-size: 11px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.8px; }
-.psk-info-card__value { font-size: 14px; font-weight: 700; color: #1a3a6b; margin: 2px 0; }
+.psk-info-card__value { font-size: 14px; font-weight: 700; color: #040e26; margin: 2px 0; }
 .psk-info-card__sub   { font-size: 12px; color: #6b7280; }
 .psk-hours-card {
     background: #fff; border-radius: 14px;
-    box-shadow: 0 2px 16px rgba(26,58,107,0.08);
+    box-shadow: 0 2px 16px rgba(4,14,38,0.08);
     padding: 22px; overflow: hidden;
 }
 .psk-hours-card h4 {
-    font-size: 14px; font-weight: 700; color: #1a3a6b;
+    font-size: 14px; font-weight: 700; color: #040e26;
     margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
 }
 .psk-hours-table { width: 100%; font-size: 13px; }
 .psk-hours-table tr { border-bottom: 1px solid #f3f4f6; }
 .psk-hours-table tr:last-child { border-bottom: none; }
 .psk-hours-table td { padding: 8px 4px; color: #374151; }
-.psk-hours-table td:last-child { text-align: right; font-weight: 600; color: #1a3a6b; }
+.psk-hours-table td:last-child { text-align: right; font-weight: 600; color: #040e26; }
 .psk-open-badge {
     display: inline-block; background: #f0fdf4; color: #22c55e;
     border: 1px solid #bbf7d0; border-radius: 20px; padding: 2px 10px;
@@ -178,21 +178,21 @@
 .psk-map-section { padding: 0 0 60px; }
 .psk-map-wrapper {
     border-radius: 16px; overflow: hidden;
-    box-shadow: 0 4px 30px rgba(26,58,107,0.13); position: relative;
+    box-shadow: 0 4px 30px rgba(4,14,38,0.13); position: relative;
 }
 .psk-map-wrapper iframe { display: block; width: 100%; height: 420px; border: 0; }
 .psk-map-label {
     position: absolute; top: 16px; left: 16px; z-index: 10;
-    background: #1a3a6b; color: #fff; border-radius: 10px;
+    background: #040e26; color: #fff; border-radius: 10px;
     padding: 10px 16px; font-size: 13px; font-weight: 600;
     display: flex; align-items: center; gap: 8px;
-    box-shadow: 0 4px 16px rgba(26,58,107,0.3);
+    box-shadow: 0 4px 16px rgba(4,14,38,0.3);
 }
 .psk-faq-section { padding: 60px 0; background: #f0f4fb; }
 .psk-faq-new { max-width: 860px; margin: 0 auto; }
 .psk-faq-new__item {
     background: #fff; border-radius: 12px; margin-bottom: 10px;
-    box-shadow: 0 1px 8px rgba(26,58,107,0.07); overflow: hidden;
+    box-shadow: 0 1px 8px rgba(4,14,38,0.07); overflow: hidden;
 }
 .psk-faq-new__q {
     display: flex; align-items: center; gap: 12px;
@@ -201,14 +201,14 @@
 .psk-faq-new__q:hover { background: #f8faff; }
 .psk-faq-new__num {
     width: 28px; height: 28px; border-radius: 8px;
-    background: #eef2f9; color: #1a3a6b;
+    background: #eef2f9; color: #040e26;
     font-size: 12px; font-weight: 700;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .psk-faq-new__q-text { flex: 1; font-size: 14px; font-weight: 600; color: #1f2937; }
 .psk-faq-new__chevron { color: #9ca3af; transition: transform 0.25s; font-size: 12px; }
 .psk-faq-new__item--open .psk-faq-new__chevron { transform: rotate(180deg); }
-.psk-faq-new__item--open .psk-faq-new__num { background: #1a3a6b; color: #fff; }
+.psk-faq-new__item--open .psk-faq-new__num { background: #040e26; color: #fff; }
 .psk-faq-new__a {
     padding: 0 20px 0 60px; max-height: 0; overflow: hidden;
     font-size: 13.5px; color: #6b7280; line-height: 1.65;
@@ -216,14 +216,14 @@
 }
 .psk-faq-new__item--open .psk-faq-new__a { max-height: 300px; padding: 0 20px 16px 60px; }
 .psk-cta-banner {
-    background: linear-gradient(135deg, #1a3a6b 0%, #2d5fa3 100%);
+    background: linear-gradient(135deg, #040e26 0%, #0f2050 100%);
     padding: 60px 0;
 }
 .psk-cta-banner h2 { color: #fff; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; }
 .psk-cta-banner p  { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
 .psk-btn-primary {
     display: inline-flex; align-items: center; gap: 8px;
-    background: #f47920; color: #fff; border: none;
+    background: #fc5e28; color: #fff; border: none;
     padding: 13px 28px; border-radius: 10px; font-size: 14px;
     font-weight: 700; text-decoration: none; transition: all 0.2s;
 }
@@ -251,6 +251,16 @@
     .psk-map-wrapper iframe { height: 280px; }
     .psk-stats-strip .psk-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 0; }
     .psk-stats-strip .psk-stat:last-child { border-bottom: none; }
+
+    /* This page uses its own local section/heading classes rather than
+       .ftco-section / .heading-section, so the sitewide mobile spacing
+       fix (96px -> 56px section padding, 48px -> 32px heading margin)
+       never reached it — these sections were still full desktop padding
+       on a phone screen. Matches the same target values used elsewhere. */
+    .psk-contact-section,
+    .psk-faq-section { padding: 32px 0; }
+    .psk-map-section { padding: 0 0 32px; }
+    .psk-section-head { margin-bottom: 24px; }
 }
 </style>
 
@@ -326,7 +336,7 @@
             {{-- Contact Form --}}
             <div class="col-lg-7 mb-4 mb-lg-0 ftco-animate">
                 <div class="psk-contact-form-card">
-                    <h3><span class="fa fa-paper-plane mr-2" style="color:#f47920;"></span>Send Your Query</h3>
+                    <h3><span class="fa fa-paper-plane mr-2" style="color:#fc5e28;"></span>Send Your Query</h3>
                     <p>We respond to all messages within 24 hours on working days.</p>
 
                     @if(session('success'))
@@ -523,7 +533,7 @@
 
                     <div class="psk-hours-card">
                         <h4>
-                            <span class="fa fa-clock-o" style="color:#f47920;"></span>
+                            <span class="fa fa-clock-o" style="color:#fc5e28;"></span>
                             Working Hours
                         </h4>
                         <table class="psk-hours-table">

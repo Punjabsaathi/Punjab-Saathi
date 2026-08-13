@@ -1,0 +1,563 @@
+/* ═══════════════════════════════════════════════════════════════
+   Punjab Seva Kendra — Blog
+   Shared by: blogs/index, blogs/category, blogs/show, blogs/partials/sidebar
+   Reuses the site's existing tokens (colors, radius, shadow) and its
+   already-loaded .psk-sidebar-card / .psk-sidebar-card__title
+   (from psk-services-detail.css) for the sidebar shell, instead of
+   redefining a parallel card system.
+
+   Ad placements: every reserved ad slot below (leaderboard, sidebar,
+   in-content, mobile) uses .psk-ad-slot. Empty slots render as
+   nothing (display:none via :empty) — no fake placeholder boxes are
+   shown to visitors — but the container, its class hook, and its
+   position in the grid already exist, so dropping real ad markup in
+   later is a pure content change, not a layout change. Each carries
+   a data-ad-size comment for whoever wires up the real ad network.
+
+   Load AFTER: style.css, custom.css, psk-services-detail.css
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+    --psk-blog-ink: #1a2233;
+    --psk-blog-sub: #6b7280;
+    --psk-blog-line: #eef0f3;
+    --psk-blog-bg: #f7f8fa;
+}
+
+/* ── Ad slots — invisible until filled ───────────────────────── */
+.psk-ad-slot {
+    margin: 0 auto 32px;
+}
+.psk-ad-slot:empty {
+    display: none;
+    margin: 0;
+}
+
+/* ── Reading progress bar ────────────────────────────────────── */
+.psk-reading-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: #fc5e28;
+    z-index: 10000;
+    transition: width 0.1s ease-out;
+}
+
+/* ── Category pills (matches the visual language already used on
+   the Services/Jobs pages) ── */
+.psk-blog-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+.psk-blog-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 30px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+.psk-blog-pill .badge {
+    background: rgba(0,0,0,0.06);
+    color: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 1px 7px;
+}
+.psk-blog-pill:hover,
+.psk-blog-pill.active {
+    background: #fc5e28;
+    border-color: #fc5e28;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 3px 12px rgba(252,94,40,0.28);
+}
+.psk-blog-pill.active .badge,
+.psk-blog-pill:hover .badge { background: rgba(255,255,255,0.25); }
+
+/* ── Featured post — ONE post, full width, deliberately built to
+   look like a different tier from the grid cards below it (not just
+   a bigger version of the same card): full-bleed photo on one side,
+   dark panel with larger type on the other, an explicit "Featured"
+   tag, and the excerpt visible — none of which the grid cards have.
+   Falls back cleanly: if there's no featured post at all, this block
+   simply doesn't render (see the @if in the view). ── */
+.psk-featured-post {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    background: #0d1526;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 14px 40px rgba(4,14,38,0.18);
+    margin-bottom: 48px;
+    min-height: 340px;
+}
+.psk-featured-post:hover { text-decoration: none; }
+.psk-featured-post__img {
+    background-size: cover;
+    background-position: center;
+    min-height: 240px;
+    transition: transform 0.5s ease;
+}
+.psk-featured-post:hover .psk-featured-post__img { transform: scale(1.04); }
+.psk-featured-post__body {
+    padding: 40px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.psk-featured-tag {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 6px;
+    background: #fc5e28;
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+.psk-featured-post__cat {
+    display: inline-block;
+    color: rgba(255,255,255,0.55);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.psk-featured-post__title {
+    color: #fff;
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1.28;
+    margin: 0 0 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.psk-featured-post__excerpt {
+    color: rgba(255,255,255,0.72);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.psk-featured-post__meta {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.82rem;
+    margin-bottom: 22px;
+}
+.psk-featured-post__meta .fa { color: #fc5e28; margin-right: 5px; }
+.psk-featured-post__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.88rem;
+    align-self: flex-start;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #fc5e28;
+    transition: gap 0.2s;
+}
+.psk-featured-post:hover .psk-featured-post__cta { gap: 12px; }
+
+/* ── Section heading (small label above "Latest Articles" etc.) ── */
+.psk-blog-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+.psk-blog-section-head h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--psk-blog-ink);
+    margin: 0;
+}
+.psk-blog-section-head .psk-blog-count {
+    font-size: 0.85rem;
+    color: var(--psk-blog-sub);
+}
+
+/* ── Post grid cards ──────────────────────────────────────────── */
+.psk-blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 8px;
+}
+.psk-blog-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--psk-blog-line);
+    box-shadow: 0 2px 14px rgba(15,23,42,0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.psk-blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px rgba(15,23,42,0.12);
+}
+.psk-blog-card__img-link { display: block; aspect-ratio: 16 / 10; overflow: hidden; }
+.psk-blog-card__img {
+    width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    transition: transform 0.5s ease;
+}
+.psk-blog-card:hover .psk-blog-card__img { transform: scale(1.07); }
+.psk-blog-card__body {
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.psk-blog-card__cat {
+    display: inline-flex;
+    align-self: flex-start;
+    background: rgba(252,94,40,0.10);
+    color: #fc5e28;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    text-decoration: none;
+}
+.psk-blog-card__cat:hover { background: #fc5e28; color: #fff; text-decoration: none; }
+.psk-blog-card__title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--psk-blog-ink);
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.psk-blog-card__title a { color: inherit; text-decoration: none; }
+.psk-blog-card__title a:hover { color: #fc5e28; }
+.psk-blog-card__excerpt {
+    font-size: 0.875rem;
+    color: var(--psk-blog-sub);
+    line-height: 1.7;
+    margin: 0 0 18px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.psk-blog-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--psk-blog-line);
+    font-size: 0.78rem;
+    color: #9ca3af;
+}
+.psk-blog-card__meta { display: flex; align-items: center; gap: 12px; }
+.psk-blog-card__meta .fa { color: #fc5e28; margin-right: 3px; }
+.psk-blog-card__readmore {
+    color: #fc5e28;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.psk-blog-card__readmore:hover { color: #e04d1c; text-decoration: none; }
+.psk-blog-card__readmore .fa { transition: transform 0.2s; }
+.psk-blog-card__readmore:hover .fa { transform: translateX(3px); }
+
+.psk-blog-empty {
+    text-align: center;
+    padding: 70px 20px;
+    background: #fff;
+    border: 1px solid var(--psk-blog-line);
+    border-radius: 16px;
+    color: var(--psk-blog-sub);
+}
+.psk-blog-empty .fa { font-size: 44px; color: #e5e7eb; margin-bottom: 14px; display: block; }
+
+/* ── Sidebar widgets (cards themselves reuse the sitewide
+   .psk-sidebar-card / .psk-sidebar-card__title) ── */
+.psk-blog-search { position: relative; }
+.psk-blog-search input {
+    width: 100%;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px 46px 12px 16px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+.psk-blog-search input:focus { border-color: #fc5e28; }
+.psk-blog-search button {
+    position: absolute;
+    right: 6px; top: 50%; transform: translateY(-50%);
+    width: 34px; height: 34px;
+    border: none; border-radius: 8px;
+    background: #fc5e28; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.psk-blog-cat-list { list-style: none; padding: 0; margin: 0; }
+.psk-blog-cat-list li a {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+    color: var(--psk-blog-ink);
+    font-size: 0.86rem; font-weight: 600;
+    text-decoration: none;
+}
+.psk-blog-cat-list li:last-child a { border-bottom: none; }
+.psk-blog-cat-list li a:hover { color: #fc5e28; }
+.psk-blog-cat-list li a .fa { color: #fc5e28; width: 16px; margin-right: 8px; }
+.psk-blog-cat-list__count {
+    background: rgba(252,94,40,0.10); color: #fc5e28;
+    font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 10px;
+}
+
+.psk-blog-mini { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+.psk-blog-mini:last-child { border-bottom: none; padding-bottom: 0; }
+.psk-blog-mini:first-child { padding-top: 0; }
+.psk-blog-mini__thumb {
+    width: 62px; height: 54px; flex-shrink: 0;
+    border-radius: 8px; background-size: cover; background-position: center;
+}
+.psk-blog-mini__rank {
+    width: 62px; height: 54px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 800; color: #eef0f3;
+}
+.psk-blog-mini__title {
+    font-size: 0.82rem; font-weight: 600; line-height: 1.4;
+    color: var(--psk-blog-ink); text-decoration: none;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.psk-blog-mini__title:hover { color: #fc5e28; }
+.psk-blog-mini__meta { font-size: 0.72rem; color: #9ca3af; margin-top: 4px; display: block; }
+
+/* ── Article (blogs/show) ─────────────────────────────────────── */
+.psk-article-meta {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 18px;
+    padding-bottom: 22px; margin-bottom: 26px;
+    border-bottom: 1px solid var(--psk-blog-line);
+}
+.psk-article-author { display: flex; align-items: center; gap: 10px; }
+.psk-article-author__avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg,#fc5e28,#e04d1c);
+    color: #fff; font-weight: 700; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.psk-article-author__name { font-size: 0.88rem; font-weight: 700; color: var(--psk-blog-ink); display: block; }
+.psk-article-author__role { font-size: 0.72rem; color: var(--psk-blog-sub); }
+.psk-article-stat { font-size: 0.82rem; color: var(--psk-blog-sub); display: flex; align-items: center; gap: 6px; }
+.psk-article-stat .fa { color: #fc5e28; }
+
+.psk-article-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.psk-article-tags span {
+    font-size: 0.78rem; font-weight: 600; color: #4b5563;
+    background: #f4f4f5; border-radius: 20px; padding: 5px 13px;
+}
+
+.psk-toc {
+    background: var(--psk-blog-bg);
+    border-left: 3px solid #fc5e28;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+}
+.psk-toc h5 { font-weight: 700; font-size: 0.92rem; margin-bottom: 12px; color: var(--psk-blog-ink); }
+.psk-toc ol { padding-left: 20px; margin: 0; }
+.psk-toc li { margin-bottom: 6px; }
+
+/* Sidebar placement: same treatment, just matching the tighter
+   margin used between the other sidebar widget cards instead of the
+   larger spacing it used inline in the article column. Long article
+   TOCs can also run tall, so cap it with its own scrollbar rather
+   than pushing the rest of the sidebar widgets far down the page. */
+.psk-toc--sidebar {
+    margin-bottom: 20px;
+    max-height: 340px;
+    overflow-y: auto;
+}
+.psk-toc a { color: #4b5563; font-size: 0.86rem; text-decoration: none; }
+.psk-toc a:hover { color: #fc5e28; }
+
+/* Typography-focused reading experience */
+.psk-article-body { font-size: 1.06rem; line-height: 1.9; color: #2c3444; }
+.psk-article-body p { margin-bottom: 22px; }
+.psk-article-body h2 { font-size: 1.55rem; font-weight: 800; color: var(--psk-blog-ink); margin: 44px 0 18px; scroll-margin-top: 90px; }
+.psk-article-body h3 { font-size: 1.25rem; font-weight: 700; color: var(--psk-blog-ink); margin: 34px 0 14px; scroll-margin-top: 90px; }
+.psk-article-body img { max-width: 100%; height: auto; border-radius: 12px; margin: 26px 0; box-shadow: 0 8px 24px rgba(15,23,42,0.10); }
+.psk-article-body blockquote {
+    border-left: 4px solid #fc5e28;
+    background: #fff8f5;
+    padding: 18px 24px;
+    margin: 28px 0;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #4b5563;
+    border-radius: 0 10px 10px 0;
+}
+.psk-article-body ul, .psk-article-body ol { padding-left: 24px; margin-bottom: 22px; line-height: 1.9; }
+.psk-article-body li { margin-bottom: 8px; }
+.psk-article-body a { color: #fc5e28; text-decoration: underline; text-decoration-color: rgba(252,94,40,0.35); }
+.psk-article-body a:hover { text-decoration-color: #fc5e28; }
+.psk-article-body strong { color: var(--psk-blog-ink); }
+.psk-article-body table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.92rem; }
+.psk-article-body table th, .psk-article-body table td { border: 1px solid var(--psk-blog-line); padding: 10px 14px; text-align: left; }
+.psk-article-body table th { background: var(--psk-blog-bg); font-weight: 700; }
+
+.psk-share-bar { display: flex; align-items: center; gap: 12px; margin: 44px 0; padding: 24px 0; border-top: 1px solid var(--psk-blog-line); border-bottom: 1px solid var(--psk-blog-line); }
+.psk-share-bar__label { font-size: 0.85rem; font-weight: 700; color: var(--psk-blog-ink); margin-right: 4px; }
+.psk-share-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff !important; font-size: 15px;
+    text-decoration: none !important; transition: transform 0.2s;
+}
+.psk-share-btn:hover { transform: translateY(-3px); }
+.psk-share-btn--fb { background: #1877f2; }
+.psk-share-btn--tw { background: #1da1f2; }
+.psk-share-btn--wa { background: #25D366; }
+
+.psk-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.psk-related-card {
+    background: #fff; border: 1px solid var(--psk-blog-line); border-radius: 12px;
+    overflow: hidden; text-decoration: none; display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.psk-related-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(15,23,42,0.10); text-decoration: none; }
+.psk-related-card__img { height: 130px; background-size: cover; background-position: center; }
+.psk-related-card__body { padding: 14px 16px; }
+.psk-related-card__title {
+    font-size: 0.88rem; font-weight: 700; color: var(--psk-blog-ink); line-height: 1.4; margin-bottom: 6px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.psk-related-card__date { font-size: 0.72rem; color: #9ca3af; }
+
+/* FAQ — still driven by Bootstrap's own data-toggle="collapse"
+   wiring in the view (untouched); this only restyles it. Bootstrap's
+   collapse.js keeps aria-expanded in sync on the trigger button
+   whenever a panel opens/closes, so the numbered badge highlight and
+   chevron rotation below are pure CSS off that attribute — no extra
+   JS needed. */
+.psk-faq-section-block {
+    background: var(--psk-blog-bg);
+    border-radius: 18px;
+    padding: 36px 32px;
+    margin: 48px 0 40px;
+}
+.psk-faq-block-head { margin-bottom: 22px; }
+.psk-faq-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: #fc5e28; margin-bottom: 8px;
+}
+.psk-faq-block-head h3 { font-size: 1.4rem; font-weight: 800; color: var(--psk-blog-ink); margin: 0; }
+
+.psk-faq-card {
+    border: 1px solid var(--psk-blog-line) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    margin-bottom: 12px !important;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04) !important;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.psk-faq-card:last-child { margin-bottom: 0 !important; }
+.psk-faq-card:has(.psk-faq-btn[aria-expanded="true"]) {
+    border-color: rgba(252,94,40,0.35) !important;
+    box-shadow: 0 6px 20px rgba(15,23,42,0.07) !important;
+}
+.psk-faq-card .card-header { background: #fff !important; padding: 0 !important; border: none !important; }
+
+.psk-faq-btn {
+    display: flex; align-items: center; gap: 16px;
+    width: 100%; text-align: left; background: none; border: none;
+    padding: 18px 22px; font-size: 0.98rem; font-weight: 700; color: var(--psk-blog-ink);
+}
+.psk-faq-btn:hover, .psk-faq-btn:focus { text-decoration: none; color: var(--psk-blog-ink); background: #fff8f5; }
+.psk-faq-num {
+    flex-shrink: 0;
+    width: 30px; height: 30px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(252,94,40,0.10); color: #fc5e28;
+    font-size: 12px; font-weight: 800;
+    transition: background 0.2s, color 0.2s;
+}
+.psk-faq-btn[aria-expanded="true"] .psk-faq-num { background: #fc5e28; color: #fff; }
+.psk-faq-q-text { flex: 1; line-height: 1.5; }
+.psk-faq-chevron { flex-shrink: 0; color: #9ca3af; font-size: 13px; transition: transform 0.25s, color 0.25s; }
+.psk-faq-btn[aria-expanded="true"] .psk-faq-chevron { transform: rotate(180deg); color: #fc5e28; }
+.psk-faq-answer { padding: 0 22px 20px 68px !important; color: var(--psk-blog-sub); font-size: 0.92rem; line-height: 1.75; }
+
+@media (max-width: 575.98px) {
+    .psk-faq-section-block { padding: 24px 18px; }
+    .psk-faq-answer { padding-left: 22px !important; }
+}
+
+/* Comments */
+.psk-comment__avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg,#fc5e28,#e04d1c); color: #fff; font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center; }
+.psk-comment__body { background: var(--psk-blog-bg); border-radius: 12px; padding: 16px 18px; }
+.psk-comment__reply-avatar { width: 36px; height: 36px; border-radius: 50%; background: #9ca3af; color: #fff; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+.psk-comment__reply-body { background: #fff; border: 1px solid var(--psk-blog-line); border-radius: 12px; padding: 14px 16px; }
+.psk-comment-form { background: var(--psk-blog-bg); border-radius: 14px; padding: 26px; }
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 991.98px) {
+    .psk-blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .psk-related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767.98px) {
+    /* Featured post: image on top, content below, instead of the
+       side-by-side split — same reasoning as every other image+text
+       split section on the site (hero banners, the About page's
+       stats section) already uses on mobile. */
+    .psk-featured-post { grid-template-columns: 1fr; min-height: 0; }
+    .psk-featured-post__img { min-height: 220px; }
+    .psk-featured-post__body { padding: 28px 24px; }
+    .psk-featured-post__title { font-size: 1.4rem; }
+
+    .psk-blog-grid { grid-template-columns: 1fr; gap: 20px; }
+    .psk-article-body { font-size: 1rem; }
+    .psk-article-body h2 { font-size: 1.3rem; }
+    .psk-article-body h3 { font-size: 1.1rem; }
+    .psk-related-grid { grid-template-columns: 1fr; }
+    .psk-article-meta { gap: 12px 18px; }
+}

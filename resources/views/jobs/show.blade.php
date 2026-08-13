@@ -782,14 +782,23 @@ function jdTab(name) {
     event.currentTarget.classList.add('active');
     const panel = document.getElementById('jdp-' + name);
     if (panel) panel.classList.add('active');
-    window.scrollTo({ top: document.querySelector('.jd-tab-nav').offsetTop - 80, behavior: 'smooth' });
+    // No auto-scroll here — the tab buttons are already visible on screen
+    // when clicked, so jumping the viewport back to the tab nav on every
+    // click just yanks the page away from wherever the reader currently
+    // is. Switching the panel in place is enough.
 }
-// Open tab from URL hash e.g. /jobs/my-job#admit
+// Open tab from URL hash e.g. /jobs/my-job#admit — this is a fresh page
+// load from an external link, so scrolling to reveal the tab nav here
+// (but only here, not on every click) is still the right call.
 const hash = location.hash.replace('#','');
 const validTabs = ['overview','eligibility','selection','apply','links','syllabus','admit','answerkey','result','faq','updates'];
 if (hash && validTabs.includes(hash)) {
     const btn = document.querySelector(`.jd-tab-btn[onclick*="${hash}"]`);
-    if (btn) btn.click();
+    if (btn) {
+        btn.click();
+        const tabNav = document.querySelector('.jd-tab-nav');
+        if (tabNav) window.scrollTo({ top: tabNav.offsetTop - 80, behavior: 'smooth' });
+    }
 }
 </script>
 @endpush

@@ -784,26 +784,32 @@
     ABOUT PAGE
     ══════════════════════════════════════════════════════════ */
 
-    /* ── Hero (breadcrumbs + title) — same fixed-height bug as the
-       home page hero: style.css hard-codes .hero-wrap-2 to 600px on
-       every screen size. This hero's content (a breadcrumb line + one
-       heading) is even shorter than the home page's, so on mobile the
-       empty space inside a fixed 600px box was proportionally worse.
-       !important because this element also matches the home page's
-       bare ".hero-wrap" mobile-height rule earlier in this file — same
-       specificity as style.css's own ".hero-wrap.hero-wrap-2" rule, so
-       relying on source order alone to win was fragile. !important
-       here removes any ambiguity. ── */
+    /* ── Page banner hero (breadcrumbs + title), shared by ~12 pages
+       (About, Services, Blog, Forms, Track Application, Agent
+       Registration, etc.) — same fixed-height bug as the home page
+       hero: style.css hard-codes .hero-wrap-2 to 600px on every screen
+       size. Different pages put different amounts of content in this
+       banner — About has just a breadcrumb + heading, Services adds a
+       whole extra paragraph — so a single fixed height guessed for one
+       page clips content on another (.hero-wrap also has
+       overflow:hidden). min-height instead of height lets each page's
+       banner grow to fit its own content while still collapsing down
+       from the desktop 600px on mobile. !important because this
+       element also matches the home page's bare ".hero-wrap"
+       mobile-height rule earlier in this file — same specificity as
+       style.css's own ".hero-wrap.hero-wrap-2" rule, so relying on
+       source order alone to win was fragile. ── */
     @media (max-width: 991.98px) {
         .hero-wrap.hero-wrap-2,
         .hero-wrap.hero-wrap-2 .slider-text {
-            height: 220px !important;
+            height: auto !important;
+            min-height: 220px !important;
         }
     }
     @media (max-width: 575.98px) {
         .hero-wrap.hero-wrap-2,
         .hero-wrap.hero-wrap-2 .slider-text {
-            height: 200px !important;
+            min-height: 200px !important;
         }
     }
 
@@ -839,10 +845,25 @@
        up to ~96px of empty space before a section's heading even starts.
        This is a global class, not scoped to the About page, so tightening
        it improves every page consistently rather than being a one-page
-       hack. Desktop sizing (7em / 3em) is untouched. */
+       hack. Desktop sizing (7em / 3em) is untouched.
+       IMPORTANT: many sections pair .ftco-section with .ftco-no-pt or
+       .ftco-no-pb specifically to sit flush against a neighboring section
+       (services.blade.php's filter tabs → category sections, home page's
+       stacked services/counter/testimonial strips, etc.). The plain
+       shorthand `padding: 3.5em 0` used here originally set BOTH top and
+       bottom on every .ftco-section regardless — at equal specificity
+       and both !important, this file loading after style.css meant it
+       silently overrode .ftco-no-pt/.ftco-no-pb back to padded, undoing
+       the "sit flush" intent and reintroducing large gaps between
+       sections that were deliberately designed to touch. :not() below
+       skips the property entirely on sections carrying that modifier,
+       instead of fighting it via specificity. */
     @media (max-width: 767.98px) {
-        .ftco-section {
-            padding: 3.5em 0 !important;
+        .ftco-section:not(.ftco-no-pt) {
+            padding-top: 3.5em !important;
+        }
+        .ftco-section:not(.ftco-no-pb) {
+            padding-bottom: 3.5em !important;
         }
         .heading-section.ftco-animate,
         .row.justify-content-center.mb-5 {
@@ -865,5 +886,27 @@
         #ai-assistant-section .psk-ai-notify .btn {
             width: 100%;
         }
+    }
+
+    /* ── Equal-height feature cards ── */
+    /* .media.block-6.services cards (Home, About, Track Application,
+       Agent Registration) sit inside Bootstrap columns which already
+       stretch to match the tallest column in the row (that's the
+       flexbox default for .row), but the card div itself was never told
+       to fill that stretched column height — so with only slightly
+       different description lengths, cards in the same row end up with
+       different bottom edges instead of lining up. */
+    .media.block-6.services {
+        height: 100%;
+    }
+
+    /* Same issue, different card markup: the About page's "How Punjab
+       Saathi Works" 4-step cards (.psk-step-card) — step 4's title
+       wraps to two lines while steps 1-3 are one line, and with no
+       height propagated down through the wrapper div, that card ends
+       up visibly taller than its siblings instead of lining up. */
+    .psk-step-wrap,
+    .psk-step-card {
+        height: 100%;
     }
 

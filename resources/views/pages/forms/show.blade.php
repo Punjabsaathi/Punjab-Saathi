@@ -30,11 +30,12 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-3 mb-5">
-                <x-form-sidebar :categories="$categories"/>
-            </div>
-
-            <div class="col-md-9">
+            {{-- Same column order/breakpoint fix as the forms index page:
+                 content first in the DOM (order-lg-2 restores it to the
+                 right on desktop), split deferred to "lg" instead of "md"
+                 so tablet gets the full-width layout instead of a cramped
+                 75%-width column. --}}
+            <div class="col-lg-9 order-lg-2">
 
                 <div class="card border-0 shadow-sm mb-4" style="border-radius:12px;">
                     <div class="card-body p-4">
@@ -143,6 +144,10 @@
                 </div>
                 @endif
 
+            </div>
+
+            <div class="col-lg-3 mb-5 order-lg-1">
+                <x-form-sidebar :categories="$categories"/>
             </div>
         </div>
     </div>

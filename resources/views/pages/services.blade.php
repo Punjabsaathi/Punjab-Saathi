@@ -672,7 +672,17 @@ $categoryConfig = [
 
 /* ── RESPONSIVE ────────────────────────────────────── */
 @media (max-width: 767px) {
-    .psk-trust-bar__item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    /* 5 equal-flex-grow columns (.col) don't have a fixed width to wrap
+       at — they just kept shrinking to fit all 5 on one line, squeezing
+       "75,000+ / Services Completed" etc. into a sliver on narrow
+       phones instead of actually wrapping to a new row. Force a 2-up
+       grid instead. */
+    .psk-trust-bar__item {
+        flex: 0 0 50%;
+        max-width: 50%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
     .psk-mini-steps__arrow { display: none; }
     .psk-cat-header { flex-direction: column; align-items: flex-start; gap: 10px; }
     .psk-faq-card__body { padding-left: 20px; }

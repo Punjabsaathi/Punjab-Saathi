@@ -2,6 +2,24 @@
 
 @section('title', 'Track Your Application - Punjab Seva Kendra')
 
+@push('styles')
+<style>
+/* This page is entirely inline-styled with no responsive handling at
+   all. The 4-step horizontal progress bar (Received/In Review/
+   Processing/Completed) is the one place that actually needs it — on
+   a 320-375px phone, four flex:1 columns leave each step only ~55-65px
+   wide, cramping the 46px circles and wrapping labels like "In Review"
+   awkwardly. Scale it down instead of leaving desktop sizing. */
+@media (max-width: 575.98px) {
+    .psk-progress-card { padding: 20px 14px !important; }
+    .psk-progress-circle { width: 34px !important; height: 34px !important; }
+    .psk-progress-circle .fa { font-size: 13px !important; }
+    .psk-progress-label { font-size: 10px !important; }
+    .psk-ref-number { font-size: 17px !important; letter-spacing: 1px !important; }
+}
+</style>
+@endpush
+
 @section('content')
 
 {{-- ═══════════════════════════════════════════════ --}}
@@ -27,7 +45,18 @@
 {{-- ═══════════════════════════════════════════════ --}}
 {{-- SEARCH SECTION                                 --}}
 {{-- ═══════════════════════════════════════════════ --}}
-<section class="ftco-section" id="track-section">
+{{-- Explicit 48px bottom padding (not the ftco-no-pb class — that's
+     "padding-bottom:0 !important", which would beat this inline style
+     entirely and zero the gap out). The section that follows (results
+     or "how to find your reference number") already uses ftco-no-pt,
+     so stacking the full 112px desktop ftco-section padding here on
+     top of that was too much gap — but 0 overcorrected, with the
+     background color changing right at the edge of the helper-tips
+     text with no breathing room at all. 48px sits between the two.
+     On mobile the sitewide ":not(.ftco-no-pb)" rule still applies
+     (56px !important, since this element has no ftco-no-pb class),
+     which is close enough to this value to stay consistent. --}}
+<section class="ftco-section" id="track-section" style="padding-bottom: 48px;">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-2">
             <div class="col-md-8 text-center heading-section ftco-animate">
@@ -107,7 +136,7 @@
                     <div style="background:#040e26; padding:24px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
                         <div>
                             <p style="color:rgba(255,255,255,0.6); font-size:12px; letter-spacing:2px; text-transform:uppercase; margin:0 0 6px;">Reference Number</p>
-                            <h3 style="color:#fff; font-weight:900; font-size:24px; margin:0; letter-spacing:2px; font-family:monospace;">
+                            <h3 class="psk-ref-number" style="color:#fff; font-weight:900; font-size:24px; margin:0; letter-spacing:2px; font-family:monospace;">
                                 {{ $application->reference_no }}
                             </h3>
                         </div>
@@ -172,7 +201,7 @@
                 @endphp
 
                 @if($application->status !== 'rejected')
-                <div style="background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(4,14,38,0.08); padding:32px; border:1px solid #f0f0f0;">
+                <div class="psk-progress-card" style="background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(4,14,38,0.08); padding:32px; border:1px solid #f0f0f0;">
                     <p style="font-size:12px; color:#aaa; text-transform:uppercase; letter-spacing:2px; margin:0 0 24px; text-align:center;">Application Progress</p>
                     <div style="display:flex; align-items:flex-start; justify-content:space-between; position:relative;">
 
@@ -184,7 +213,7 @@
                         @foreach($steps as $i => $step)
                         @php $done = $currentIndex >= $i; @endphp
                         <div style="flex:1; text-align:center; position:relative; z-index:1;">
-                            <div style="
+                            <div class="psk-progress-circle" style="
                                 width:46px; height:46px; border-radius:50%; margin:0 auto 12px;
                                 display:flex; align-items:center; justify-content:center;
                                 background:{{ $done ? '#fc5e28' : '#e9ecef' }};
@@ -194,7 +223,7 @@
                             ">
                                 <span class="fa {{ $stepIcons[$i] }}" style="color:{{ $done ? '#fff' : '#aaa' }}; font-size:16px;"></span>
                             </div>
-                            <p style="font-size:12px; font-weight:{{ $done ? '700' : '500' }}; color:{{ $done ? '#040e26' : '#aaa' }}; margin:0; line-height:1.3;">
+                            <p class="psk-progress-label" style="font-size:12px; font-weight:{{ $done ? '700' : '500' }}; color:{{ $done ? '#040e26' : '#aaa' }}; margin:0; line-height:1.3;">
                                 {{ $stepLabels[$i] }}
                             </p>
                         </div>
@@ -340,7 +369,12 @@
 
 {{-- ─── How to find reference number (shown when no result yet) ─── --}}
 @empty($application)
-<section class="ftco-section ftco-no-pt bg-half-light">
+{{-- Not ftco-no-pt (that's "padding-top:0 !important") — with 0 top
+     padding, the "Need Help?" heading sat flush against this section's
+     own background edge the instant the color changed, no breathing
+     room at all. Explicit padding-top instead, symmetric with the
+     48px bottom padding added to the search section above it. --}}
+<section class="ftco-section bg-half-light" style="padding-top: 48px;">
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-md-8 text-center heading-section ftco-animate">

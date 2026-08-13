@@ -1,0 +1,481 @@
+/* ═══════════════════════════════════════════════════════════════
+   Punjab Seva Kendra — Jobs / Sarkari Naukri Section
+   Shared by: jobs/index, admit-cards, results, answer-keys,
+   form-help, _sidebar.
+
+   This file intentionally does NOT redefine a hero banner, page
+   breadcrumb, or sidebar card — those already exist sitewide
+   (.psk-detail-hero / .psk-breadcrumb / .psk-sidebar-card, loaded
+   via psk-services-detail.css) and the jobs pages now reuse them
+   directly instead of the old bespoke ".jobs-hero" banner. This
+   file only adds what's actually unique to job listings: the
+   ticker, filter bar, category pills, and list cards.
+
+   Colors intentionally match tokens already used elsewhere on the
+   site (service-detail info boxes, about page icons) rather than
+   the slightly different shades the old jobs CSS used:
+     orange #fc5e28 · navy #040e26 · green #059669 · blue #3b82f6
+     amber #d97706 · red #e11d48 (same red as form validation errors)
+
+   Load AFTER: style.css, custom.css, psk-services-detail.css,
+               the FontAwesome 6 CDN link (this file must load after
+               it — see the fix directly below)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── FIX: FontAwesome 6 vs FontAwesome 4 icon conflict ──────────
+   The jobs pages load FA6 from a CDN for icons FA4 doesn't have
+   (fa-trophy, fa-file-signature, etc.), using the "fas"/"fab"
+   prefixed classes. But FA6's stylesheet ALSO unconditionally
+   redefines the bare ".fa" class — the exact class the REST of the
+   site uses everywhere (topbar social icons, header phone icon, nav
+   icons) via the older FA4 convention of `class="fa fa-facebook"`.
+   Whichever stylesheet loads last wins the ".fa" font-family, so
+   FA6 was silently pointing every FA4 icon on these pages at its
+   own font file, which doesn't have matching glyphs at those
+   codepoints — hence the broken/tofu icons in the topbar. Restore
+   ".fa" to FA4's font here (this file loads after the FA6 link).
+   ".fas"/".fab" are separate rules that set their own font-family
+   directly, so this doesn't affect the new icons added for jobs. */
+.fa {
+    font-family: "FontAwesome" !important;
+    font-weight: normal !important;
+}
+
+:root {
+    --psk-green: #059669;
+    --psk-green-bg: #dcfce7;
+    --psk-blue: #3b82f6;
+    --psk-blue-bg: #dbeafe;
+    --psk-amber: #d97706;
+    --psk-amber-bg: #fef3c7;
+    --psk-red: #e11d48;
+    --psk-red-bg: #fee2e2;
+}
+
+/* ── Live ticker ── */
+.psk-ticker {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    height: 40px;
+    background: #fff;
+    border-bottom: 1px solid #e2e6ea;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.psk-ticker__label {
+    background: #fc5e28;
+    color: #fff;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0 14px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.psk-ticker__dot {
+    width: 7px;
+    height: 7px;
+    background: #fff;
+    border-radius: 50%;
+    animation: psk-ticker-pulse 1s infinite;
+}
+@keyframes psk-ticker-pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.psk-ticker__track { flex: 1; overflow: hidden; }
+.psk-ticker__inner {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    height: 40px;
+    animation: psk-ticker-scroll 50s linear infinite;
+}
+.psk-ticker__inner:hover { animation-play-state: paused; }
+@keyframes psk-ticker-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.psk-ticker__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #040e26;
+}
+.psk-ticker__item a { color: #040e26; text-decoration: none; }
+.psk-ticker__item a:hover { color: #fc5e28; }
+.psk-ticker__sep { color: #e2e6ea; font-size: 16px; padding: 0 4px; }
+
+/* ── Section spacing (matches .ftco-section rhythm used sitewide) ── */
+.psk-jobs-section { padding: 48px 0; }
+
+/* ── Filter bar ── */
+.psk-job-filter {
+    background: #fff;
+    border: 1px solid #e2e6ea;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+.psk-job-filter__search {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e2e6ea;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.psk-job-filter__search .fa,
+.psk-job-filter__search .fas { padding: 0 10px; color: #9ca3af; font-size: 13px; flex-shrink: 0; }
+.psk-job-filter__search input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 9px 10px 9px 0;
+    font-size: 14px;
+    color: #040e26;
+    background: transparent;
+}
+.psk-job-filter__select {
+    border: 1px solid #e2e6ea;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    min-width: 150px;
+    color: #040e26;
+}
+.psk-job-filter__count {
+    margin-left: auto;
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ── Category pills (same visual language as the Services page's
+   .psk-filter-tab, so browsing-by-category feels identical whether
+   you're on /services or /jobs) ── */
+.psk-job-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.psk-job-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f4f4f4;
+    border: 1px solid #e0e0e0;
+    color: #555;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 30px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+.psk-job-pill:hover,
+.psk-job-pill.active {
+    background: #fc5e28;
+    border-color: #fc5e28;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 3px 12px rgba(252,94,40,0.30);
+}
+.psk-job-pill__count {
+    background: rgba(0,0,0,0.12);
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 10px;
+}
+.psk-job-pill.active .psk-job-pill__count,
+.psk-job-pill:hover .psk-job-pill__count { background: rgba(255,255,255,0.25); }
+
+/* ── List cards ──────────────────────────────────────────────
+   One shared card style for job listings, admit cards, results,
+   and answer keys — matches .psk-service-card / .psk-detail-card
+   (white, 14px radius, subtle border+shadow) instead of each
+   having its own bespoke colored-left-border card. The category
+   accent color is carried by a small icon badge instead, the same
+   way service cards carry their accent via an icon box. */
+.psk-job-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e2e6ea;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.psk-job-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    border-color: rgba(252,94,40,0.3);
+}
+.psk-job-card.psk-job-card--featured { border-left: 3px solid #fc5e28; }
+
+.psk-job-card__body { padding: 18px 20px; }
+.psk-job-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.psk-job-card__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #040e26;
+    margin-bottom: 3px;
+    line-height: 1.35;
+}
+.psk-job-card__title a { color: #040e26; text-decoration: none; }
+.psk-job-card__title a:hover { color: #fc5e28; }
+.psk-job-card__dept { font-size: 12px; color: #9ca3af; font-weight: 500; }
+.psk-job-card__dept .fa,
+.psk-job-card__dept .fas { font-size: 10px; margin-right: 3px; color: #fc5e28; }
+
+.psk-job-card__count {
+    text-align: right;
+    flex-shrink: 0;
+}
+.psk-job-card__count-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fc5e28;
+    line-height: 1;
+}
+.psk-job-card__count-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.psk-job-card__badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.psk-job-card__desc {
+    font-size: 13px;
+    color: #5a6a7a;
+    line-height: 1.6;
+    margin: 10px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid #f0f4f8;
+}
+
+.psk-job-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f4f8;
+}
+.psk-job-card__meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #5a6a7a; }
+.psk-job-card__meta-item .fa,
+.psk-job-card__meta-item .fas { color: #fc5e28; font-size: 11px; width: 14px; text-align: center; }
+.psk-job-card__meta-item strong { color: #040e26; font-weight: 700; }
+.psk-job-card__meta-item.psk-urgent strong { color: var(--psk-red); }
+
+.psk-job-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #f8f9fb;
+    border-top: 1px solid #f0f4f8;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.psk-job-card__posted { font-size: 11px; color: #9ca3af; }
+.psk-job-card__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── Badges (job type / status) — small pills, consistent sizing ── */
+.psk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+.psk-badge--new { background: var(--psk-red-bg); color: var(--psk-red); animation: psk-badge-blink 1.5s ease-in-out infinite; }
+@keyframes psk-badge-blink { 0%,100%{opacity:1} 50%{opacity:.5} }
+.psk-badge--featured { background: var(--psk-amber-bg); color: var(--psk-amber); }
+.psk-badge--category { background: rgba(252,94,40,0.10); color: #fc5e28; border-radius: 12px; }
+.psk-badge--active::before,
+.psk-badge--upcoming::before,
+.psk-badge--expired::before { content:''; width:5px; height:5px; border-radius:50%; display:inline-block; }
+.psk-badge--active { background: var(--psk-green-bg); color: var(--psk-green); }
+.psk-badge--active::before { background: var(--psk-green); }
+.psk-badge--upcoming { background: var(--psk-blue-bg); color: var(--psk-blue); }
+.psk-badge--upcoming::before { background: var(--psk-blue); }
+.psk-badge--expired { background: #f3f4f6; color: #6b7280; }
+.psk-badge--expired::before { background: #9ca3af; }
+
+/* Category-specific accent for admit-card/result/answer-key badges,
+   used on the icon badge next to each list card's title */
+.psk-job-card__icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.psk-job-card__icon .fa,
+.psk-job-card__icon .fas { font-size: 1rem; }
+.psk-job-card__icon--blue  { background: var(--psk-blue-bg);  color: var(--psk-blue); }
+.psk-job-card__icon--green { background: var(--psk-green-bg); color: var(--psk-green); }
+.psk-job-card__icon--amber { background: var(--psk-amber-bg); color: var(--psk-amber); }
+
+/* ── Empty state ── */
+.psk-no-results {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px solid #e2e6ea;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.psk-no-results .fa,
+.psk-no-results .fas { font-size: 48px; color: #e5e7eb; margin-bottom: 14px; display: block; }
+.psk-no-results h5 { color: #040e26; font-weight: 700; margin-bottom: 6px; }
+.psk-no-results p { color: #9ca3af; font-size: 13px; }
+
+/* ── Form Filling Help page ── */
+.psk-fh-card {
+    background: #fff;
+    border: 1px solid #e2e6ea;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.psk-fh-card__head { background: #040e26; padding: 18px 22px; }
+.psk-fh-card__head h4 { font-weight: 700; color: #fff; margin: 0 0 4px; font-size: 1rem; }
+.psk-fh-card__head p { color: rgba(255,255,255,0.65); font-size: 12px; margin: 0; }
+.psk-fh-card__body { padding: 24px; }
+.psk-fh-card__body .form-group label {
+    font-weight: 700; font-size: 12px; color: #040e26;
+    text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px;
+}
+.psk-fh-card__body .req { color: #fc5e28; }
+.psk-fh-card__body .form-control {
+    border: 1px solid #e2e6ea; border-radius: 8px; font-size: 14px; padding: 10px 14px;
+}
+.psk-fh-card__body .form-control:focus {
+    border-color: #fc5e28; box-shadow: 0 0 0 3px rgba(252,94,40,0.12);
+}
+
+.psk-why-list { list-style: none; padding: 0; margin: 0; }
+.psk-why-list li {
+    display: flex; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid #f0f4f8; font-size: 13px; color: #5a6a7a;
+}
+.psk-why-list li:last-child { border-bottom: none; }
+.psk-why-list li .fa,
+.psk-why-list li .fas { color: var(--psk-green); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+.psk-proc-step { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f0f4f8; }
+.psk-proc-step:last-child { border-bottom: none; }
+.psk-proc-step__num {
+    width: 32px; height: 32px; background: #fc5e28; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; flex-shrink: 0;
+}
+.psk-proc-step__title { font-weight: 700; font-size: 13px; color: #040e26; margin: 0 0 2px; }
+.psk-proc-step__desc { font-size: 11px; color: #5a6a7a; margin: 0; }
+
+.psk-wa-block {
+    background: linear-gradient(135deg, #25D366, #1da851);
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+}
+.psk-wa-block .fa,
+.psk-wa-block .fab { font-size: 34px; color: #fff; display: block; margin-bottom: 8px; }
+.psk-wa-block h5 { font-weight: 700; color: #fff; margin-bottom: 4px; }
+.psk-wa-block p { font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 12px; }
+.psk-wa-block a {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; color: #25D366 !important; font-weight: 700; font-size: 13px;
+    padding: 10px 22px; border-radius: 20px; text-decoration: none;
+}
+.psk-wa-block a:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+/* ── Sidebar list styling — cards themselves reuse the sitewide
+   .psk-sidebar-card / .psk-sidebar-card__title from
+   psk-services-detail.css; this only styles the link lists inside. ── */
+.psk-sidebar-link-list { list-style: none; padding: 0; margin: 0; }
+.psk-sidebar-link-list li a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid #f5f5f5;
+    font-size: 0.83rem; font-weight: 600; color: #040e26;
+    text-decoration: none; transition: color 0.15s;
+}
+.psk-sidebar-link-list li:last-child a { border-bottom: none; }
+.psk-sidebar-link-list li a:hover,
+.psk-sidebar-link-list li a.psk-active { color: #fc5e28; text-decoration: none; }
+.psk-sidebar-link-list li a .fa,
+.psk-sidebar-link-list li a .fas { color: #fc5e28; width: 16px; margin-right: 4px; }
+.psk-sidebar-link-list__count {
+    background: rgba(252,94,40,0.10); color: #fc5e28;
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+}
+
+.psk-sidebar-recent { list-style: none; padding: 0; margin: 0; }
+.psk-sidebar-recent li { padding: 9px 0; border-bottom: 1px solid #f5f5f5; }
+.psk-sidebar-recent li:last-child { border-bottom: none; }
+.psk-sidebar-recent li a { font-size: 0.82rem; font-weight: 600; color: #040e26; display: block; line-height: 1.4; text-decoration: none; }
+.psk-sidebar-recent li a:hover { color: #fc5e28; }
+.psk-sidebar-recent li .psk-sidebar-recent__meta { font-size: 0.7rem; color: #9ca3af; margin-top: 2px; }
+
+.psk-sidebar-wa {
+    background: linear-gradient(135deg, #25D366, #1da851);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+}
+.psk-sidebar-wa .fa,
+.psk-sidebar-wa .fab { font-size: 30px; color: #fff; display: block; margin-bottom: 6px; }
+.psk-sidebar-wa h6 { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+.psk-sidebar-wa p { font-size: 0.78rem; color: rgba(255,255,255,0.85); margin-bottom: 12px; }
+.psk-sidebar-wa a {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; color: #25D366 !important; font-weight: 700; font-size: 0.82rem;
+    padding: 9px 20px; border-radius: 20px; text-decoration: none;
+}
+.psk-sidebar-wa a:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+/* ── Responsive ── */
+@media (max-width: 767.98px) {
+    .psk-jobs-section { padding: 32px 0; }
+    .psk-job-card__body { padding: 16px; }
+    .psk-job-card__footer { padding: 12px 16px; }
+}
+@media (max-width: 575.98px) {
+    .psk-job-filter__search { flex: 1 1 100%; min-width: 0; }
+    .psk-job-filter__count { margin-left: 0; flex-basis: 100%; }
+
+    /* Equal-width, stacked action buttons instead of a wrapped
+       space-between row where button count varies (2 or 3 links
+       depending on what each job/card actually has). */
+    .psk-job-card__footer { flex-direction: column; align-items: stretch; }
+    .psk-job-card__actions { width: 100%; }
+    .psk-job-card__actions .btn { flex: 1; justify-content: center; }
+}

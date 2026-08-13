@@ -129,7 +129,19 @@
         <div class="row no-gutters align-items-stretch" style="min-height:520px;">
 
             {{-- LEFT — Text content --}}
-            <div class="col-md-6 d-flex align-items-center py-5 pr-md-5">
+            {{-- align-items-end (not -center): the stat-cards column on
+                 the right is taller than this text block, so centering
+                 split the leftover space evenly above and below —
+                 leaving the button floating with a dead gap beneath it
+                 instead of sitting near the bottom. Anchoring to the
+                 bottom matches how the site's own hero banners already
+                 anchor text over a background image (align-items-end).
+                 Also swapped py-5 for pt-5 + a smaller bottom padding —
+                 that bottom padding sits outside the flex alignment
+                 entirely (it's on the column, not the content), so it
+                 stayed as a literal gap below the button no matter how
+                 the content above it was aligned. --}}
+            <div class="col-md-6 d-flex align-items-end pt-5 pb-4 pr-md-5">
                 <div>
                     <span style="display:inline-block;background:#fc5e28;color:#fff;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;border-radius:30px;margin-bottom:20px;">
                         Punjab Saathi
@@ -292,7 +304,7 @@
             <div class="col-md-3 ftco-animate mb-4">
 
                 {{-- Connector arrow (not after last card) --}}
-                <div style="position:relative;">
+                <div class="psk-step-wrap" style="position:relative;">
 
                     <div class="psk-step-card" style="
                         background:#fff;

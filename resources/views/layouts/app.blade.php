@@ -8,6 +8,12 @@
     <title>@yield('title', config('app.name', 'Punjab Saathi'))</title>
     <meta name="description" content="@yield('meta_description', 'Wilcon Construction Company')">
 
+    {{-- Pages push canonical URLs, Open Graph tags, and JSON-LD schema
+         here via @push('head') (e.g. blogs/show.blade.php). This stack
+         was never rendered before, so all of that silently disappeared
+         on every page that used it — this is the fix. --}}
+    @stack('head')
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">

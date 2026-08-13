@@ -1,88 +1,110 @@
-<div class="col-lg-4 sidebar ftco-animate">
+{{-- ─────────────────────────────────────────────────────────
+     resources/views/blogs/partials/sidebar.blade.php
+     Cards reuse the sitewide .psk-sidebar-card shell (already loaded
+     via psk-services-detail.css), so this sidebar matches the one on
+     /services/{slug} and the Jobs section. Widget-specific styling
+     lives in psk-blog.css.
+     ───────────────────────────────────────────────────────── --}}
+<div class="col-lg-4 psk-blog-sidebar">
 
-    {{-- AD - SIDEBAR TOP --}}
-    <div class="text-center mb-4">
-        <div style="background:#f0f0f0;border:2px dashed #ccc;padding:20px;">
-            <span class="text-muted small">Advertisement - 300x250</span>
-        </div>
+    {{-- Table of contents — only present on the single-post page.
+         Deliberately named $tocPost, not $post: @include shares the
+         calling view's variable scope, and both index.blade.php and
+         category.blade.php loop over their card grid with
+         "@foreach($posts as $post)" — after that loop ends, $post is
+         still set (to the last post) and would leak in here as a
+         false positive if this checked @isset($post). blogs/show.php
+         explicitly passes 'tocPost', which nothing else defines, so
+         there's no risk of an accidental collision. Placed first so
+         on desktop it sits at the top of the right column, level with
+         the start of the article; the JS that populates #toc-list (in
+         blogs/show.blade.php) targets it by ID, so it works the same
+         regardless of where in the DOM it physically sits. --}}
+    @isset($tocPost)
+    <div id="toc" class="psk-toc psk-toc--sidebar">
+        <h5><i class="fa fa-list mr-2" style="color:#fc5e28;"></i> Table of Contents</h5>
+        <ol id="toc-list"></ol>
     </div>
+    @endisset
+
+    {{-- AD SLOT: sidebar top, 300x250 medium rectangle. Empty and
+         invisible (display:none via :empty) until real ad markup is
+         placed inside — the container and its position already exist
+         so that's a content change later, not a layout change. --}}
+    <div class="psk-ad-slot" data-ad-size="300x250"><!-- ad: 300x250 --></div>
 
     {{-- SEARCH --}}
-    <div class="sidebar-box mb-4">
-        <form action="{{ route('blog.index') }}" method="GET">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search posts...">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
+    <div class="psk-sidebar-card">
+        <form action="{{ route('blog.index') }}" method="GET" class="psk-blog-search">
+            <input type="text" name="q" placeholder="Search articles…" value="{{ request('q') }}" aria-label="Search articles">
+            <button type="submit" aria-label="Search"><span class="fa fa-search"></span></button>
         </form>
     </div>
 
     {{-- CATEGORIES --}}
-    <div class="sidebar-box mb-4 p-4 bg-white shadow-sm" style="border-radius:8px;">
-        <h3 class="sidebar-h3 mb-3" style="font-size:18px;font-weight:700;border-left:4px solid #fc5e28;padding-left:12px;">
-            Categories
-        </h3>
-        <ul class="list-unstyled mb-0">
+    @if($categories->isNotEmpty())
+    <div class="psk-sidebar-card">
+        <h3 class="psk-sidebar-card__title"><span class="fa fa-folder-o mr-2"></span>Categories</h3>
+        <ul class="psk-blog-cat-list">
             @foreach($categories as $cat)
-            <li class="mb-2">
-                <a href="{{ route('blog.category', $cat->slug) }}"
-                   class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-1 border-bottom">
-                    <span><i class="fa fa-folder-o mr-2 text-primary"></i>{{ $cat->name }}</span>
-                    <span class="badge badge-primary badge-pill">{{ $cat->blogs_count }}</span>
+            <li>
+                <a href="{{ route('blog.category', $cat->slug) }}">
+                    <span><span class="fa fa-angle-right"></span>{{ $cat->name }}</span>
+                    <span class="psk-blog-cat-list__count">{{ $cat->blogs_count }}</span>
                 </a>
             </li>
             @endforeach
         </ul>
     </div>
+    @endif
 
     {{-- RECENT POSTS --}}
-    <div class="sidebar-box mb-4 p-4 bg-white shadow-sm" style="border-radius:8px;">
-        <h3 class="sidebar-h3 mb-3" style="font-size:18px;font-weight:700;border-left:4px solid #fc5e28;padding-left:12px;">
-            Recent Posts
-        </h3>
+    @if($recent->isNotEmpty())
+    <div class="psk-sidebar-card">
+        <h3 class="psk-sidebar-card__title"><span class="fa fa-clock-o mr-2"></span>Recent Posts</h3>
         @foreach($recent as $r)
-        <div class="d-flex mb-3">
-            <a href="{{ route('blog.show', $r->slug) }}" class="mr-3 flex-shrink-0">
-                <img src="{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/image_1.jpg') }}"
-                     style="width:60px;height:50px;object-fit:cover;border-radius:6px;" alt="{{ $r->image_alt ?? '' }}">
-            </a>
+        <div class="psk-blog-mini">
+            <a href="{{ route('blog.show', $r->slug) }}" class="psk-blog-mini__thumb" aria-label="{{ $r->title }}"
+               style="background-image:url('{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/image_1.jpg') }}');"></a>
             <div>
-                <a href="{{ route('blog.show', $r->slug) }}" class="text-dark"
-                   style="font-size:13px;font-weight:600;line-height:1.4;display:block;">
-                    {{ Str::limit($r->title, 55) }}
-                </a>
-                <small class="text-muted"><i class="fa fa-calendar mr-1"></i>{{ $r->published_at?->format('d M Y') }}</small>
+                <a href="{{ route('blog.show', $r->slug) }}" class="psk-blog-mini__title">{{ Str::limit($r->title, 60) }}</a>
+                <span class="psk-blog-mini__meta"><span class="fa fa-calendar mr-1"></span>{{ $r->published_at?->format('d M Y') }}</span>
             </div>
         </div>
         @endforeach
     </div>
+    @endif
 
     {{-- POPULAR POSTS --}}
-    <div class="sidebar-box mb-4 p-4 bg-white shadow-sm" style="border-radius:8px;">
-        <h3 class="sidebar-h3 mb-3" style="font-size:18px;font-weight:700;border-left:4px solid #fc5e28;padding-left:12px;">
-            Most Popular
-        </h3>
+    @if($popular->isNotEmpty())
+    <div class="psk-sidebar-card">
+        <h3 class="psk-sidebar-card__title"><span class="fa fa-fire mr-2"></span>Most Popular</h3>
         @foreach($popular as $i => $p)
-        <div class="d-flex mb-3 align-items-start">
-            <span style="font-size:22px;font-weight:800;color:#eee;min-width:30px;line-height:1;">{{ $i + 1 }}</span>
-            <a href="{{ route('blog.show', $p->slug) }}" class="text-dark ml-2"
-               style="font-size:13px;font-weight:600;line-height:1.4;">
-                {{ Str::limit($p->title, 55) }}
-                <small class="d-block text-muted mt-1">
-                    <i class="fa fa-eye mr-1"></i>{{ number_format($p->views) }} views
-                </small>
-            </a>
+        <div class="psk-blog-mini">
+            <span class="psk-blog-mini__rank">{{ $i + 1 }}</span>
+            <div>
+                <a href="{{ route('blog.show', $p->slug) }}" class="psk-blog-mini__title">{{ Str::limit($p->title, 60) }}</a>
+                <span class="psk-blog-mini__meta"><span class="fa fa-eye mr-1"></span>{{ number_format($p->views) }} views</span>
+            </div>
         </div>
         @endforeach
     </div>
+    @endif
 
-    {{-- AD - SIDEBAR BOTTOM --}}
-    <div class="text-center mb-4">
-        <div style="background:#f0f0f0;border:2px dashed #ccc;padding:20px;">
-            <span class="text-muted small">Advertisement - 300x600 Half Page</span>
-        </div>
+    {{-- WhatsApp CTA — reuses the sitewide .psk-sidebar-card +
+         .psk-sidebar-wa combo already used on /services/{slug}, so
+         this matches that sidebar exactly instead of inventing a new
+         look. --}}
+    <div class="psk-sidebar-card psk-sidebar-wa">
+        <span class="fa fa-whatsapp psk-sidebar-wa__icon"></span>
+        <h4>Need Help With a Service?</h4>
+        <p>Chat with our team on WhatsApp — fast replies, zero office visits.</p>
+        <a href="https://wa.me/917710556330" target="_blank" rel="noopener" class="btn psk-btn-whatsapp w-100">
+            <span class="fa fa-whatsapp mr-1"></span> Chat on WhatsApp
+        </a>
     </div>
+
+    {{-- AD SLOT: sidebar bottom, 300x600 half page --}}
+    <div class="psk-ad-slot" data-ad-size="300x600"><!-- ad: 300x600 --></div>
 
 </div>

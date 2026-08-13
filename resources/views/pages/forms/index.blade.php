@@ -29,54 +29,15 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-3 mb-5">
-                <x-form-sidebar :categories="$categories">
-
-                    <div class="card border-0 shadow-sm mb-4" style="border-radius:10px;">
-                        <div class="card-header font-weight-bold" style="background:#f8f9fa;font-size:0.85rem;border-radius:10px 10px 0 0;">
-                            <span class="fa fa-sort mr-2" style="color:#fc5e28;"></span>Sort By
-                        </div>
-                        <div class="card-body p-3">
-                            <form method="GET">
-                                @if(request('q'))<input type="hidden" name="q" value="{{ request('q') }}">@endif
-                                @if(request('category'))<input type="hidden" name="category" value="{{ request('category') }}">@endif
-                                @foreach(['newest' => 'Newest First', 'popular' => 'Most Downloaded', 'az' => 'A – Z'] as $val => $label)
-                                <div class="custom-control custom-radio py-1">
-                                    <input type="radio" id="sort_{{ $val }}" name="sort" value="{{ $val }}"
-                                           class="custom-control-input"
-                                           {{ request('sort', 'newest') === $val ? 'checked' : '' }}
-                                           onchange="this.form.submit()">
-                                    <label class="custom-control-label" for="sort_{{ $val }}" style="font-size:0.85rem;">{{ $label }}</label>
-                                </div>
-                                @endforeach
-                            </form>
-                        </div>
-                    </div>
-
-                    @if($popular->isNotEmpty())
-                    <div class="card border-0 shadow-sm" style="border-radius:10px;">
-                        <div class="card-header text-white font-weight-bold" style="background:#fc5e28;border-radius:10px 10px 0 0;font-size:0.85rem;">
-                            <span class="fa fa-fire mr-2"></span>Most Downloaded
-                        </div>
-                        <div class="card-body p-2">
-                            <ul class="list-unstyled mb-0">
-                                @foreach($popular as $pf)
-                                <li class="py-2" style="border-bottom:1px solid #f5f5f5;">
-                                    <a href="{{ route('forms.show', $pf->slug) }}" class="text-dark" style="font-size:0.82rem;text-decoration:none;">
-                                        <span class="fa fa-download mr-1" style="color:#fc5e28;"></span>
-                                        {{ \Illuminate\Support\Str::limit($pf->title, 45) }}
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    @endif
-
-                </x-form-sidebar>
-            </div>
-
-            <div class="col-md-9">
+            {{-- Content column is first in the DOM (order-lg-2 puts it back
+                 on the right on desktop) so mobile shows the actual forms
+                 grid first instead of forcing a scroll past category/sort
+                 filters to reach it — matches the Jobs page's column
+                 order. The split also waits until "lg" (992px) instead of
+                 "md" (768px), so a tablet gets the full-width layout
+                 instead of squeezing a 3-column form grid into a 75%-width
+                 column next to a narrow sidebar. --}}
+            <div class="col-lg-9 order-lg-2">
 
                 <form method="GET" class="mb-4">
                     <div class="input-group">
@@ -129,6 +90,53 @@
                 <!-- <div class="mt-4">{{ $forms->links() }}</div> -->
                 @endif
 
+            </div>
+
+            <div class="col-lg-3 mb-5 order-lg-1">
+                <x-form-sidebar :categories="$categories">
+
+                    <div class="card border-0 shadow-sm mb-4" style="border-radius:10px;">
+                        <div class="card-header font-weight-bold" style="background:#f8f9fa;font-size:0.85rem;border-radius:10px 10px 0 0;">
+                            <span class="fa fa-sort mr-2" style="color:#fc5e28;"></span>Sort By
+                        </div>
+                        <div class="card-body p-3">
+                            <form method="GET">
+                                @if(request('q'))<input type="hidden" name="q" value="{{ request('q') }}">@endif
+                                @if(request('category'))<input type="hidden" name="category" value="{{ request('category') }}">@endif
+                                @foreach(['newest' => 'Newest First', 'popular' => 'Most Downloaded', 'az' => 'A – Z'] as $val => $label)
+                                <div class="custom-control custom-radio py-1">
+                                    <input type="radio" id="sort_{{ $val }}" name="sort" value="{{ $val }}"
+                                           class="custom-control-input"
+                                           {{ request('sort', 'newest') === $val ? 'checked' : '' }}
+                                           onchange="this.form.submit()">
+                                    <label class="custom-control-label" for="sort_{{ $val }}" style="font-size:0.85rem;">{{ $label }}</label>
+                                </div>
+                                @endforeach
+                            </form>
+                        </div>
+                    </div>
+
+                    @if($popular->isNotEmpty())
+                    <div class="card border-0 shadow-sm" style="border-radius:10px;">
+                        <div class="card-header text-white font-weight-bold" style="background:#fc5e28;border-radius:10px 10px 0 0;font-size:0.85rem;">
+                            <span class="fa fa-fire mr-2"></span>Most Downloaded
+                        </div>
+                        <div class="card-body p-2">
+                            <ul class="list-unstyled mb-0">
+                                @foreach($popular as $pf)
+                                <li class="py-2" style="border-bottom:1px solid #f5f5f5;">
+                                    <a href="{{ route('forms.show', $pf->slug) }}" class="text-dark" style="font-size:0.82rem;text-decoration:none;">
+                                        <span class="fa fa-download mr-1" style="color:#fc5e28;"></span>
+                                        {{ \Illuminate\Support\Str::limit($pf->title, 45) }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @endif
+
+                </x-form-sidebar>
             </div>
         </div>
     </div>
