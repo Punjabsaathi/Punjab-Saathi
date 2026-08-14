@@ -713,27 +713,6 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    document.querySelectorAll('.psk-faq-new__q').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            var item = this.closest('.psk-faq-new__item');
-            var isOpen = item.classList.contains('psk-faq-new__item--open');
-            document.querySelectorAll('.psk-faq-new__item').forEach(function (i) {
-                i.classList.remove('psk-faq-new__item--open');
-                i.querySelector('.psk-faq-new__q').setAttribute('aria-expanded', 'false');
-            });
-            if (!isOpen) {
-                item.classList.add('psk-faq-new__item--open');
-                this.setAttribute('aria-expanded', 'true');
-            }
-        });
-        btn.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-    });
-
     var form = document.getElementById('psk-contact-form');
     var btn  = document.getElementById('psk-submit-btn');
     if (form && btn) {

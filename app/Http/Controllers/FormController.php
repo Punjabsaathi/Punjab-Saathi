@@ -82,11 +82,11 @@ class FormController extends Controller
         // Increment counter (queued for performance)
         $form->increment('download_count');
 
-        if (!Storage::exists($form->file_path)) {
+        if (!Storage::disk('public')->exists($form->file_path)) {
             abort(404, 'File not found.');
         }
 
-        return Storage::download(
+        return Storage::disk('public')->download(
             $form->file_path,
             $form->file_name ?: ($form->slug . '.pdf'),
             ['Content-Type' => $form->file_mime]
