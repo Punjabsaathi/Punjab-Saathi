@@ -15,7 +15,7 @@
             </a>
         </div>
 
-        <table class="table table-dark">
+        <table class="table table-hover align-middle table-light-head">
 
             <thead>
                 <tr>

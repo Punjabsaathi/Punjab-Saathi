@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Filament\Resources\ServiceApplicationResource;
 use App\Models\Service;
 use App\Models\ServiceApplication;
 use App\Http\Requests\ServiceApplicationRequest;
+use App\Services\FormNotificationService;
+use App\Support\FormSubmissionData;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;  // ← make sure this is imported at the top
@@ -74,7 +77,7 @@ class ServiceController extends Controller
             }
         }
 
-        ServiceApplication::create([
+        $application = ServiceApplication::create([
             'service_id'     => $service->id,
             'reference_no'   => ServiceApplication::generateReference(),
             'name'           => $request->name,
@@ -86,6 +89,25 @@ class ServiceController extends Controller
             'status'         => 'pending',
             'ip_address'     => $request->ip(),
         ]);
+
+        /* ── Notify (never blocks/fails the response) ── */
+        FormNotificationService::send(new FormSubmissionData(
+            formType: 'Service Application — ' . $service->title,
+            referenceNo: $application->reference_no,
+            submittedAt: $application->created_at->format('d M Y, h:i A'),
+            statusLabel: 'Pending Review',
+            nextSteps: 'Our team will review your details and documents, then begin processing your request. You can track your application anytime at '
+                . config('site.website') . '/track-application using your reference number.',
+            recipientName: $application->name,
+            recipientEmail: $application->email,
+            recipientPhone: $application->phone,
+            details: [
+                'Service' => $service->title,
+                'Address' => $application->address,
+                'Message' => $application->message,
+            ],
+            adminUrl: ServiceApplicationResource::getUrl('view', ['record' => $application]),
+        ));
 
         return redirect()
             ->route('services.show', $service->slug)

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\StatusChangeData;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -47,6 +48,20 @@ class ContactQuery extends Model
             'resolved'    => '<span class="badge bg-success">Resolved</span>',
             default       => '',
         };
+    }
+
+    public function toStatusChangeData(string $previousStatus): StatusChangeData
+    {
+        return new StatusChangeData(
+            formType: 'Contact Query',
+            referenceNo: null,
+            previousStatusLabel: ucwords(str_replace('_', ' ', $previousStatus)),
+            newStatusLabel: ucwords(str_replace('_', ' ', $this->status)),
+            note: null,
+            recipientName: $this->name,
+            recipientEmail: $this->email,
+            recipientPhone: $this->phone,
+        );
     }
 
     public function getSubjectLabelAttribute(): string

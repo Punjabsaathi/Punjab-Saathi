@@ -10,6 +10,11 @@ return [
     'website'  => 'https://punjabsaathi.in',
     'whatsapp' => 'https://wa.me/917710556330',
 
+    'admin_notification_emails' => array_values(array_filter(array_map(
+        'trim',
+        explode(',', env('ADMIN_NOTIFICATION_EMAIL', 'info@punjabsaathi.in'))
+    ))),
+
     'social' => [
         'facebook'  => 'https://facebook.com/profile.php?id=61592280697514',
         'instagram' => 'https://instagram.com/punjabsaathi',

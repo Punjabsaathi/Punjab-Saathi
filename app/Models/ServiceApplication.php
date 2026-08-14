@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\StatusChangeData;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -48,5 +49,30 @@ class ServiceApplication extends Model
         public function trackingHistory()
     {
         return $this->hasMany(ApplicationTrackingHistory::class)->latest();
+    }
+
+    public function toStatusChangeData(string $previousStatus): StatusChangeData
+    {
+        $note = null;
+        $notes = $this->admin_notes ?? [];
+
+        if (! empty($notes)) {
+            $lastEntry = end($notes);
+
+            if (($lastEntry['status'] ?? null) === $this->status) {
+                $note = $lastEntry['note'] ?? null;
+            }
+        }
+
+        return new StatusChangeData(
+            formType: 'Service Application' . ($this->service?->title ? ' — ' . $this->service->title : ''),
+            referenceNo: $this->reference_no,
+            previousStatusLabel: ucwords(str_replace('_', ' ', $previousStatus)),
+            newStatusLabel: ucwords(str_replace('_', ' ', $this->status)),
+            note: $note,
+            recipientName: $this->name,
+            recipientEmail: $this->email,
+            recipientPhone: $this->phone,
+        );
     }
 }

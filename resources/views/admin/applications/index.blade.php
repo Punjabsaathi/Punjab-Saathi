@@ -1,9 +1,9 @@
 <div class="bg-secondary rounded p-4">
     <h6 class="mb-4">Recent Service Applications</h6>
     <div class="table-responsive">
-        <table class="table text-start align-middle table-bordered table-hover mb-0">
+        <table class="table text-start align-middle table-bordered table-hover table-light-head mb-0">
             <thead>
-                <tr class="text-white">
+                <tr>
                     <th>Ref No</th>
                     <th>Date</th>
                     <th>Service</th>

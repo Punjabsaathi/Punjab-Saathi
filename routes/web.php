@@ -80,13 +80,13 @@ Route::post('/blog/{slug}/comment', [BlogController::class, 'storeComment'])->na
 /**/
 // Protected admin routes
 // Public auth routes
-Route::prefix('psk-admin')->name('admin.')->group(function () {
+Route::prefix('admin-legacy')->name('admin.')->group(function () {
     Route::get('/login',  [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 });
 
 // Protected routes
-Route::prefix(' ')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin-legacy')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('blogs', BlogController::class);

@@ -7,12 +7,15 @@ namespace App\Http\Controllers;
 // ─────────────────────────────────────────────────────────
 
 use Illuminate\Http\Request;
+use App\Filament\Resources\GovJobFormRequestResource;
 use App\Models\GovJob;
 use App\Models\GovJobCategory;
 use App\Models\GovJobAdmitCard;
 use App\Models\GovJobResult;
 use App\Models\GovJobAnswerKey;
 use App\Models\GovJobFormRequest;
+use App\Services\FormNotificationService;
+use App\Support\FormSubmissionData;
 
 class JobsController extends Controller
 {
@@ -177,7 +180,25 @@ class JobsController extends Controller
             'message'      => 'nullable|string|max:1000',
         ]);
 
-        GovJobFormRequest::create($validated);
+        $formRequest = GovJobFormRequest::create($validated);
+
+        /* ── Notify (never blocks/fails the response) ── */
+        FormNotificationService::send(new FormSubmissionData(
+            formType: 'Job Form Help Request',
+            referenceNo: null,
+            submittedAt: $formRequest->created_at->format('d M Y, h:i A'),
+            statusLabel: 'Pending',
+            nextSteps: 'Our team will call you within a few hours to assist with your request.',
+            recipientName: $formRequest->name,
+            recipientEmail: $formRequest->email,
+            recipientPhone: $formRequest->phone,
+            details: [
+                'Help Needed With' => ucwords(str_replace('_', ' ', $formRequest->service_type)),
+                'Job / Exam Name'  => $formRequest->job_name,
+                'Message'          => $formRequest->message,
+            ],
+            adminUrl: GovJobFormRequestResource::getUrl('edit', ['record' => $formRequest]),
+        ));
 
         return back()->with('success', 'Your request has been submitted! We will call you within a few hours.');
     }
