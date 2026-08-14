@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Filament\Resources\ContactQueryResource;
 use App\Models\ContactQuery;
+use App\Services\FormNotificationService;
+use App\Support\FormSubmissionData;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -40,7 +43,7 @@ class ContactController extends Controller
         ]);
 
         /* ── Save to DB ── */
-        ContactQuery::create([
+        $contactQuery = ContactQuery::create([
             'name'       => $validated['name'],
             'phone'      => $validated['phone'],
             'email'      => $validated['email'] ?? null,
@@ -51,6 +54,23 @@ class ContactController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
+
+        /* ── Notify (never blocks/fails the response) ── */
+        FormNotificationService::send(new FormSubmissionData(
+            formType: 'Contact Query',
+            referenceNo: null,
+            submittedAt: $contactQuery->created_at->format('d M Y, h:i A'),
+            statusLabel: 'Received',
+            nextSteps: 'Our support team typically responds within 24–48 hours. For urgent matters, reach out to us on WhatsApp.',
+            recipientName: $contactQuery->name,
+            recipientEmail: $contactQuery->email,
+            recipientPhone: $contactQuery->phone,
+            details: [
+                'Subject' => $contactQuery->subject_label,
+                'Message' => $contactQuery->message,
+            ],
+            adminUrl: ContactQueryResource::getUrl('view', ['record' => $contactQuery]),
+        ));
 
         return redirect()
             ->route('contact')

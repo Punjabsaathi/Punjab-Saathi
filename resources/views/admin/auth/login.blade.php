@@ -5,6 +5,12 @@
     <title>Admin Login - Punjab Sewa Kendra</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+    <link href="{{ asset('images/punjab_seva_kendra.png') }}" rel="icon" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -32,11 +38,9 @@
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
 
                         {{-- Header --}}
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h3 class="text-primary">
-                                <i class="fa fa-user-edit me-2"></i>Punjab Sewa Kendra
-                            </h3>
-                            <h3>Sign In</h3>
+                        <div class="text-center mb-4">
+                            <img src="{{ asset('images/punjab_seva_kendra.png') }}" alt="Punjab Seva Kendra" class="login-brand-logo mb-3">
+                            <h3 class="mb-0">Admin Sign In</h3>
                         </div>
 
                         {{-- Error --}}

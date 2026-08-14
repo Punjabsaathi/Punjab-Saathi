@@ -2,9 +2,7 @@
     <nav class="navbar bg-secondary navbar-dark">
 
         <a href="{{ route('admin.dashboard') }}" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary">
-                <i class="fa fa-user-edit me-2"></i>PSK Admin
-            </h3>
+            <img src="{{ asset('images/punjab_seva_kendra.png') }}" alt="Punjab Seva Kendra" class="sidebar-brand-logo">
         </a>
         <div class="navbar-nav w-100">
 

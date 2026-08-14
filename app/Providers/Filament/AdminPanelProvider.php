@@ -31,8 +31,13 @@
                 ->path('psk-admin')
                 ->login()
                 // ->registration(Register::class)  // ← add this line
+                ->brandName('Punjab Seva Kendra')
+                ->brandLogo(asset('images/punjab_seva_kendra.png'))
+                ->brandLogoHeight('2.5rem')
+                ->favicon(asset('images/punjab_seva_kendra.png'))
+                ->font('Roboto')
                 ->colors([
-                    'primary' => Color::Amber,
+                    'primary' => Color::hex('#fc5e28'),
                 ])
                 ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
                 ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -42,7 +47,7 @@
                 ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
                 ->widgets([
                     Widgets\AccountWidget::class,
-                    Widgets\FilamentInfoWidget::class,
+                    \App\Filament\Widgets\DashboardStatsOverview::class,
                 ])
                 ->middleware([
                     EncryptCookies::class,

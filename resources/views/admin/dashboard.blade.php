@@ -12,7 +12,7 @@
                 <i class="fa fa-envelope fa-3x text-primary"></i>
                 <div class="ms-3">
                     <p class="mb-2">Total Inquiries</p>
-                    <h6 class="mb-0">0</h6>
+                    <h6 class="mb-0">{{ $stats['inquiries'] ?? 0 }}</h6>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                 <i class="fa fa-blog fa-3x text-primary"></i>
                 <div class="ms-3">
                     <p class="mb-2">Total Blogs</p>
-                    <h6 class="mb-0">0</h6>
+                    <h6 class="mb-0">{{ $stats['blogs'] ?? 0 }}</h6>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <i class="fa fa-project-diagram fa-3x text-primary"></i>
                 <div class="ms-3">
                     <p class="mb-2">Total Projects</p>
-                    <h6 class="mb-0">0</h6>
+                    <h6 class="mb-0">{{ $stats['projects'] ?? 0 }}</h6>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 <i class="fa fa-users fa-3x text-primary"></i>
                 <div class="ms-3">
                     <p class="mb-2">Total Users</p>
-                    <h6 class="mb-0">0</h6>
+                    <h6 class="mb-0">{{ $stats['users'] ?? 0 }}</h6>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-secondary text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Monthly Inquiries</h6>
+                    <h6 class="mb-0">Monthly Inquiries ({{ now()->year }})</h6>
                 </div>
                 <canvas id="worldwide-sales"></canvas>
             </div>
@@ -60,7 +60,7 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-secondary text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Blog Posts Overview</h6>
+                    <h6 class="mb-0">Blog Posts Overview ({{ now()->year }})</h6>
                     <a href="{{ route('admin.blogs.index') }}">Show All</a>
                 </div>
                 <canvas id="salse-revenue"></canvas>
@@ -86,7 +86,7 @@
                     <div class="w-100 ms-3">
                         <div class="d-flex w-100 justify-content-between">
                             <h6 class="mb-0">{{ Str::limit($blog->title, 30) }}</h6>
-                            <small>{{ $blog->created_at->diffForHumans() }}</small>
+                            <small>{{ \Carbon\Carbon::parse($blog->created_at)->diffForHumans() }}</small>
                         </div>
                         <span>{{ ucfirst($blog->status ?? 'draft') }}</span>
                     </div>
@@ -126,19 +126,21 @@
 
 @push('scripts')
 <script>
+    var monthLabels = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
     // Monthly Inquiries Chart
     var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
     new Chart(ctx1, {
         type: "bar",
         data: {
-            labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+            labels: monthLabels,
             datasets: [{
                 label: "Inquiries",
-                data: [15, 25, 20, 35, 30, 45, 40, 55, 50, 60, 55, 70],
-                backgroundColor: "rgba(0, 156, 255, .7)"
+                data: @json($monthlyInquiries ?? array_fill(0, 12, 0)),
+                backgroundColor: "rgba(252, 94, 40, .7)"
             }]
         },
-        options: { responsive: true }
+        options: { responsive: true, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
     });
 
     // Blog Overview Chart
@@ -146,16 +148,16 @@
     new Chart(ctx2, {
         type: "line",
         data: {
-            labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul"],
+            labels: monthLabels,
             datasets: [{
                 label: "Blog Posts",
-                data: [3, 7, 5, 10, 8, 15, 12],
-                backgroundColor: "rgba(0, 156, 255, .3)",
-                borderColor: "rgba(0, 156, 255, 1)",
+                data: @json($monthlyBlogs ?? array_fill(0, 12, 0)),
+                backgroundColor: "rgba(252, 94, 40, .3)",
+                borderColor: "rgba(252, 94, 40, 1)",
                 fill: true
             }]
         },
-        options: { responsive: true }
+        options: { responsive: true, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
     });
 </script>
 @endpush

@@ -23,6 +23,9 @@
                         <input type="text" name="phone" class="form-control" placeholder="Phone" required>
                     </div>
                     <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Email (optional, to receive confirmation)">
+                    </div>
+                    <div class="form-group">
                         <div class="select-wrap">
                             <div class="icon"><span class="fa fa-chevron-down"></span></div>
                             <select name="service" class="form-control">
