@@ -95,14 +95,17 @@ Route::prefix('admin-legacy')->name('admin.')->middleware(['auth', 'admin'])->gr
 });
 Route::prefix('api/chatbot')->group(function () {
 
+    // Debug/manual-testing view — intentionally left outside the rate
+    // limiter so opening the widget itself is never throttled.
     Route::get('widget', function () {
         return view('chatbot.Widget');
     });
-    Route::post('/session', [ChatbotController::class, 'startSession']);
 
-    Route::post('/message', [ChatbotController::class, 'sendMessage']);
-
-    Route::get('/history', [ChatbotController::class, 'getHistory']);
+    Route::middleware('chatbot.rate')->group(function () {
+        Route::post('/session', [ChatbotController::class, 'startSession']);
+        Route::post('/message', [ChatbotController::class, 'sendMessage']);
+        Route::get('/history', [ChatbotController::class, 'getHistory']);
+    });
 
 });
 

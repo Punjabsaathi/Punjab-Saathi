@@ -19,7 +19,9 @@ class ChatbotRateLimiter
             ? 'user:' . $request->user()->id
             : 'ip:' . $request->ip();
 
-        $limit = $request->user() ? 60 : 30;
+        $limit = $request->user()
+            ? config('chatbot.rate_user', 60)
+            : config('chatbot.rate_guest', 30);
 
         $executed = RateLimiter::attempt(
             key:          'chatbot:' . $identifier,

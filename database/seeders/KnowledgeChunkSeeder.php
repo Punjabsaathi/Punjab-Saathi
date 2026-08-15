@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Service;
 use App\Models\ServiceFaq;
 use App\Models\ServiceDocument;
+use App\Models\GovForm;
+use App\Models\GovJob;
+use App\Models\Blog;
 
 class KnowledgeChunkSeeder extends Seeder
 {
@@ -36,6 +39,7 @@ class KnowledgeChunkSeeder extends Seeder
                     "Description: {$service->short_desc}",
                     "Overview: {$overview}",
                     "Eligibility: {$eligibility}",
+                    "URL: " . route('services.show', $service->slug),
                 ])),
                 'metadata'    => json_encode([
                     'slug'     => $service->slug,
@@ -126,6 +130,156 @@ class KnowledgeChunkSeeder extends Seeder
             }
 
             $this->command->info("✅ Chunked: {$service->title}");
+        }
+
+        // ── GovForm + FormFaq ────────────────────────────────────────
+        $forms = GovForm::where('is_active', true)->with('category', 'faqs')->get();
+        $this->command->info("📦 Found {$forms->count()} active gov forms");
+
+        foreach ($forms as $form) {
+            DB::table('knowledge_chunks')->insert([
+                'source_type' => 'form',
+                'source_id'   => $form->id,
+                'chunk_index' => 0,
+                'title'       => $form->title,
+                'content'     => implode("\n", array_filter([
+                    "Form: {$form->title}",
+                    "Category: {$form->category?->name}",
+                    "Description: {$form->short_description}",
+                    "Details: " . strip_tags($form->full_description ?? ''),
+                    "URL: " . route('forms.show', $form->slug),
+                ])),
+                'metadata'    => json_encode(['slug' => $form->slug]),
+                'is_active'   => true,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ]);
+
+            foreach ($form->faqs as $index => $faq) {
+                DB::table('knowledge_chunks')->insert([
+                    'source_type' => 'form',
+                    'source_id'   => $form->id,
+                    'chunk_index' => $index + 1,
+                    'title'       => $form->title . ' — FAQ: ' . $faq->question,
+                    'content'     => implode("\n", [
+                        "Form: {$form->title}",
+                        "Question: {$faq->question}",
+                        "Answer: {$faq->answer}",
+                    ]),
+                    'metadata'    => json_encode(['slug' => $form->slug]),
+                    'is_active'   => true,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ]);
+            }
+
+            $this->command->info("✅ Chunked form: {$form->title}");
+        }
+
+        // ── GovJob + GovJobFaq ───────────────────────────────────────
+        $jobs = GovJob::where('is_published', true)->with('faqs')->get();
+        $this->command->info("📦 Found {$jobs->count()} published gov jobs");
+
+        foreach ($jobs as $job) {
+            $feeLines = collect($job->application_fee ?? [])
+                ->map(fn($v, $k) => is_array($v) ? null : "• {$k}: {$v}")
+                ->filter()
+                ->implode("\n");
+
+            $stepsLines = collect($job->application_steps ?? [])
+                ->map(fn($v) => is_string($v) ? "• {$v}" : null)
+                ->filter()
+                ->implode("\n");
+
+            $docsLines = collect($job->required_documents ?? [])
+                ->map(fn($v) => is_string($v) ? "• {$v}" : null)
+                ->filter()
+                ->implode("\n");
+
+            DB::table('knowledge_chunks')->insert([
+                'source_type' => 'job',
+                'source_id'   => $job->id,
+                'chunk_index' => 0,
+                'title'       => $job->title,
+                'content'     => implode("\n", array_filter([
+                    "Job: {$job->title}",
+                    "Department: {$job->department}",
+                    "Description: {$job->short_description}",
+                    "Qualification: {$job->qualification}",
+                    "Salary / Pay Scale: {$job->salary_pay_scale}",
+                    $docsLines ? "Required Documents:\n{$docsLines}" : null,
+                    "URL: " . route('jobs.show', $job->slug),
+                ])),
+                'metadata'    => json_encode(['slug' => $job->slug]),
+                'is_active'   => true,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ]);
+
+            DB::table('knowledge_chunks')->insert([
+                'source_type' => 'job',
+                'source_id'   => $job->id,
+                'chunk_index' => 1,
+                'title'       => $job->title . ' — Dates & How to Apply',
+                'content'     => implode("\n", array_filter([
+                    "Job: {$job->title}",
+                    "Apply Start: " . ($job->apply_start?->format('d M Y') ?? 'N/A'),
+                    "Apply End: " . ($job->apply_end?->format('d M Y') ?? 'N/A'),
+                    "Exam Date: " . ($job->exam_date?->format('d M Y') ?? 'N/A'),
+                    "Application Mode: {$job->application_mode}",
+                    $feeLines ? "Application Fee:\n{$feeLines}" : null,
+                    $stepsLines ? "How to Apply:\n{$stepsLines}" : null,
+                ])),
+                'metadata'    => json_encode(['slug' => $job->slug]),
+                'is_active'   => true,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ]);
+
+            foreach ($job->faqs as $index => $faq) {
+                DB::table('knowledge_chunks')->insert([
+                    'source_type' => 'job',
+                    'source_id'   => $job->id,
+                    'chunk_index' => $index + 2,
+                    'title'       => $job->title . ' — FAQ: ' . $faq->question,
+                    'content'     => implode("\n", [
+                        "Job: {$job->title}",
+                        "Question: {$faq->question}",
+                        "Answer: {$faq->answer}",
+                    ]),
+                    'metadata'    => json_encode(['slug' => $job->slug]),
+                    'is_active'   => true,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ]);
+            }
+
+            $this->command->info("✅ Chunked job: {$job->title}");
+        }
+
+        // ── Blog ─────────────────────────────────────────────────────
+        $blogs = Blog::published()->get();
+        $this->command->info("📦 Found {$blogs->count()} published blog posts");
+
+        foreach ($blogs as $blog) {
+            DB::table('knowledge_chunks')->insert([
+                'source_type' => 'blog',
+                'source_id'   => $blog->id,
+                'chunk_index' => 0,
+                'title'       => $blog->title,
+                'content'     => implode("\n", array_filter([
+                    "Blog: {$blog->title}",
+                    "Excerpt: {$blog->excerpt}",
+                    "Content: " . strip_tags($blog->content ?? ''),
+                    "URL: " . route('blog.show', $blog->slug),
+                ])),
+                'metadata'    => json_encode(['slug' => $blog->slug]),
+                'is_active'   => true,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ]);
+
+            $this->command->info("✅ Chunked blog: {$blog->title}");
         }
 
         $total = DB::table('knowledge_chunks')->count();

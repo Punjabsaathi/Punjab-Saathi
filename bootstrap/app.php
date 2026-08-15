@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Register your admin middleware here
         $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'admin'        => \App\Http\Middleware\AdminMiddleware::class,
+            'chatbot.rate' => \App\Http\Middleware\ChatbotRateLimiter::class,
         ]);
         $middleware->validateCsrfTokens(except: [
         'api/chatbot/*',
