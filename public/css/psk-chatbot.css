@@ -2,6 +2,12 @@
    Design tokens matched to the real site (public/css/custom.css,
    public/css/psk-services-detail.css) — navy #040e26/#0f2050, orange
    #fc5e28, Roboto (already loaded globally, no local override needed). */
+/* Alpine hasn't mounted yet on first paint (alpine.min.js loads with
+   `defer`) — without this, #psk-chatbot-window briefly renders in its
+   default visible state before Alpine applies x-show="open" (open is
+   false), which looks like the chat window flashing open on page load. */
+[x-cloak] { display: none !important; }
+
 :root {
   --psk-primary:   #040e26;
   --psk-primary-2: #0f2050;
@@ -167,7 +173,7 @@
   background: #fff; flex-shrink: 0;
 }
 .psk-input-row { display: flex; align-items: center; gap: 8px; }
-.psk-input {
+.psk-chat-input {
   flex: 1; padding: 10px 14px; border-radius: 24px;
   border: 1.5px solid var(--psk-border);
   font-size: 13.5px; outline: none; resize: none;
@@ -175,7 +181,7 @@
   transition: border-color 0.15s;
   max-height: 100px; overflow-y: auto;
 }
-.psk-input:focus { border-color: var(--psk-accent); background: #fff; }
+.psk-chat-input:focus { border-color: var(--psk-accent); background: #fff; }
 .psk-send-btn {
   width: 40px; height: 40px; border-radius: 50%;
   background: var(--psk-accent); border: none; cursor: pointer;

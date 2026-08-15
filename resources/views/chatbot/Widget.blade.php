@@ -11,7 +11,7 @@
   </button>
 
   {{-- Chat Window --}}
-  <div id="psk-chatbot-window" x-show="open" x-transition:enter="transition ease-out duration-200"
+  <div id="psk-chatbot-window" x-show="open" x-cloak x-transition:enter="transition ease-out duration-200"
        x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
        x-transition:leave="transition ease-in duration-150"
        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
@@ -81,7 +81,7 @@
     {{-- Input area --}}
     <div class="psk-input-area">
       <div class="psk-input-row">
-        <textarea class="psk-input" x-model="inputText" rows="1"
+        <textarea class="psk-chat-input" x-model="inputText" rows="1"
                   :placeholder="placeholder"
                   @keydown.enter.prevent="if (!$event.shiftKey) sendMessage()"
                   @input="autoResize($event.target)"

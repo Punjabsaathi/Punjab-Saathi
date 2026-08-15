@@ -4,6 +4,7 @@ namespace App\Services\RAG;
 
 use App\Models\ChatMessage;
 use App\Models\ChatSession;
+use App\Models\Service;
 use App\Models\ServiceApplication;
 use App\Services\AI\GeminiService;
 use App\Services\Embedding\EmbeddingService;
@@ -32,6 +33,17 @@ class RagPipelineService
             if ($statusResponse !== null) {
                 return $statusResponse;
             }
+        }
+
+        // Step 2b: "View services" / "Popular services" style navigational
+        // quick-replies are exact known button labels, not real questions —
+        // there's no single knowledge chunk that represents "the full list
+        // of services" (every chunk is about one specific service), so
+        // vector search never scores any of them above the similarity
+        // threshold for this generic phrasing. Handle it directly instead
+        // of letting it fall through to the "no information" fallback.
+        if ($this->isBrowseServicesQuery($query)) {
+            return $this->handleBrowseServices($language);
         }
 
         // Step 3: Translate to English for embedding only if not English
@@ -234,6 +246,63 @@ class RagPipelineService
             'intent'        => 'status_check',
             'sources'       => [],
             'quick_replies' => ['Required documents', 'Processing time', 'Contact helpline'],
+            'tokens'        => 0,
+            'provider'      => null,
+        ];
+    }
+
+    /**
+     * Known exact button labels (all languages, all the places the widget
+     * emits them: the JS greeting's quick-replies and this service's own
+     * generateQuickReplies()) that mean "show me the services list" rather
+     * than being a real natural-language question.
+     */
+    protected function isBrowseServicesQuery(string $query): bool
+    {
+        $normalized = mb_strtolower(trim($query));
+
+        return in_array($normalized, [
+            'view services',
+            'popular services',
+            'services available',
+            'सेवाएं देखें',
+            'लोकप्रिय सेवाएं',
+            'ਸੇਵਾਵਾਂ ਵੇਖੋ',
+            'ਪ੍ਰਸਿੱਧ ਸੇਵਾਵਾਂ',
+        ], true);
+    }
+
+    /**
+     * Direct, deterministic list of services — bypasses embedding search
+     * and the LLM entirely since this isn't a question that needs
+     * reasoning over retrieved context, just a real list + a link.
+     */
+    protected function handleBrowseServices(string $language): array
+    {
+        $services = Service::where('is_active', true)
+            ->orderByDesc('is_popular')
+            ->orderBy('title')
+            ->limit(8)
+            ->get(['title', 'slug']);
+
+        $servicesUrl = route('services.index');
+
+        if ($services->isEmpty()) {
+            $answer = "You can view all our services at {$servicesUrl}.";
+        } else {
+            $list = $services->map(fn($s) => "• {$s->title}")->implode("\n");
+            $answer = "Here are some of our services:\n\n{$list}\n\nSee the full list at {$servicesUrl}.";
+        }
+
+        if ($language !== 'en') {
+            $answer = $this->gemini->translate($answer, $language);
+        }
+
+        return [
+            'answer'        => $answer,
+            'intent'        => 'service_info',
+            'sources'       => [],
+            'quick_replies' => ['Required documents', 'Processing time', 'Application fee'],
             'tokens'        => 0,
             'provider'      => null,
         ];
