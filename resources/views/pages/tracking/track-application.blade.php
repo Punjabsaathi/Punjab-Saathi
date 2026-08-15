@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Track Your Application - Punjab Seva Kendra')
+@section('title', 'Track Your Application - Punjab Saathi')
 
 @push('styles')
 <style>
@@ -387,7 +387,7 @@
             @php
             $tips = [
                 ['icon' => 'fa-whatsapp', 'color' => '#25D366', 'bg' => 'rgba(37,211,102,0.1)', 'title' => 'WhatsApp Message', 'desc' => 'We send your reference number on WhatsApp immediately after you submit your application. Search for "PSK-" in your WhatsApp chats.'],
-                ['icon' => 'fa-envelope', 'color' => '#007bff', 'bg' => 'rgba(0,123,255,0.1)',  'title' => 'Email Confirmation', 'desc' => 'Check your email inbox (and spam folder) for a confirmation email from Punjab Seva Kendra. The reference number is in the subject line.'],
+                ['icon' => 'fa-envelope', 'color' => '#007bff', 'bg' => 'rgba(0,123,255,0.1)',  'title' => 'Email Confirmation', 'desc' => 'Check your email inbox (and spam folder) for a confirmation email from Punjab Saathi. The reference number is in the subject line.'],
                 ['icon' => 'fa-headphones','color' => '#fc5e28', 'bg' => 'rgba(252,94,40,0.1)', 'title' => 'Contact Support',   'desc' => 'Can\'t find it? WhatsApp us your full name and phone number — we will look up your application and share the reference number.'],
             ];
             @endphp
@@ -414,7 +414,7 @@
 <a href="https://wa.me/91XXXXXXXXXX?text=Hello%2C%20I%20need%20help%20tracking%20my%20application"
     target="_blank"
     rel="noopener"
-    title="Chat with Punjab Seva Kendra on WhatsApp"
+    title="Chat with Punjab Saathi on WhatsApp"
     style="position:fixed;bottom:24px;right:24px;z-index:9999;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 4px 18px rgba(37,211,102,0.45);text-decoration:none;">
     <span class="fa fa-whatsapp"></span>
 </a>

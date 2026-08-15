@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Admin Login - Punjab Sewa Kendra</title>
+    <title>Admin Login - Punjab Saathi</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <link href="{{ asset('images/punjab_seva_kendra.png') }}" rel="icon" type="image/png">
@@ -39,7 +39,7 @@
 
                         {{-- Header --}}
                         <div class="text-center mb-4">
-                            <img src="{{ asset('images/punjab_seva_kendra.png') }}" alt="Punjab Seva Kendra" class="login-brand-logo mb-3">
+                            <img src="{{ asset('images/punjab_seva_kendra.png') }}" alt="Punjab Saathi" class="login-brand-logo mb-3">
                             <h3 class="mb-0">Admin Sign In</h3>
                         </div>
 

@@ -1,5 +1,5 @@
 /**
- * Punjab Seva Kendra — Service Detail Page JS
+ * Punjab Saathi — Service Detail Page JS
  * File: public/js/psk-services-detail.js
  * Load AFTER: jquery.min.js, bootstrap.bundle.min.js
  * Uses NO jQuery — plain ES5 for broad compatibility

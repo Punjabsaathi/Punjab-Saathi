@@ -66,7 +66,7 @@ return [
     | Branding
     |--------------------------------------------------------------------------
     */
-    'brand_name' => env('CHATBOT_BRAND', 'Punjab Seva Kendra'),
+    'brand_name' => env('CHATBOT_BRAND', 'Punjab Saathi'),
     'helpline'   => env('CHATBOT_HELPLINE', '1800-180-xxxx'),
 
     /*

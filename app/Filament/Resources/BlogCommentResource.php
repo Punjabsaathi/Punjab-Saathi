@@ -119,7 +119,7 @@ class BlogCommentResource extends Resource
 
                         Forms\Components\TextInput::make('name')
                             ->label('Your Name')
-                            ->default('Punjab Seva Kendra')
+                            ->default('Punjab Saathi')
                             ->required(),
 
                         Forms\Components\TextInput::make('email')

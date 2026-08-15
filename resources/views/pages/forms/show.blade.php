@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($form->seo_title ?? $form->title) . ' – Punjab Seva Kendra')
+@section('title', ($form->seo_title ?? $form->title) . ' – Punjab Saathi')
 @section('meta_description', $form->meta_description ?? $form->short_description)
 
 @section('content')

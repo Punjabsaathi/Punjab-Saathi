@@ -94,8 +94,8 @@ class ContactController extends Controller
                 'answer'   => 'Our team supports Punjabi (ਪੰਜਾਬੀ), Hindi (हिंदी), and English. You can choose your preferred language when submitting this form and we will reply accordingly.',
             ],
             [
-                'question' => 'Is Punjab Seva Kendra an official government office?',
-                'answer'   => 'Punjab Seva Kendra is an authorised Common Service Centre (CSC) — a private assistance platform that helps citizens apply through official government portals. We are not a government office, but we work with government systems to assist you.',
+                'question' => 'Is Punjab Saathi an official government office?',
+                'answer'   => 'Punjab Saathi is an authorised Common Service Centre (CSC) — a private assistance platform that helps citizens apply through official government portals. We are not a government office, but we work with government systems to assist you.',
             ],
             [
                 'question' => 'What documents do I need to bring or send for service applications?',

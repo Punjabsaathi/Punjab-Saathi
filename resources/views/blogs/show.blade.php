@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $post->seo_title . ' - Punjab Seva Kendra')
+@section('title', $post->seo_title . ' - Punjab Saathi')
 @section('meta_description', $post->seo_description)
 
 @push('head')
@@ -21,8 +21,8 @@
         'description'   => $post->seo_description,
         'datePublished' => $post->published_at?->toIso8601String(),
         'dateModified'  => $post->updated_at->toIso8601String(),
-        'author'        => ['@type' => 'Person', 'name' => $post->author?->name ?? 'Punjab Seva Kendra'],
-        'publisher'     => ['@type' => 'Organization', 'name' => 'Punjab Seva Kendra', 'url' => url('/')],
+        'author'        => ['@type' => 'Person', 'name' => $post->author?->name ?? 'Punjab Saathi'],
+        'publisher'     => ['@type' => 'Organization', 'name' => 'Punjab Saathi', 'url' => url('/')],
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
     $faqJson = null;
@@ -99,7 +99,7 @@
                     <div class="psk-article-author">
                         <div class="psk-article-author__avatar">{{ strtoupper(substr($post->author?->name ?? 'P', 0, 1)) }}</div>
                         <div>
-                            <span class="psk-article-author__name">{{ $post->author?->name ?? 'Punjab Seva Kendra' }}</span>
+                            <span class="psk-article-author__name">{{ $post->author?->name ?? 'Punjab Saathi' }}</span>
                             <span class="psk-article-author__role">Author</span>
                         </div>
                     </div>

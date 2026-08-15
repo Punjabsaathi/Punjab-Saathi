@@ -139,7 +139,7 @@ class FormController extends Controller
             ],
             'publisher' => [
                 '@type' => 'GovernmentOrganization',
-                'name'  => 'Punjab Seva Kendra',
+                'name'  => 'Punjab Saathi',
                 'url'   => config('app.url'),
             ],
         ];

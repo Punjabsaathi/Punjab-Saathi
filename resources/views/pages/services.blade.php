@@ -2,7 +2,7 @@
 
 @section('title', 'Public Services in Punjab - Punjab Saathi | Aadhaar, PAN, Certificates & More')
 
-@section('meta_description', 'Punjab Seva Kendra offers ' . $totalServices . '+ government services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more. Fast, affordable, doorstep delivery across all 22 districts of Punjab.')
+@section('meta_description', 'Punjab Saathi offers ' . $totalServices . '+ government services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more. Fast, affordable, doorstep delivery across all 22 districts of Punjab.')
 
 @section('content')
 
@@ -68,7 +68,7 @@
                 <span class="subheading">What We Do</span>
                 <h2 class="mb-3">Punjab's Trusted Online Digitel Service Centre</h2>
                 <p class="text-muted" style="font-size:1rem;line-height:1.8;">
-                    Punjab Seva Kendra is an authorised Common Service Centre (CSC) helping families, students,
+                    Punjab Saathi is an authorised Common Service Centre (CSC) helping families, students,
                     farmers, and businesses across Punjab get government documents and certificates — without
                     standing in queues, without wasted trips, and without rejected applications.
                     Simply WhatsApp us, send your documents, and we handle the rest.
@@ -279,7 +279,7 @@ $categoryConfig = [
             <div class="col-md-8 text-center heading-section ftco-animate">
                 <span class="subheading">FAQ</span>
                 <h2 class="mb-4">Frequently Asked Questions</h2>
-                <p class="text-muted">Everything you want to know before applying for a government service through Punjab Seva Kendra.</p>
+                <p class="text-muted">Everything you want to know before applying for a government service through Punjab Saathi.</p>
             </div>
         </div>
 
@@ -301,7 +301,7 @@ $categoryConfig = [
                     ],
                     [
                         'q' => 'Are you an authorised government service centre?',
-                        'a' => 'Yes. Punjab Seva Kendra is an authorised Common Service Centre (CSC) operating under the Digital India initiative. Our operators are trained and certified to handle all state and central government portals.',
+                        'a' => 'Yes. Punjab Saathi is an authorised Common Service Centre (CSC) operating under the Digital India initiative. Our operators are trained and certified to handle all state and central government portals.',
                     ],
                     [
                         'q' => 'What happens if my application gets rejected?',
@@ -354,7 +354,7 @@ $categoryConfig = [
 <a href="https://wa.me/91XXXXXXXXXX?text=Hello%2C%20I%20need%20help%20with%20a%20government%20service"
    target="_blank"
    rel="noopener"
-   title="Chat with Punjab Seva Kendra on WhatsApp"
+   title="Chat with Punjab Saathi on WhatsApp"
    style="position:fixed;bottom:24px;right:24px;z-index:9999;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 4px 18px rgba(37,211,102,0.45);text-decoration:none;">
     <span class="fa fa-whatsapp"></span>
 </a>

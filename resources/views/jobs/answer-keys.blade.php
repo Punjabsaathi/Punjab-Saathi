@@ -1,6 +1,6 @@
 {{-- Save as: resources/views/jobs/answer-keys.blade.php --}}
 @extends('layouts.app')
-@section('title', 'Answer Keys | Official Answer Keys | Punjab Seva Kendra')
+@section('title', 'Answer Keys | Official Answer Keys | Punjab Saathi')
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

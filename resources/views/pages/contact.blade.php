@@ -354,6 +354,7 @@
                     @endif
 
                     <form action="{{ route('contact.submit') }}"
+                          data-psk-loading="Sending your message…"
                           method="POST"
                           id="psk-contact-form"
                           novalidate
@@ -701,7 +702,7 @@
 </section>
 
 {{-- Fixed WhatsApp bubble --}}
-<a href="https://wa.me/9198765XXXXX?text=Hello%20Punjab%20Seva%20Kendra%2C%20I%20need%20help."
+<a href="https://wa.me/9198765XXXXX?text=Hello%20Punjab%20Saathi%2C%20I%20need%20help."
    target="_blank" rel="noopener noreferrer"
    class="psk-wa-bubble"
    title="Chat on WhatsApp"

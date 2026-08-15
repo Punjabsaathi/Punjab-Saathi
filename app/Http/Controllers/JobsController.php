@@ -111,7 +111,7 @@ class JobsController extends Controller
             ->withCount('jobs')->orderBy('sort_order')->get();
 
         // SEO
-        $metaTitle = $job->meta_title ?: $job->title . ' | Punjab Seva Kendra';
+        $metaTitle = $job->meta_title ?: $job->title . ' | Punjab Saathi';
         $metaDesc  = $job->meta_description ?: $job->short_description;
 
         return view('jobs.show', compact('job', 'relatedJobs', 'categories', 'metaTitle', 'metaDesc'));

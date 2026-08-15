@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Form Categories – Punjab Seva Kendra')
+@section('title', 'Form Categories – Punjab Saathi')
 @section('meta_description', 'Browse all government form categories — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.')
 
 @section('content')

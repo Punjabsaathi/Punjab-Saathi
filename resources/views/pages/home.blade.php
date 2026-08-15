@@ -1,5 +1,6 @@
     @extends('layouts.app')
     @section('title', 'Punjab Saathi - Online Public Services in Punjab')
+    @section('meta_description', 'Punjab Saathi offers fast, affordable online government services in Punjab — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep delivery across all 22 districts.')
 
     @section('content')
 

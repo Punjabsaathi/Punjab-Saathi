@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Download Government Forms – Punjab Seva Kendra')
+@section('title', 'Download Government Forms – Punjab Saathi')
 @section('meta_description', 'Browse and download all government forms — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.')
 
 @section('content')

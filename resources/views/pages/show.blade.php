@@ -274,6 +274,7 @@ $serviceSchema = json_encode([
                               id="apply-form"
                               enctype="multipart/form-data"
                               class="psk-apply-form"
+                              data-psk-loading="Submitting your application…"
                               novalidate>
                             @csrf
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('seo_title', config('app.name') . ' – Download Government Forms Online | Punjab')
-@section('meta_description', 'Punjab Seva Kendra — Download PAN Card, Passport, Aadhaar, Voter ID, Driving License, Income Certificate, Caste Certificate and hundreds of other government forms online.')
+@section('meta_description', 'Punjab Saathi — Download PAN Card, Passport, Aadhaar, Voter ID, Driving License, Income Certificate, Caste Certificate and hundreds of other government forms online.')
 @section('og_title', config('app.name') . ' – Download Government Forms Online')
 
 @section('content')
