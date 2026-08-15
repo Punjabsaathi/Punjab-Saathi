@@ -7,7 +7,7 @@
                 </button>
             </div>
             <div class="modal-body p-4 p-md-5">
-                <form action="{{ route('inquiry.store') }}" method="POST" class="appointment-form ftco-animate">
+                <form action="{{ route('inquiry.store') }}" method="POST" class="appointment-form ftco-animate" data-psk-loading="Sending your request…">
                     @csrf
                     <h3>Request Quote</h3>
                     @if(session('inquiry_success'))

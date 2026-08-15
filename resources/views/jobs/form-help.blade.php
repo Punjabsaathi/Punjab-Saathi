@@ -1,6 +1,6 @@
 {{-- Save as: resources/views/jobs/form-help.blade.php --}}
 @extends('layouts.app')
-@section('title', 'Form Filling Help | Government Job Applications | Punjab Seva Kendra')
+@section('title', 'Form Filling Help | Government Job Applications | Punjab Saathi')
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -47,7 +47,7 @@
                         <p>Fill the form below — our team will contact you within a few hours</p>
                     </div>
                     <div class="psk-fh-card__body">
-                        <form action="{{ route('jobs.form-help.submit') }}" method="POST" novalidate>
+                        <form action="{{ route('jobs.form-help.submit') }}" method="POST" novalidate data-psk-loading="Submitting your request…">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -99,7 +99,7 @@
 
             <div class="col-lg-5">
                 <div class="psk-fh-card mb-4">
-                    <div class="psk-fh-card__head"><h4><i class="fas fa-star mr-2"></i>Why Choose Punjab Seva Kendra?</h4></div>
+                    <div class="psk-fh-card__head"><h4><i class="fas fa-star mr-2"></i>Why Choose Punjab Saathi?</h4></div>
                     <div class="psk-fh-card__body" style="padding:16px 24px;">
                         <ul class="psk-why-list">
                             <li><i class="fas fa-check-circle"></i> 100% accurate form filling — zero rejections guaranteed</li>

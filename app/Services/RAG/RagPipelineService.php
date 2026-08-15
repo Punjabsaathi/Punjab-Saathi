@@ -285,7 +285,7 @@ class RagPipelineService
             ->implode("\n");
 
         $helpline  = config('chatbot.helpline', '1800-180-xxxx');
-        $brandName = config('chatbot.brand_name', 'Punjab Seva Kendra');
+        $brandName = config('chatbot.brand_name', 'Punjab Saathi');
 
         return <<<PROMPT
 You are the official AI assistant for {$brandName} — a Government of Punjab digital services platform.

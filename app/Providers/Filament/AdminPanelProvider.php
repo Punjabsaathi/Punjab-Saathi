@@ -31,7 +31,7 @@
                 ->path('psk-admin')
                 ->login()
                 // ->registration(Register::class)  // ← add this line
-                ->brandName('Punjab Seva Kendra')
+                ->brandName('Punjab Saathi')
                 ->brandLogo(asset('images/punjab_seva_kendra.png'))
                 ->brandLogoHeight('2.5rem')
                 ->favicon(asset('images/punjab_seva_kendra.png'))

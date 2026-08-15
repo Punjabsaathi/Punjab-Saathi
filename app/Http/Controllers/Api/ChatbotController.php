@@ -215,9 +215,9 @@ class ChatbotController extends Controller
     protected function getGreeting(string $lang): string
     {
         return match($lang) {
-            'hi'    => 'नमस्ते! मैं Punjab Seva Kendra का AI सहायक हूं। मैं आपकी कैसे मदद कर सकता हूं?',
-            'pa'    => 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ Punjab Seva Kendra ਦਾ AI ਸਹਾਇਕ ਹਾਂ। ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?',
-            default => 'Hello! I\'m the Punjab Seva Kendra AI Assistant. How can I help you today?',
+            'hi'    => 'नमस्ते! मैं Punjab Saathi का AI सहायक हूं। मैं आपकी कैसे मदद कर सकता हूं?',
+            'pa'    => 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ Punjab Saathi ਦਾ AI ਸਹਾਇਕ ਹਾਂ। ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?',
+            default => 'Hello! I\'m the Punjab Saathi AI Assistant. How can I help you today?',
         };
     }
 

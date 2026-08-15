@@ -59,7 +59,7 @@ class Service extends Model
 
     public function getMetaTitleAttribute($value): string
     {
-        return $value ?: "{$this->title} in Punjab | Punjab Seva Kendra";
+        return $value ?: "{$this->title} in Punjab | Punjab Saathi";
     }
 
     public function getMetaDescriptionAttribute($value): string

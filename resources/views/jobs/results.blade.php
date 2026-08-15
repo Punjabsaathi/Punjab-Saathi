@@ -1,6 +1,6 @@
 {{-- Save as: resources/views/jobs/results.blade.php --}}
 @extends('layouts.app')
-@section('title', 'Exam Results | Merit List | Punjab Seva Kendra')
+@section('title', 'Exam Results | Merit List | Punjab Saathi')
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

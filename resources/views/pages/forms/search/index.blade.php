@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($query ? 'Search: ' . $query . ' – ' : 'Search Forms – ') . 'Punjab Seva Kendra')
+@section('title', ($query ? 'Search: ' . $query . ' – ' : 'Search Forms – ') . 'Punjab Saathi')
 
 @section('content')
 

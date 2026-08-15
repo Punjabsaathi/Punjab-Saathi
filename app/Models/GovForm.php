@@ -108,6 +108,6 @@ class GovForm extends Model
 
     public function getSeoTitleDisplayAttribute(): string
     {
-        return $this->seo_title ?: $this->title . ' | Punjab Seva Kendra';
+        return $this->seo_title ?: $this->title . ' | Punjab Saathi';
     }
 }

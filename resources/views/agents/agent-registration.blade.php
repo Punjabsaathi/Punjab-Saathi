@@ -2,7 +2,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'Register CSC Agent / Center - Punjab Seva Kendra')
+@section('title', 'Register CSC Agent / Center - Punjab Saathi')
 
 @section('content')
 
@@ -81,7 +81,7 @@
                     style="background:#fff;border-radius:16px;padding:40px 40px 36px;
                            box-shadow:0 4px 32px rgba(0,0,0,0.08);border:1px solid #f0f0f0;">
 
-                    <form method="POST" action="{{ route('agent.register') }}" id="agent-register-form">
+                    <form method="POST" action="{{ route('agent.register') }}" id="agent-register-form" data-psk-loading="Submitting your registration…">
                         @csrf
                         {{-- Hidden location fields — filled by JS --}}
                         <input type="hidden" name="latitude"  id="lat_field">

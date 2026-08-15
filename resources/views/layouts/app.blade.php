@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>@yield('title', config('app.name', 'Punjab Saathi'))</title>
-    <meta name="description" content="@yield('meta_description', 'Wilcon Construction Company')">
+    <meta name="description" content="@yield('meta_description', 'Punjab Saathi - Online Public Services in Punjab')">
 
     {{-- Pages push canonical URLs, Open Graph tags, and JSON-LD schema
          here via @push('head') (e.g. blogs/show.blade.php). This stack
@@ -53,6 +53,21 @@
         </svg>
     </div>
 
+    {{-- Shown while a form marked data-psk-loading is submitting — see public/js/psk-form-loader.js --}}
+    <div id="psk-form-loader" class="psk-form-loader" role="status" aria-live="polite" aria-hidden="true">
+        <div class="psk-form-loader__box">
+            <div class="psk-form-loader__logo-badge">
+                <img src="{{ asset('images/punjab_seva_kendra.png') }}" alt="Punjab Saathi" class="psk-form-loader__logo">
+            </div>
+            <svg class="psk-form-loader__spinner" viewBox="0 0 50 50">
+                <circle class="psk-form-loader__track" cx="25" cy="25" r="20" fill="none"></circle>
+                <circle class="psk-form-loader__arc" cx="25" cy="25" r="20" fill="none"></circle>
+            </svg>
+            <p class="psk-form-loader__text" id="psk-form-loader-text">Submitting…</p>
+            <p class="psk-form-loader__hint" id="psk-form-loader-hint">Please don't close or refresh this page</p>
+        </div>
+    </div>
+
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
@@ -69,6 +84,7 @@
     <script src="{{ asset('js/main.js') }}"></script>
     {{-- Before </body>, after your existing scripts --}}
     <script src="{{ asset('js/psk-services-detail.js') }}"></script>
+    <script src="{{ asset('js/psk-form-loader.js') }}"></script>
 
     @stack('scripts')
     

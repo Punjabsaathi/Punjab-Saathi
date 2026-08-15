@@ -2,7 +2,7 @@
 {{-- Include in your layout: @include('chatbot.widget') --}}
 
 <style>
-/* ── Punjab Seva Kendra Chatbot Widget ── */
+/* ── Punjab Saathi Chatbot Widget ── */
 :root {
   --psk-primary:   #1a3a6b;
   --psk-accent:    #f47920;
@@ -198,7 +198,7 @@
 
 <div x-data="pskChatbot()" x-init="init()">
   {{-- Floating toggle button --}}
-  <button id="psk-chatbot-btn" @click="toggle()" :aria-label="open ? 'Close chat' : 'Open Punjab Seva Kendra Assistant'">
+  <button id="psk-chatbot-btn" @click="toggle()" :aria-label="open ? 'Close chat' : 'Open Punjab Saathi Assistant'">
     <svg x-show="!open" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2zm-2 10H6v-2h12v2zm0-4H6V6h12v2z"/></svg>
     <svg x-show="open" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
   </button>
@@ -215,7 +215,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
       </div>
       <div class="psk-header-info">
-        <p class="psk-header-title">Punjab Seva Kendra</p>
+        <p class="psk-header-title">Punjab Saathi</p>
         <p class="psk-header-sub">AI Digital Assistant</p>
       </div>
       <div class="psk-header-badge">Online</div>
@@ -363,9 +363,9 @@ function pskChatbot() {
 
     addGreeting() {
       const greetings = {
-        en: "Hello! 👋 I'm the Punjab Seva Kendra AI Assistant.\n\nI can help you with:\n• Government services & schemes\n• Required documents\n• Application status (share your reference number)\n• Processing time & fees\n\nHow can I assist you today?",
-        hi: "नमस्ते! 👋 मैं Punjab Seva Kendra AI सहायक हूं।\n\nमैं आपकी मदद कर सकता हूं:\n• सरकारी सेवाएं और योजनाएं\n• आवश्यक दस्तावेज़\n• आवेदन स्थिति\n\nआज मैं आपकी कैसे सहायता करूं?",
-        pa: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! 👋 ਮੈਂ Punjab Seva Kendra AI ਸਹਾਇਕ ਹਾਂ।\n\nਮੈਂ ਤੁਹਾਡੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ:\n• ਸਰਕਾਰੀ ਸੇਵਾਵਾਂ ਅਤੇ ਸਕੀਮਾਂ\n• ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼\n• ਅਰਜ਼ੀ ਸਥਿਤੀ\n\nਅੱਜ ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਸੇਵਾ ਕਰਾਂ?",
+        en: "Hello! 👋 I'm the Punjab Saathi AI Assistant.\n\nI can help you with:\n• Government services & schemes\n• Required documents\n• Application status (share your reference number)\n• Processing time & fees\n\nHow can I assist you today?",
+        hi: "नमस्ते! 👋 मैं Punjab Saathi AI सहायक हूं।\n\nमैं आपकी मदद कर सकता हूं:\n• सरकारी सेवाएं और योजनाएं\n• आवश्यक दस्तावेज़\n• आवेदन स्थिति\n\nआज मैं आपकी कैसे सहायता करूं?",
+        pa: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! 👋 ਮੈਂ Punjab Saathi AI ਸਹਾਇਕ ਹਾਂ।\n\nਮੈਂ ਤੁਹਾਡੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ:\n• ਸਰਕਾਰੀ ਸੇਵਾਵਾਂ ਅਤੇ ਸਕੀਮਾਂ\n• ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼\n• ਅਰਜ਼ੀ ਸਥਿਤੀ\n\nਅੱਜ ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਸੇਵਾ ਕਰਾਂ?",
       };
 
       this.addMessage('bot', greetings[this.currentLang] || greetings.en, []);

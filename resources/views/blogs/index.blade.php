@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blog - Punjab Seva Kendra')
+@section('title', 'Blog - Punjab Saathi')
 @section('meta_description', 'Read helpful guides and news about Public services in Punjab.')
 
 @push('styles')

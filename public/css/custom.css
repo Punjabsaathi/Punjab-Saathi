@@ -910,3 +910,118 @@
         height: 100%;
     }
 
+/* Full-page "processing" overlay shown while a form (opted in via
+   data-psk-loading) is submitting — form submissions still POST and
+   redirect normally, this is purely a visual wait state so users don't
+   think a slow submission (e.g. file uploads) has failed or frozen.
+   Backdrop is a blurred, tinted see-through layer (not a flat opaque
+   fill) so the page stays visible/recognisable behind it — the card
+   itself is frosted glass, not solid white, to match. */
+.psk-form-loader {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 14, 38, 0.55);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+.psk-form-loader.psk-form-loader--visible {
+    display: flex;
+    opacity: 1;
+}
+.psk-form-loader__box {
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    border-radius: 18px;
+    padding: 36px 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    max-width: 90%;
+    animation: psk-form-loader-pop 0.3s ease;
+}
+/* Fallback for browsers without backdrop-filter support (older Safari/
+   Firefox): fall back to a solid navy card instead of a near-invisible
+   14%-opacity box with unreadable white text. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .psk-form-loader__box {
+        background: #0f2050;
+    }
+}
+.psk-form-loader__logo-badge {
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 14px 28px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+    animation: psk-form-loader-breathe 2.2s ease-in-out infinite;
+}
+.psk-form-loader__logo {
+    display: block;
+    width: 128px;
+    max-width: 52vw;
+    height: auto;
+}
+.psk-form-loader__spinner {
+    width: 46px;
+    height: 46px;
+    animation: psk-form-loader-rotate 1s linear infinite;
+}
+.psk-form-loader__track {
+    stroke: rgba(255, 255, 255, 0.25);
+}
+.psk-form-loader__arc {
+    stroke: #fc5e28;
+    stroke-linecap: round;
+    stroke-dasharray: 90, 150;
+    animation: psk-form-loader-dash 1.4s ease-in-out infinite;
+}
+.psk-form-loader__text {
+    margin: 0;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 0.95rem;
+    text-align: center;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+.psk-form-loader__hint {
+    margin: -6px 0 0;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.72);
+    text-align: center;
+}
+@keyframes psk-form-loader-pop {
+    0% { opacity: 0; transform: scale(0.94) translateY(6px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes psk-form-loader-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+@keyframes psk-form-loader-rotate {
+    100% { transform: rotate(360deg); }
+}
+@keyframes psk-form-loader-dash {
+    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
+/* Decorative motion (entrance pop, logo pulse) is dropped for users who
+   asked their OS to reduce motion — the spinner keeps turning since it's
+   the one animation actually communicating "still working", not just
+   decoration, and removing it would leave no progress feedback at all. */
+@media (prefers-reduced-motion: reduce) {
+    .psk-form-loader__box,
+    .psk-form-loader__logo-badge {
+        animation: none;
+    }
+}
+

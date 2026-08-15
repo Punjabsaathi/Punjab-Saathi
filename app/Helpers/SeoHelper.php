@@ -6,14 +6,14 @@ class SeoHelper
 {
     public static function title(string $page, ?string $suffix = null): string
     {
-        $base = config('app.name', 'Punjab Seva Kendra');
+        $base = config('app.name', 'Punjab Saathi');
         $suffix = $suffix ?? 'Download Government Forms Online';
         return "{$page} | {$base} – {$suffix}";
     }
 
     public static function description(string $fallback = ''): string
     {
-        return $fallback ?: 'Download government forms and documents online. PAN Card, Passport, Aadhaar, Voter ID, Driving License and more — Punjab Seva Kendra.';
+        return $fallback ?: 'Download government forms and documents online. PAN Card, Passport, Aadhaar, Voter ID, Driving License and more — Punjab Saathi.';
     }
 
     public static function ogTags(string $title, string $description, ?string $image = null, string $type = 'website'): array
@@ -25,7 +25,7 @@ class SeoHelper
             'og:image'       => $image ?? asset('images/og-default.jpg'),
             'og:url'         => url()->current(),
             'og:locale'      => 'en_IN',
-            'og:site_name'   => config('app.name', 'Punjab Seva Kendra'),
+            'og:site_name'   => config('app.name', 'Punjab Saathi'),
         ];
     }
 

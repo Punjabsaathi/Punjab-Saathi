@@ -78,7 +78,7 @@ class GovFormSeeder extends Seeder
                 'sort_order'        => $index + 1,
                 'published_date'    => now()->subDays(rand(1, 365)),
                 'meta_keywords'     => $data['keywords'],
-                'seo_title'         => $data['title'] . ' | Punjab Seva Kendra',
+                'seo_title'         => $data['title'] . ' | Punjab Saathi',
                 'meta_description'  => $data['desc'],
             ]);
                     // Recalculate forms_count for all categories

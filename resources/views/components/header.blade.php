@@ -4,7 +4,7 @@
             <div class="col-md-4 d-flex">
                 <a href="{{ url('/') }}" class="d-inline-flex align-items-center">
                     <img src="{{ asset('images/punjab_seva_kendra.png') }}"
-                         alt="Punjab Seva Kendra Logo"
+                         alt="Punjab Saathi Logo"
                          style="height:100px; width:auto; object-fit:contain;">
                 </a>
             </div>
