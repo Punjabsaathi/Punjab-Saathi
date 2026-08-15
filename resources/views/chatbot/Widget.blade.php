@@ -46,7 +46,7 @@
         <div>
           <div class="psk-msg-row" :class="msg.role">
             <div class="psk-avatar" x-text="msg.role === 'user' ? 'You' : 'PS'"></div>
-            <div>
+            <div class="psk-msg-content">
               <div class="psk-bubble" :class="msg.role" x-html="formatMessage(msg.content)"></div>
               {{-- Sources --}}
               <div x-show="msg.sources && msg.sources.length" class="psk-sources">
