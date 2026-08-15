@@ -10,7 +10,7 @@ return [
     'groq_api_key' => env('GROQ_API_KEY'),
     'groq_model'   => env('GROQ_MODEL', 'llama-3.1-8b-instant'),
     'gemini_api_key'     => env('GEMINI_API_KEY'),
-    'gemini_model'       => env('GEMINI_MODEL', 'gemini-1.5-pro'),
+    'gemini_model'       => env('GEMINI_MODEL', 'gemini-flash-latest'),
     // ✅ renamed from 'embed_model' → 'gemini_embed_model' to match GeminiService
     'gemini_embed_model' => env('GEMINI_EMBED_MODEL', 'text-embedding-004'),
 
@@ -59,7 +59,7 @@ return [
     | Knowledge Source Types
     |--------------------------------------------------------------------------
     */
-    'source_types' => ['service', 'faq', 'document', 'scheme', 'blog'],
+    'source_types' => ['service', 'faq', 'document', 'scheme', 'blog', 'form', 'job'],
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'brand_name' => env('CHATBOT_BRAND', 'Punjab Saathi'),
-    'helpline'   => env('CHATBOT_HELPLINE', '1800-180-xxxx'),
+    'helpline'   => env('CHATBOT_HELPLINE', config('site.phone', '+91 7710556330')),
 
     /*
     |--------------------------------------------------------------------------

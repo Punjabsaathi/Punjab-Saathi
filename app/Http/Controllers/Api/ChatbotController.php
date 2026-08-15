@@ -13,7 +13,6 @@ use App\jobs\SyncEmbeddingJob;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class ChatbotController extends Controller
@@ -37,7 +36,6 @@ class ChatbotController extends Controller
                 'id'         => Str::uuid(),
                 'user_id'    => auth()->id(),
                 'language'   => 'en',
-                // ✅ FIX: was config('chatbot.session_ttl') nested wrong
                 'expires_at' => now()->addHours(config('chatbot.session_ttl', 2)),
             ]
         );
@@ -56,23 +54,35 @@ class ChatbotController extends Controller
     {
         $request->validate([
             'message'       => 'required|string|max:1000',
-            'session_token' => 'required|string',
+            'session_token' => 'required|string|uuid',
+            'language'      => 'nullable|string|in:en,hi,pa',
         ]);
 
         $session = ChatSession::where('session_token', $request->session_token)
             ->where('expires_at', '>', now())
             ->firstOrFail();
 
-        // ✅ FIX: touch() ignores extra arguments — use update() instead
         $session->update([
             'expires_at' => now()->addHours(config('chatbot.session_ttl', 2))
         ]);
 
-        $userMessage  = trim($request->message);
-        $detectedLang = $this->langDetector->detect($userMessage);
+        $userMessage = trim($request->message);
 
-        if ($detectedLang !== $session->language) {
-            $session->update(['language' => $detectedLang]);
+        // A language the user has explicitly picked in the UI is
+        // authoritative and must not be silently overridden by per-message
+        // script detection — that detection only decides language for
+        // turns where the client hasn't told us a pinned choice yet
+        // (first message, or an older client that doesn't send it).
+        if ($request->filled('language')) {
+            $detectedLang = $request->language;
+            if ($detectedLang !== $session->language) {
+                $session->update(['language' => $detectedLang]);
+            }
+        } else {
+            $detectedLang = $this->langDetector->detect($userMessage);
+            if ($detectedLang !== $session->language) {
+                $session->update(['language' => $detectedLang]);
+            }
         }
 
         $userMsg = ChatMessage::create([
@@ -82,20 +92,15 @@ class ChatbotController extends Controller
             'language'   => $detectedLang,
         ]);
 
-        $refNumber = $this->extractReferenceNumber($userMessage);
         $startTime = microtime(true);
 
         try {
-            if ($refNumber) {
-                $response = $this->handleStatusCheck($refNumber, $detectedLang, $session);
-            } else {
-                $response = $this->rag->process(
-                    query:    $userMessage,
-                    session:  $session,
-                    language: $detectedLang,
-                );
-            }
-        } catch (\Exception $e) {
+            $response = $this->rag->process(
+                query:    $userMessage,
+                session:  $session,
+                language: $detectedLang,
+            );
+        } catch (\Throwable $e) {
             Log::error('Chatbot pipeline error', [
                 'error'   => $e->getMessage(),
                 'session' => $session->id,
@@ -115,7 +120,17 @@ class ChatbotController extends Controller
             'latency_ms'  => $latency,
         ]);
 
-        LogChatAnalyticsJob::dispatch($session->id, $userMsg->id, $assistantMsg->id, $latency);
+        LogChatAnalyticsJob::dispatch(
+            sessionId:          $session->id,
+            userMessageId:      $userMsg->id,
+            assistantMessageId: $assistantMsg->id,
+            latencyMs:          $latency,
+            intent:             $response['intent'] ?? null,
+            language:           $detectedLang,
+            chunksRetrieved:    $response['chunks_count'] ?? 0,
+            topSimilarity:      $response['top_similarity'] ?? null,
+            provider:           $response['provider'] ?? null,
+        );
 
         return response()->json([
             'id'            => $assistantMsg->id,
@@ -126,53 +141,6 @@ class ChatbotController extends Controller
             'quick_replies' => $response['quick_replies'] ?? [],
             'latency_ms'    => $latency,
         ]);
-    }
-
-    /**
-     * Application status check
-     */
-    protected function handleStatusCheck(string $refNumber, string $lang, ChatSession $session): array
-    {
-        $cacheKey = "app_status:{$refNumber}";
-
-        $application = Cache::remember($cacheKey, 60, function () use ($refNumber) {
-            return \App\Models\Application::with(['service', 'statusLogs'])
-                ->where('reference_number', $refNumber)
-                ->first();
-        });
-
-        if (!$application) {
-            return [
-                'answer'        => $this->translate("No application found with reference number **{$refNumber}**. Please double-check the number.", $lang),
-                'intent'        => 'status_check',
-                'sources'       => [],
-                'quick_replies' => ['Try another number', 'Contact support'],
-            ];
-        }
-
-        $statusMessages = [
-            'pending'            => 'Your application is pending review.',
-            'under_review'       => 'Your application is currently under review by our team.',
-            'approved'           => 'Congratulations! Your application has been approved.',
-            'rejected'           => 'Your application was not approved. Please contact the office for details.',
-            'documents_required' => 'Additional documents are required. Please visit the nearest Seva Kendra.',
-        ];
-
-        $statusText = $statusMessages[$application->status] ?? 'Status: ' . $application->status;
-
-        $answer = "**Application Status for #{$refNumber}**\n\n"
-            . "Service: {$application->service->name}\n"
-            . "Applicant: {$application->applicant_name}\n"
-            . "Submitted: {$application->created_at->format('d M Y')}\n"
-            . "Status: **" . strtoupper($application->status) . "**\n\n"
-            . $statusText;
-
-        return [
-            'answer'        => $this->translate($answer, $lang),
-            'intent'        => 'status_check',
-            'sources'       => [],
-            'quick_replies' => ['What documents do I need?', 'Visit nearest center', 'Contact helpline'],
-        ];
     }
 
     /**
@@ -195,21 +163,13 @@ class ChatbotController extends Controller
      */
     public function syncEmbeddings(Request $request): JsonResponse
     {
-        $types = $request->input('types', ['service', 'faq', 'document', 'blog']);
+        $types = $request->input('types', ['service', 'faq', 'document', 'form', 'job', 'blog']);
 
         foreach ($types as $type) {
             SyncEmbeddingJob::dispatch($type);
         }
 
         return response()->json(['message' => 'Embedding sync jobs dispatched.', 'types' => $types]);
-    }
-
-    protected function extractReferenceNumber(string $message): ?string
-    {
-        if (preg_match('/\b(?:PSK|REF|APP)?[-\s]?(\d{6,12})\b/i', $message, $matches)) {
-            return strtoupper(trim($matches[0]));
-        }
-        return null;
     }
 
     protected function getGreeting(string $lang): string
@@ -219,12 +179,6 @@ class ChatbotController extends Controller
             'pa'    => 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ Punjab Saathi ਦਾ AI ਸਹਾਇਕ ਹਾਂ। ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?',
             default => 'Hello! I\'m the Punjab Saathi AI Assistant. How can I help you today?',
         };
-    }
-
-    protected function translate(string $text, string $lang): string
-    {
-        if ($lang === 'en') return $text;
-        return $this->gemini->translate($text, $lang);
     }
 
     protected function fallbackResponse(string $lang): array

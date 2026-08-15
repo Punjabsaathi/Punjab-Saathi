@@ -46,6 +46,11 @@
     @include('components.footer')
     @include('components.modal-inquiry')
 
+    {{-- TEMPORARY — for manual testing only, per explicit request. Remove
+         this include (or comment it out) before the chatbot is meant to
+         go live for real visitors. --}}
+    @include('chatbot.Widget')
+
     <div id="ftco-loader" class="show fullscreen">
         <svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>

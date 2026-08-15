@@ -16,7 +16,13 @@ class VectorSearchService
             $query->whereIn('source_type', $sourceTypes);
         }
 
-        $chunks = $query->get();
+        // Only pull the columns actually used below (skip content_hi/
+        // content_pa/timestamps), and cap the row count as a safety
+        // valve against unbounded future content growth — the ranking
+        // itself still happens in PHP below, this just bounds its input.
+        $chunks = $query
+            ->limit(2000)
+            ->get(['id', 'source_type', 'source_id', 'content', 'title', 'embedding', 'metadata']);
 
         $minSimilarity = config('chatbot.rag_min_similarity', 0.55);
 
