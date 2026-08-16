@@ -2,36 +2,156 @@
 
 @extends('layouts.app')
 
-@section('title', 'Register CSC Agent / Center - Punjab Saathi')
+@section('title', 'Register Your CSC Center - Punjab Saathi')
+@section('meta_description', 'List your Common Service Center on Punjab Saathi so citizens searching by pincode or location can find you. Free listing, verified badge, takes under two minutes.')
 
 @section('content')
 
 {{-- ══════════════════════════════════════════════════ --}}
-{{-- HERO                                              --}}
+{{-- HERO — explains WHY, not just what                 --}}
 {{-- ══════════════════════════════════════════════════ --}}
-<section class="hero-wrap hero-wrap-2 js-fullheight"
-    style="background-image: url('{{ asset('images/bg_1.jpg') }}');"
-    data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+<section class="psk-reg-hero">
+    <div class="psk-reg-hero__bg"></div>
     <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-            <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs">
-                    <span class="mr-2">
-                        <a href="{{ url('/') }}">Home <i class="fa fa-chevron-right"></i></a>
-                    </span>
-                    <span>Register Agent <i class="fa fa-chevron-right"></i></span>
+        <p class="psk-reg-hero__breadcrumbs">
+            <span class="mr-2"><a href="{{ url('/') }}">Home <i class="fa fa-chevron-right"></i></a></span>
+            <span>Register Your CSC Center</span>
+        </p>
+
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="psk-reg-hero__title">Get Your CSC Center Found by Citizens Across Punjab</h1>
+                <p class="psk-reg-hero__sub">
+                    Punjab Saathi's <a href="{{ route('csc.directory') }}">CSC Center Locator</a> lets citizens search
+                    for centers by PIN code or their current location. Register your center here so people looking
+                    for help nearby can actually find you — it's free, and takes under two minutes.
                 </p>
-                <h1 class="mb-0 bread">Register CSC Agent / Center</h1>
+                <a href="#register-form" class="btn btn-primary btn-lg">
+                    <span class="fa fa-arrow-down mr-2"></span>Register My Center
+                </a>
             </div>
+        </div>
+
+        @if($totalCenters)
+        <div class="psk-reg-hero__stat">
+            <span class="fa fa-building-o"></span>
+            Join <strong>{{ number_format($totalCenters) }}+</strong> CSC centers already listed on Punjab Saathi
+        </div>
+        @endif
+    </div>
+</section>
+
+{{-- ══════════════════════════════════════════════════ --}}
+{{-- WHY REGISTER — the actual value proposition        --}}
+{{-- ══════════════════════════════════════════════════ --}}
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-2">
+            <div class="col-md-8 text-center heading-section ftco-animate">
+                <span class="subheading">Why Register</span>
+                <h2 class="mb-3">What You Get on Punjab Saathi</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach([
+                ['fa-search', '#fc5e28', 'Get Found by Citizens', 'Your center appears when people search by PIN code or "nearest CSC center" — real citizens actively looking for help near them.'],
+                ['fa-inr', '#059669', '100% Free Listing', 'No cost, no subscription, no hidden fees. Registering and staying listed on Punjab Saathi is completely free.'],
+                ['fa-check-circle', '#0ea5e9', 'Verified Badge', 'Once our team verifies your details, your center gets a "Verified CSC" badge — building trust with citizens before they even visit.'],
+                ['fa-refresh', '#8b5cf6', 'Always Up To Date', 'Already listed from government records? Registering with your CSC ID updates your existing listing — your info stays accurate.'],
+            ] as $item)
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="psk-reg-benefit ftco-animate">
+                    <div class="psk-reg-benefit__icon" style="background:{{ $item[1] }}18;">
+                        <span class="fa {{ $item[0] }}" style="color:{{ $item[1] }};"></span>
+                    </div>
+                    <h3>{{ $item[2] }}</h3>
+                    <p>{{ $item[3] }}</p>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 {{-- ══════════════════════════════════════════════════ --}}
+@push('styles')
+<style>
+.psk-reg-hero {
+    position: relative; background: #040e26; padding: 130px 0 60px; overflow: hidden; color: #fff;
+}
+.psk-reg-hero__bg {
+    position: absolute; inset: 0;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(252,94,40,0.20) 0, transparent 40%),
+        radial-gradient(circle at 88% 15%, rgba(252,94,40,0.12) 0, transparent 35%),
+        radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1.5px);
+    background-size: auto, auto, 26px 26px;
+}
+.psk-reg-hero .container { position: relative; z-index: 1; }
+.psk-reg-hero__breadcrumbs { color: rgba(255,255,255,0.55); font-size: 0.82rem; margin-bottom: 22px; }
+.psk-reg-hero__breadcrumbs a { color: rgba(255,255,255,0.75); text-decoration: none; }
+.psk-reg-hero__title { font-size: 2.3rem; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.25; max-width: 720px; }
+.psk-reg-hero__sub { color: rgba(255,255,255,0.75); font-size: 1.02rem; line-height: 1.75; max-width: 640px; margin-bottom: 26px; }
+.psk-reg-hero__sub a { color: #fc5e28; font-weight: 600; text-decoration: underline; }
+.psk-reg-hero__stat {
+    margin-top: 34px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12);
+    font-size: 0.95rem; color: rgba(255,255,255,0.85);
+}
+.psk-reg-hero__stat .fa { color: #fc5e28; margin-right: 8px; }
+.psk-reg-hero__stat strong { color: #fc5e28; font-size: 1.1rem; }
+
+.psk-reg-benefit {
+    background: #fff; border: 1px solid #e2e6ea; border-radius: 16px;
+    padding: 28px 24px; height: 100%; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.psk-reg-benefit:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); border-color: #fc5e28; }
+.psk-reg-benefit__icon {
+    width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center;
+    justify-content: center; font-size: 1.3rem; margin-bottom: 16px;
+}
+.psk-reg-benefit h3 { font-size: 1rem; font-weight: 700; color: #1e2a3a; margin-bottom: 8px; }
+.psk-reg-benefit p { font-size: 0.85rem; color: #6b7280; line-height: 1.6; margin: 0; }
+
+/* ── Sidebar cards next to the form ── */
+.psk-reg-checklist {
+    background: #fff; border: 1px solid #e2e6ea; border-radius: 16px;
+    padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.psk-reg-checklist h4 { font-size: 0.95rem; font-weight: 700; color: #1e2a3a; margin-bottom: 14px; }
+.psk-reg-checklist h4 .fa { color: #fc5e28; }
+.psk-reg-checklist ul { list-style: none; margin: 0 0 14px; padding: 0; }
+.psk-reg-checklist li {
+    display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem;
+    color: #4b5563; padding: 7px 0; line-height: 1.5;
+}
+.psk-reg-checklist li .fa { color: #25D366; margin-top: 3px; flex-shrink: 0; }
+.psk-reg-checklist p { font-size: 0.78rem; color: #9ca3af; margin: 0; font-style: italic; }
+
+.psk-reg-wa {
+    background: linear-gradient(160deg, #25D366 0%, #1aab50 100%);
+    border-radius: 16px; padding: 24px; text-align: center; color: #fff;
+}
+.psk-reg-wa .fa-whatsapp { font-size: 2rem; margin-bottom: 10px; display: block; }
+.psk-reg-wa h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
+.psk-reg-wa p { font-size: 0.82rem; color: rgba(255,255,255,0.85); margin-bottom: 16px; line-height: 1.5; }
+.psk-reg-wa a {
+    display: inline-flex; align-items: center; background: #fff; color: #1aab50 !important;
+    font-weight: 700; font-size: 0.85rem; padding: 10px 20px; border-radius: 10px; text-decoration: none;
+}
+.psk-reg-wa a:hover { background: #f0fdf4; }
+
+@media (max-width: 767.98px) {
+    .psk-reg-hero { padding: 100px 0 40px; }
+    .psk-reg-hero__title { font-size: 1.6rem; }
+}
+</style>
+@endpush
+
 {{-- FORM SECTION                                      --}}
 {{-- ══════════════════════════════════════════════════ --}}
-<section class="ftco-section">
+<section class="ftco-section ftco-no-pt" id="register-form">
     <div class="container">
 
         {{-- Section heading --}}
@@ -47,7 +167,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-md-9 col-lg-8">
+            <div class="col-lg-8">
 
                 {{-- ── Success alert ──────────────────────────────── --}}
                 @if(session('success'))
@@ -98,7 +218,7 @@
                                             <i class="fa fa-mobile" style="color:#fc5e28;font-size:18px;"></i>
                                         </span>
                                     </div>
-                                    <input type="tel" name="mobile"
+                                    <input type="tel" name="mobile" id="mobile_field"
                                         value="{{ old('mobile') }}"
                                         maxlength="10"
                                         placeholder="10-digit mobile number"
@@ -106,10 +226,11 @@
                                         style="border-color:#dee2e6;font-size:15px;"
                                         required>
                                 </div>
-                                <small style="color:#6b7280;font-size:12px;">
+                                <small style="color:#6b7280;font-size:12px;" id="mobile-check-default">
                                     <i class="fa fa-info-circle mr-1" style="color:#fc5e28;"></i>
                                     If already registered, your record will be updated.
                                 </small>
+                                <small id="mobile-check-result" style="display:none;font-size:12px;font-weight:600;"></small>
                             </div>
 
                             <div class="col-md-6 form-group">
@@ -313,6 +434,30 @@
                     </form>
                 </div>{{-- end card --}}
 
+            </div>
+
+            {{-- ── Sidebar — fills the wide side gutter, gives useful
+                 supporting content instead of leaving it blank ── --}}
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="psk-reg-checklist">
+                    <h4><span class="fa fa-clipboard mr-2"></span>What You'll Need</h4>
+                    <ul>
+                        <li><span class="fa fa-check"></span>Your 10-digit mobile number</li>
+                        <li><span class="fa fa-check"></span>Your name as the VLE / Operator</li>
+                        <li><span class="fa fa-check"></span>Your district (required)</li>
+                        <li><span class="fa fa-check"></span>Your CSC ID — if you have one, from government records</li>
+                    </ul>
+                    <p>That's it — everything else is optional and can be added later.</p>
+                </div>
+
+                <div class="psk-reg-wa">
+                    <span class="fa fa-whatsapp"></span>
+                    <h4>Need Help Registering?</h4>
+                    <p>Message us directly and our team will help you get listed.</p>
+                    <a href="https://wa.me/917710556330?text=Hello%2C%20I%20need%20help%20registering%20my%20CSC%20center" target="_blank" rel="noopener">
+                        <span class="fa fa-whatsapp mr-1"></span> WhatsApp Us
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -922,6 +1067,47 @@ document.addEventListener('DOMContentLoaded', function () {
         /* ── Go ─────────────────────────────────────────────────── */
         checkAndInit();
 
+    })();
+
+    /* ── Live mobile duplicate check ───────────────────────────── */
+    (function () {
+        var mobileField  = document.getElementById('mobile_field');
+        var defaultHint  = document.getElementById('mobile-check-default');
+        var resultHint   = document.getElementById('mobile-check-result');
+        if (!mobileField || !resultHint) return;
+
+        var debounceTimer = null;
+
+        mobileField.addEventListener('input', function () {
+            clearTimeout(debounceTimer);
+            var mobile = mobileField.value.replace(/\D/g, '');
+
+            if (mobile.length !== 10) {
+                resultHint.style.display = 'none';
+                defaultHint.style.display = 'block';
+                return;
+            }
+
+            debounceTimer = setTimeout(function () {
+                fetch('{{ route("agent.check-mobile") }}?mobile=' + mobile)
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                        if (data.exists) {
+                            resultHint.style.color = '#fc5e28';
+                            resultHint.innerHTML = '<i class="fa fa-refresh mr-1"></i> Already registered'
+                                + (data.vle_name ? ' as ' + data.vle_name : '')
+                                + (data.district ? ' (' + data.district + ')' : '')
+                                + ' — submitting will update this record.';
+                        } else {
+                            resultHint.style.color = '#25D366';
+                            resultHint.innerHTML = '<i class="fa fa-check-circle mr-1"></i> New number — this will be a fresh registration.';
+                        }
+                        defaultHint.style.display = 'none';
+                        resultHint.style.display = 'block';
+                    })
+                    .catch(function () { /* silent — non-critical UX enhancement */ });
+            }, 400);
+        });
     })();
 });
 </script>
