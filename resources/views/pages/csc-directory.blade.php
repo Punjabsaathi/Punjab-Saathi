@@ -620,7 +620,7 @@
 .psk-csc-empty p { color: #6b7280; margin-bottom: 20px; }
 .psk-csc-empty__actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
-.psk-csc-pagination .pagination { justify-content: center; margin-top: 10px; }
+.psk-csc-pagination .pagination { justify-content: center; margin-top: 10px; flex-wrap: wrap; row-gap: 8px; }
 .psk-csc-pagination .page-link { color: #1e2a3a; border-color: #e2e6ea; }
 .psk-csc-pagination .page-item.active .page-link { background: #fc5e28; border-color: #fc5e28; }
 
@@ -651,6 +651,7 @@
     .psk-csc-card__distance { align-self: flex-start; }
     .psk-csc-card__actions { flex-direction: column; }
     .psk-csc-card__actions .btn { width: 100%; }
+    .psk-csc-pagination .page-link { padding: 0.4rem 0.65rem; font-size: 0.85rem; }
     .psk-csc-cta { text-align: center; }
     .psk-csc-cta .text-md-right { text-align: center !important; }
 }
