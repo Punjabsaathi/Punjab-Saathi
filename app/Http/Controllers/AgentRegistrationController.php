@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\CscCenter;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 
 class AgentRegistrationController extends Controller
 {
     public function show()
     {
-        return view('agents.agent-registration');
+        $totalCenters = CscCenter::publiclyVisible()->count();
+
+        return view('agents.agent-registration', compact('totalCenters'));
     }
 
     public function register(Request $request)
@@ -48,5 +52,40 @@ class AgentRegistrationController extends Controller
             : 'Your existing record has been updated successfully!';
 
         return back()->with('success', $message)->with('reg_action', $result['action']);
+    }
+
+    public function success(Request $request): View|\Illuminate\Http\RedirectResponse
+    {
+        $center = CscCenter::find($request->query('center'));
+        $action = $request->query('action');
+
+        if (!$center || !in_array($action, ['created', 'updated'], true)) {
+            return redirect()->route('agent.registration');
+        }
+
+        return view('agents.agent-registration-success', compact('center', 'action'));
+    }
+
+    /**
+     * Live duplicate check called from the registration form's JS —
+     * lets a VLE know before submitting whether their mobile number
+     * already has a record (so they understand it'll be an update,
+     * not a fresh registration).
+     */
+    public function checkMobile(Request $request): JsonResponse
+    {
+        $mobile = preg_replace('/\D/', '', (string) $request->query('mobile'));
+
+        if (strlen($mobile) !== 10) {
+            return response()->json(['exists' => false]);
+        }
+
+        $center = CscCenter::where('mobile', $mobile)->first(['vle_name', 'district']);
+
+        return response()->json([
+            'exists'  => (bool) $center,
+            'vle_name' => $center?->vle_name,
+            'district' => $center?->district,
+        ]);
     }
 }

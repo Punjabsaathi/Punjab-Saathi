@@ -19,6 +19,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\AgentRegistrationController;
 use App\Http\Controllers\Admin\ServiceImageController;
 use App\Http\Controllers\Admin\ServiceCategoryImageController;
+use App\Http\Controllers\CscDirectoryController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -132,6 +133,14 @@ Route::post('/register-agent',         [AgentRegistrationController::class, 'reg
 
 Route::get('/register-agent/success',  [AgentRegistrationController::class, 'success'])
     ->name('agent.registration.success');
+
+// Public CSC directory — pincode + nearest-location search
+Route::get('/csc-centers', [CscDirectoryController::class, 'index'])
+    ->name('csc.directory');
+
+// Single CSC center public profile page
+Route::get('/csc-centers/{cscCenter}', [CscDirectoryController::class, 'show'])
+    ->name('csc.show');
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ADD THESE LINES TO YOUR routes/api.php

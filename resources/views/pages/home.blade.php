@@ -153,7 +153,7 @@
                 @php
                     $catImage = $serviceCategories->get($key)->first(fn($s) => $s->image_url)?->image_url
                         ?? $cat->image_url
-                        ?? asset('images/services-1.jpg');
+                        ?? asset('images/registrations_and_schemes.webp');
                 @endphp
                 <div class="col-md-4">
                     <div class="services-wrap ftco-animate">
@@ -315,7 +315,7 @@
             <div class="row">
                 @foreach($popularServices as $svc)
                 @php
-                    $svcCardImg = $svc->image_url ?: asset('images/image_1.jpg');
+                    $svcCardImg = $svc->image_url ?: asset('images/forms.jpg');
                 @endphp
                 <div class="col-md-4">
                     <div class="project">
@@ -497,9 +497,9 @@
             </div>
             @php
             $blogPosts = [
-                ['img' => 'image_1.jpg', 'title' => 'How to Apply for Caste Certificate Online in Punjab (2024 Guide)',      'tag' => 'Certificates'],
-                ['img' => 'image_2.jpg', 'title' => 'Aadhaar Address Change: Documents Required and Step-by-Step Process',   'tag' => 'Aadhaar Services'],
-                ['img' => 'image_3.jpg', 'title' => 'PM-KISAN New Registration: Who is Eligible and How to Apply in Punjab', 'tag' => 'Government Schemes'],
+                ['img' => 'caste.webp', 'title' => 'How to Apply for Caste Certificate Online in Punjab (2024 Guide)',      'tag' => 'Certificates'],
+                ['img' => 'adharcard.png', 'title' => 'Aadhaar Address Change: Documents Required and Step-by-Step Process',   'tag' => 'Aadhaar Services'],
+                ['img' => 'ayush-bhoyar-d2gQdAbTtRc-unsplash.jpg', 'title' => 'PM-KISAN New Registration: Who is Eligible and How to Apply in Punjab', 'tag' => 'Government Schemes'],
             ];
             @endphp
             <div class="row d-flex">
