@@ -109,14 +109,14 @@ class FormController extends Controller
     private function cachedFeatured(int $limit = 6)
     {
         return Cache::remember('featured_forms', 1800, function () use ($limit) {
-            return GovForm::featured()->with('category')->orderByDesc('published_date')->take($limit)->get();
+            return GovForm::featured()->active()->with('category')->orderByDesc('published_date')->take($limit)->get();
         });
     }
 
     private function cachedPopular(int $limit = 6)
     {
         return Cache::remember('popular_forms', 1800, function () use ($limit) {
-            return GovForm::popular()->with('category')->orderByDesc('download_count')->take($limit)->get();
+            return GovForm::popular()->active()->with('category')->orderByDesc('download_count')->take($limit)->get();
         });
     }
 
