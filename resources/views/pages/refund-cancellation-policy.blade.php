@@ -105,7 +105,7 @@
 
                     <section id="refund-timeline">
                         <h2>6. Refund Processing Timeline</h2>
-                        <p>Once a refund request is approved, we aim to process the refund to your original payment method within <strong>[REFUND PROCESSING DAYS] working days</strong>. Please note that the time for the amount to reflect in your bank account or payment app after we process it depends on your bank or payment provider, and is outside our control.</p>
+                        <p>Once a refund request is approved, we aim to process the refund to your original payment method within <strong>5 working days</strong>. Please note that the time for the amount to reflect in your bank account or payment app after we process it depends on your bank or payment provider, and is outside our control.</p>
                     </section>
 
                     <section id="partial-refunds">
