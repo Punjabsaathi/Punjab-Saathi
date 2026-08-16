@@ -93,24 +93,44 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-primary">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 aside-stretch py-3">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between psk-footer-legal">
-                        <p class="mb-0">Copyright &copy; {{ date('Y') }} {{ config('site.name', 'Punjab Saathi') }}. All rights reserved.</p>
-                        <p class="mb-0">
-                            <a href="{{ route('privacy-policy') }}" class="mr-3">Privacy Policy</a>
-                            <a href="{{ route('terms-conditions') }}" class="mr-3">Terms &amp; Conditions</a>
-                            <a href="{{ route('refund-cancellation-policy') }}" class="mr-3">Refund &amp; Cancellation</a>
-                            <a href="{{ route('disclaimer') }}">Disclaimer</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <div class="psk-footer-bottom">
+        <div class="psk-footer-bottom__half psk-footer-bottom__half--orange">
+            <p class="mb-0">Copyright &copy; {{ date('Y') }} {{ config('site.name', 'Punjab Saathi') }}. All rights reserved.</p>
+        </div>
+        <div class="psk-footer-bottom__half psk-footer-bottom__half--blue">
+            <p class="mb-0">
+                <a href="{{ route('privacy-policy') }}">Privacy Policy</a>
+                <a href="{{ route('terms-conditions') }}">Terms &amp; Conditions</a>
+                <a href="{{ route('refund-cancellation-policy') }}">Refund &amp; Cancellation</a>
+                <a href="{{ route('disclaimer') }}">Disclaimer</a>
+            </p>
         </div>
     </div>
 </footer>
+
+<style>
+.psk-footer-bottom { display: flex; flex-wrap: wrap; width: 100%; }
+.psk-footer-bottom__half {
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    padding: 16px 28px;
+    min-height: 54px;
+}
+.psk-footer-bottom__half--orange { background: #fc5e28; justify-content: flex-start; }
+.psk-footer-bottom__half--blue { background: #0a2540; justify-content: flex-end; }
+.psk-footer-bottom__half p { margin: 0; color: #fff; font-size: 0.92rem; }
+.psk-footer-bottom__half--blue a {
+    color: #fff; text-decoration: none; margin-left: 20px; opacity: 0.9;
+}
+.psk-footer-bottom__half--blue a:first-child { margin-left: 0; }
+.psk-footer-bottom__half--blue a:hover { text-decoration: underline; opacity: 1; }
+@media (max-width: 767.98px) {
+    .psk-footer-bottom__half { flex: 1 1 100%; justify-content: flex-start; }
+    .psk-footer-bottom__half--blue p { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+    .psk-footer-bottom__half--blue a { margin-left: 0; }
+}
+</style>
 
 <style>
 @media (max-width: 767.98px) {
