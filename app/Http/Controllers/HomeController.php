@@ -45,7 +45,13 @@ class HomeController extends Controller
             'serviceCategories', 'popularServices', 'categoryDisplay', 'googleReviews', 'reviewAvgRating'
         ));
     }
-    public function about()   { return view('pages.about'); }
+    public function about()
+    {
+        $googleReviews = GoogleReview::active()->orderBy('sort_order')->get();
+        $reviewAvgRating = $googleReviews->isNotEmpty() ? round($googleReviews->avg('rating'), 1) : null;
+
+        return view('pages.about', compact('googleReviews', 'reviewAvgRating'));
+    }
     public function services(){ return view('pages.services'); }
     public function projects(){ return view('pages.projects'); }
     public function blog()    { return view('pages.blog'); }

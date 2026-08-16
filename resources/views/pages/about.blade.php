@@ -495,67 +495,57 @@
 </section>
 
 {{-- ═══════════════════════════════════════════════ --}}
-{{-- TESTIMONIALS — same as homepage                --}}
+{{-- TESTIMONIALS — same real Google Reviews component as homepage --}}
 {{-- ═══════════════════════════════════════════════ --}}
-<section class="ftco-section ftco-no-pt ftco-no-pb testimony-section img">
+<section class="ftco-section ftco-no-pt ftco-no-pb testimony-section img psk-testimony">
     <div class="overlay"></div>
     <div class="container">
-        <div class="row ftco-animate justify-content-center">
+        <div class="row ftco-animate justify-content-center align-items-center">
             <div class="col-md-6 p-4 pl-md-0 py-md-5 pr-md-5 aside-stretch d-flex align-items-center">
                 <div class="heading-section heading-section-white">
                     <span class="subheading" style="color:#fff;">What Citizens Say</span>
                     <h2 class="mb-4" style="font-size:40px;">Real reviews from real Punjab families who trusted us</h2>
                     <p style="color:rgba(255,255,255,0.8);">From Ludhiana to Amritsar, from Patiala to Jalandhar — citizens share their experience.</p>
+
+                    @if($reviewAvgRating)
+                    <div class="psk-review-stat">
+                        <div class="psk-review-stat__score">{{ number_format($reviewAvgRating, 1) }}</div>
+                        <div>
+                            <div class="psk-review-stat__stars">
+                                @for($i = 0; $i < round($reviewAvgRating); $i++)<span class="fa fa-star"></span>@endfor
+                            </div>
+                            <div class="psk-review-stat__label">
+                                Verified Google Reviews
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="col-md-6 pl-md-5 py-4 py-md-5 aside-stretch-right">
                 <div class="carousel-testimony owl-carousel ftco-owl">
-                    @php
-                    $testimonials = [
-                    [
-                    'img' => 'person_1.jpg',
-                    'name' => 'Gurpreet Singh',
-                    'loc' => 'Ludhiana',
-                    'text' => 'Mera income certificate sirf 2 din vich ready ho gaya. Staff bahut helpful hai te process completely online si. Bohot vadhia seva!',
-                    ],
-                    [
-                    'img' => 'person_2.jpg',
-                    'name' => 'Harjinder Kaur',
-                    'loc' => 'Amritsar',
-                    'text' => "My daughter's scholarship form was submitted perfectly. Punjab Saathi saved us from going to the block office three times. Highly recommended.",
-                    ],
-                    [
-                    'img' => 'person_3.jpg',
-                    'name' => 'Rajesh Kumar',
-                    'loc' => 'Jalandhar',
-                    'text' => 'Aadhaar address correction in just one visit. The team knew exactly what documents were needed. Very professional and affordable service.',
-                    ],
-                    [
-                    'img' => 'person_1.jpg',
-                    'name' => 'Sukhwinder Kaur',
-                    'loc' => 'Patiala',
-                    'text' => 'Meri caste certificate di zaroorat si scholarship lyi. Punjab Saathi ne 3 din vich sab kuch kar ditta. WhatsApp te documents bheje te kaam ho gaya!',
-                    ],
-                    ];
-                    @endphp
-                    @foreach($testimonials as $t)
+                    @foreach($googleReviews as $review)
                     <div class="item">
-                        <div class="testimony-wrap py-4 pb-5 d-flex justify-content-between align-items-end">
-                            <div class="user-img" style="background-image: url({{ asset('images/' . $t['img']) }})">
-                                <span class="quote d-flex align-items-center justify-content-center">
-                                    <i class="fa fa-quote-left"></i>
-                                </span>
+                        <div class="psk-testimony-card">
+                            <span class="psk-testimony-card__bigquote fa fa-quote-right"></span>
+                            <div class="psk-testimony-card__stars">
+                                @for($i = 0; $i < $review->rating; $i++)<span class="fa fa-star"></span>@endfor
                             </div>
-                            <div class="text">
-                                <p class="mb-4">{{ $t['text'] }}</p>
-                                <p class="name">{{ $t['name'] }}</p>
-                                <span class="position">Citizen, {{ $t['loc'] }}</span>
-                                <div class="mt-1" style="color:#f4c542;">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                            <p class="psk-testimony-card__text">{{ $review->review_text }}</p>
+                            <div class="psk-testimony-card__footer">
+                                <div class="psk-testimony-card__avatar" style="background:{{ $review->avatar_color }};">
+                                    {{ $review->initial }}
+                                </div>
+                                <div>
+                                    <p class="psk-testimony-card__name">
+                                        {{ $review->reviewer_name }}
+                                        @if($review->city)
+                                            <span class="psk-testimony-card__city">— {{ $review->city }}</span>
+                                        @endif
+                                    </p>
+                                    <span class="psk-testimony-card__source">
+                                        Google Review
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -566,6 +556,97 @@
         </div>
     </div>
 </section>
+
+@push('styles')
+<style>
+.psk-review-stat {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+}
+.psk-review-stat__score {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+}
+.psk-review-stat__stars { color: #f4c542; font-size: 0.95rem; margin-bottom: 4px; }
+.psk-review-stat__label { color: rgba(255,255,255,0.75); font-size: 0.85rem; }
+
+.psk-testimony-card {
+    position: relative;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 34px 30px 28px;
+    overflow: hidden;
+}
+.psk-testimony-card__bigquote {
+    position: absolute;
+    top: 14px;
+    right: 22px;
+    font-size: 3.5rem;
+    color: rgba(252,94,40,0.18);
+    line-height: 1;
+}
+.psk-testimony-card__stars { color: #f4c542; font-size: 0.95rem; margin-bottom: 14px; }
+.psk-testimony-card__text {
+    color: rgba(255,255,255,0.92);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    min-height: 110px;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 1;
+}
+.psk-testimony-card__footer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+}
+.psk-testimony-card__avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.psk-testimony-card__name { color: #fff; font-weight: 600; margin: 0; font-size: 0.95rem; }
+.psk-testimony-card__city { color: rgba(255,255,255,0.6); font-weight: 400; font-size: 0.85rem; }
+.psk-testimony-card__source { color: #fc5e28; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.psk-testimony .owl-dots { text-align: left; margin-top: 22px; }
+.psk-testimony .owl-dots .owl-dot span {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px 0 0;
+    background: rgba(255,255,255,0.3);
+    transition: all 0.25s ease;
+}
+.psk-testimony .owl-dots .owl-dot.active span {
+    width: 24px;
+    border-radius: 5px;
+    background: #fc5e28;
+}
+
+@media (max-width: 767px) {
+    .psk-testimony-card { padding: 26px 22px 22px; }
+    .psk-testimony-card__text { min-height: 0; }
+}
+</style>
+@endpush
 
 {{-- ═══════════════════════════════════════════════ --}}
 {{-- CTA BANNER — same style as homepage intro      --}}
