@@ -675,7 +675,7 @@
             <div class="col-md-8 text-center">
                 <div class="psk-ai-notify">
                     <div class="psk-ai-notify__pulse" style="background:#25D366;"></div>
-                    <h4 style="color:#040e26;font-weight:700;margin-bottom:8px;">🎉 Live Now — Try It Yourself</h4>
+                    <h4 style="color:#040e26;font-weight:700;margin-bottom:8px;"><span class="fa fa-bolt mr-2" style="color:#fc5e28;"></span>Live Now — Try It Yourself</h4>
                     <p style="color:#5a6a7a;margin-bottom:24px;font-size:15px;">
                         Click the chat icon in the bottom-right corner of your screen, or tap below to
                         start chatting with our AI assistant right now.
