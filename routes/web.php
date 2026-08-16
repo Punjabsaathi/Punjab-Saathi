@@ -142,6 +142,12 @@ Route::get('/csc-centers', [CscDirectoryController::class, 'index'])
 Route::get('/csc-centers/{cscCenter}', [CscDirectoryController::class, 'show'])
     ->name('csc.show');
 
+// Legal pages — static content, no backend/database management needed
+Route::get('/privacy-policy', fn () => view('pages.privacy-policy'))->name('privacy-policy');
+Route::get('/terms-conditions', fn () => view('pages.terms-conditions'))->name('terms-conditions');
+Route::get('/refund-cancellation-policy', fn () => view('pages.refund-cancellation-policy'))->name('refund-cancellation-policy');
+Route::get('/disclaimer', fn () => view('pages.disclaimer'))->name('disclaimer');
+
 // ─────────────────────────────────────────────────────────────────────────────
 // ADD THESE LINES TO YOUR routes/api.php
 // ─────────────────────────────────────────────────────────────────────────────

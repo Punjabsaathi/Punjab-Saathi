@@ -95,9 +95,17 @@
     </div>
     <div class="container-fluid bg-primary">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 aside-stretch py-3">
+            <div class="row align-items-center">
+                <div class="col-md-6 aside-stretch py-3">
                     <p class="mb-0">Copyright &copy; {{ date('Y') }} {{ config('site.name', 'Punjab Saathi') }}. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 py-3 text-md-right">
+                    <p class="mb-0">
+                        <a href="{{ route('privacy-policy') }}" class="mr-3">Privacy Policy</a>
+                        <a href="{{ route('terms-conditions') }}" class="mr-3">Terms &amp; Conditions</a>
+                        <a href="{{ route('refund-cancellation-policy') }}" class="mr-3">Refund &amp; Cancellation</a>
+                        <a href="{{ route('disclaimer') }}">Disclaimer</a>
+                    </p>
                 </div>
             </div>
         </div>
