@@ -581,16 +581,17 @@
         {{-- Section heading --}}
         <div class="row justify-content-center mb-5">
             <div class="col-md-10 text-center">
-                <span class="subheading" style="color:#fc5e28;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;">
-                    Coming Soon · Powered by AI
+                <span class="subheading" style="color:#25D366;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;">
+                    <span class="fa fa-circle" style="font-size:8px;vertical-align:middle;margin-right:6px;"></span>Live Now · Powered by Punjab Saathi
                 </span>
                 <h2 style="font-size:38px;font-weight:800;color:#040e26;margin-top:8px;line-height:1.25;">
                     Punjab's First AI-Powered<br>
-                    <span style="color:#fc5e28;">Government Service Assistant</span>
+                    <span style="color:#fc5e28;">Service Assistant</span>
                 </h2>
                 <p style="font-size:17px;color:#5a6a7a;margin-top:16px;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.75;">
-                    No more calls. No more waiting. Our AI assistant will handle everything —
-                    apply for services, check status, ask questions — all automatically, 24/7, in Punjabi, Hindi or English.
+                    No more calls. No more waiting. Our AI assistant is live on this website right now —
+                    ask questions, check your application status, and find your nearest CSC centre,
+                    24/7, in Punjabi, Hindi or English.
                 </p>
             </div>
         </div>
@@ -613,18 +614,18 @@
                 </div>
             </div>
 
-            {{-- Card 2 — Auto Apply --}}
+            {{-- Card 2 — CSC Locator --}}
             <div class="col-md-4 mb-4">
                 <div class="psk-ai-card psk-ai-card--featured">
                     <div class="psk-ai-card__badge--top">⭐ Most Useful</div>
                     <div class="psk-ai-card__icon" style="background:rgba(255,255,255,0.20);">
-                        <span class="fa fa-file-text" style="color:#fff;font-size:28px;"></span>
+                        <span class="fa fa-map-marker" style="color:#fff;font-size:28px;"></span>
                     </div>
-                    <h3 style="color:#fff;">AI Document Checker</h3>
-                    <p style="color:rgba(255,255,255,0.88);">Upload a photo of your document — Aadhaar, income certificate, marksheet, anything. Our AI instantly checks whether it is valid, readable, and complete before our team submits your application. Avoid rejections before they happen.</p>
+                    <h3 style="color:#fff;">CSC Centre Locator</h3>
+                    <p style="color:rgba(255,255,255,0.88);">Just ask "CSC centre near [your city or PIN code]" and our AI instantly searches our live database of 36,000+ CSC centres across Punjab and shows you the nearest ones — with contact details.</p>
                     <div class="psk-ai-card__badge" style="background:rgba(255,255,255,0.20);color:#fff;">
                         <span class="fa fa-check-circle" style="font-size:10px;margin-right:5px;"></span>
-                        Instant Verification
+                        36,000+ Centres Searchable
                     </div>
                 </div>
             </div>
@@ -650,7 +651,7 @@
         <div class="row justify-content-center mb-5">
             <div class="col-md-10 text-center">
                 <p style="font-size:13px;text-transform:uppercase;letter-spacing:2px;color:#fc5e28;font-weight:600;margin-bottom:16px;">
-                    Services AI Will Handle Automatically
+                    Ask Our AI Assistant About Any of These Services
                 </p>
                 <div class="psk-ai-tags">
                     <span>PAN Card</span>
@@ -673,24 +674,24 @@
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">
                 <div class="psk-ai-notify">
-                    <div class="psk-ai-notify__pulse"></div>
-                    <h4 style="color:#040e26;font-weight:700;margin-bottom:8px;">🚀 Launching Soon for Punjab</h4>
+                    <div class="psk-ai-notify__pulse" style="background:#25D366;"></div>
+                    <h4 style="color:#040e26;font-weight:700;margin-bottom:8px;">🎉 Live Now — Try It Yourself</h4>
                     <p style="color:#5a6a7a;margin-bottom:24px;font-size:15px;">
-                        Be the first to get access. Join our WhatsApp channel for launch updates.
+                        Click the chat icon in the bottom-right corner of your screen, or tap below to
+                        start chatting with our AI assistant right now.
                     </p>
                     <div class="d-flex justify-content-center flex-wrap" style="gap:14px;">
-                        <a href="https://wa.me/91XXXXXXXXXX?text=I+want+early+access+to+AI+service"
-                            target="_blank" rel="noopener"
+                        <button type="button" onclick="document.getElementById('psk-chatbot-btn')?.click();"
                             class="btn btn-primary px-4 py-3">
-                            <span class="fa fa-whatsapp mr-2"></span> Get Early Access
-                        </a>
+                            <span class="fa fa-comments mr-2"></span> Chat With AI Now
+                        </button>
                         <a href="{{ url('/services') }}"
                             class="btn btn-secondary px-4 py-3">
                             <span class="fa fa-list mr-2"></span> View All Services
                         </a>
                     </div>
                     <p style="font-size:13px;color:#aaa;margin-top:16px;">
-                        Currently services are available via WhatsApp &amp; phone — Mon–Sat 9 AM to 7 PM
+                        Prefer WhatsApp or a phone call? We're also available Mon–Sat, 9 AM–7 PM.
                     </p>
                 </div>
             </div>
