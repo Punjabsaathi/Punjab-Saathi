@@ -304,12 +304,15 @@
                                     @endif
                                     <div class="psk-csc-card__actions">
                                         <a href="{{ route('csc.show', $center) }}" class="btn btn-outline-primary btn-sm">View Center</a>
-                                        @if($center->latitude && $center->longitude)
-                                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ $center->latitude }},{{ $center->longitude }}"
+                                        @php
+                                            $waText = "Hello, I found this CSC center on Punjab Saathi and need help:\n"
+                                                . "Center: {$cardName}\n"
+                                                . "Location: " . ($cardLocation ?: 'Punjab') . ($center->pincode ? " — {$center->pincode}" : '');
+                                        @endphp
+                                        <a href="https://wa.me/917710556330?text={{ urlencode($waText) }}"
                                            target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-                                            <span class="fa fa-location-arrow mr-1"></span>Directions
+                                            <span class="fa fa-whatsapp mr-1"></span>Connect via Punjab Saathi
                                         </a>
-                                        @endif
                                     </div>
                                 </div>
                             </div>

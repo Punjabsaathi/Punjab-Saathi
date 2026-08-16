@@ -3,14 +3,14 @@
 @php
     $displayName = $center->kiosk_name ?: $center->vle_name;
     $locationLine = trim(collect([$center->sub_district, $center->district, 'Punjab'])->filter()->implode(', '));
-    $hasCoords = $center->latitude && $center->longitude;
-    $directionsUrl = $hasCoords
-        ? 'https://www.google.com/maps/dir/?api=1&destination=' . $center->latitude . ',' . $center->longitude
-        : null;
+    $waText = "Hello, I found this CSC center on Punjab Saathi and need help:\n"
+        . "Center: {$displayName}\n"
+        . "Location: " . ($locationLine ?: 'Punjab') . ($center->pincode ? " — {$center->pincode}" : '');
+    $waUrl = 'https://wa.me/917710556330?text=' . urlencode($waText);
 @endphp
 
 @section('title', $displayName . ' - CSC Center in ' . $center->district . ' | Punjab Saathi')
-@section('meta_description', 'CSC Center ' . $displayName . ' in ' . $locationLine . '. Get directions, contact details, and find nearby CSC centers on Punjab Saathi.')
+@section('meta_description', 'CSC Center ' . $displayName . ' in ' . $locationLine . '. Contact details and nearby CSC centers on Punjab Saathi.')
 
 @section('content')
 
@@ -41,11 +41,9 @@
         </p>
 
         <div class="psk-csc-profile-hero__actions">
-            @if($directionsUrl)
-            <a href="{{ $directionsUrl }}" target="_blank" rel="noopener" class="btn btn-primary">
-                <span class="fa fa-location-arrow mr-1"></span> Get Directions
+            <a href="{{ $waUrl }}" target="_blank" rel="noopener" class="btn btn-primary">
+                <span class="fa fa-whatsapp mr-1"></span> Connect via Punjab Saathi
             </a>
-            @endif
             @if($center->mobile)
             <a href="tel:{{ preg_replace('/\D/', '', $center->mobile) }}" class="btn btn-white btn-outline-primary">
                 <span class="fa fa-phone mr-1"></span> Call Center
