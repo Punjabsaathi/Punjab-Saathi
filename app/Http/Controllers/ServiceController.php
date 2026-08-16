@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filament\Resources\ServiceApplicationResource;
 use App\Models\Service;
 use App\Models\ServiceApplication;
+use App\Models\ServiceCategory;
 use App\Http\Requests\ServiceApplicationRequest;
 use App\Services\FormNotificationService;
 use App\Support\FormSubmissionData;
@@ -24,7 +25,13 @@ class ServiceController extends Controller
             ->get()
             ->groupBy('category');
         $totalServices = $services->flatten()->count();
-        return view('pages.services', compact('services', 'totalServices'));
+
+        $categoryDisplay = ServiceCategory::active()
+            ->orderBy('sort_order')
+            ->get()
+            ->keyBy('slug');
+
+        return view('pages.services', compact('services', 'totalServices', 'categoryDisplay'));
     }
 
 

@@ -8,6 +8,10 @@
     <title>@yield('title', config('app.name', 'Punjab Saathi'))</title>
     <meta name="description" content="@yield('meta_description', 'Punjab Saathi - Online Public Services in Punjab')">
 
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" href="{{ asset('images/punjab_seva_kendra.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/punjab_seva_kendra.png') }}">
+
     {{-- Pages push canonical URLs, Open Graph tags, and JSON-LD schema
          here via @push('head') (e.g. blogs/show.blade.php). This stack
          was never rendered before, so all of that silently disappeared

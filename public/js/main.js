@@ -35,7 +35,7 @@
         $(".carousel-testimony").owlCarousel({
             autoplay: true,
             autoHeight: true,
-            center: true,
+            center: false,
             loop: true,
             items: 1,
             margin: 30,

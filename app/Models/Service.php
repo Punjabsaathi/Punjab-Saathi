@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 
 class Service extends Model
 {
@@ -76,6 +77,11 @@ class Service extends Model
     {
         $text = urlencode("Hello, I need help with: {$this->title}");
         return "https://wa.me/91XXXXXXXXXX?text={$text}";
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->og_image ? Storage::disk('public')->url($this->og_image) : null;
     }
 
     // ── Route model binding key ──────────────────────────────

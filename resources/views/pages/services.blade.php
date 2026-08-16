@@ -40,8 +40,8 @@
         <div class="row no-gutters psk-trust-bar__inner">
             @php
             $trustItems = [
-                ['icon' => 'fa-check-circle', 'number' => '75,000+',            'label' => 'Services Completed'],
-                ['icon' => 'fa-users',         'number' => '50,000+',            'label' => 'Citizens Served'],
+                ['icon' => 'fa-check-circle', 'number' => '7500+',            'label' => 'Services Completed'],
+                ['icon' => 'fa-users',         'number' => '4900+',            'label' => 'Citizens Served'],
                 ['icon' => 'fa-list',          'number' => $totalServices . '+', 'label' => 'Services Available'],
                 ['icon' => 'fa-map-marker',    'number' => '22',                 'label' => 'Districts Covered'],
                 ['icon' => 'fa-clock-o',       'number' => '1–3 Days',           'label' => 'Average Turnaround'],
@@ -113,48 +113,11 @@
 {{-- CATEGORY FILTER TABS                                   --}}
 {{-- ═══════════════════════════════════════════════════════ --}}
 @php
-$categoryConfig = [
-    'identity' => [
-        'label'      => 'Identity & ID Cards',
-        'icon'       => 'fa-id-card',
-        'color'      => '#fc5e28',
-        'heading'    => 'Identity & ID Card Services',
-        'subheading' => 'Aadhaar, PAN, Voter ID, Driving Licence — all processed online by certified operators.',
-        'shade'      => false,
-    ],
-    'certificates' => [
-        'label'      => 'Revenue & Certificates',
-        'icon'       => 'fa-file-text',
-        'color'      => '#059669',
-        'heading'    => 'Revenue & Certificate Services',
-        'subheading' => 'Income certificate, caste certificate, property records, and all revenue department documents for Punjab.',
-        'shade'      => true,
-    ],
-    'registrations' => [
-        'label'      => 'Registrations',
-        'icon'       => 'fa-registered',
-        'color'      => '#0ea5e9',
-        'heading'    => 'Registration Services',
-        'subheading' => 'Birth, death, ration card, and all essential registrations processed online for Punjab citizens.',
-        'shade'      => false,
-    ],
-    'schemes' => [
-        'label'      => 'Govt. Schemes',
-        'icon'       => 'fa-heart',
-        'color'      => '#8b5cf6',
-        'heading'    => 'Government Scheme Enrolment',
-        'subheading' => 'Pension, PM-KISAN, Ayushman Bharat, scholarship — get enrolled in the schemes you deserve.',
-        'shade'      => true,
-    ],
-    'jobs' => [
-        'label'      => 'Jobs & Forms',
-        'icon'       => 'fa-briefcase',
-        'color'      => '#3b82f6',
-        'heading'    => 'Government Jobs, Forms & Admit Cards',
-        'subheading' => 'Job alerts, exam form filling, admit card downloads, and result updates for Punjab government jobs.',
-        'shade'      => false,
-    ],
-];
+    // Backend-managed category display data (name, icon, color, subheading,
+    // image) — passed in as $categoryDisplay, keyed by slug. Alternating
+    // section shading is derived from position rather than stored, so a
+    // newly-added category automatically stripes correctly too.
+    $categoryConfig = $categoryDisplay;
 @endphp
 
 <section class="ftco-section ftco-no-pb psk-filter-section" id="service-categories">
@@ -172,7 +135,7 @@ $categoryConfig = [
                     @foreach($categoryConfig as $key => $cat)
                         @if($services->has($key))
                         <button class="psk-filter-tab" data-filter="{{ $key }}">
-                            <span class="fa {{ $cat['icon'] }} mr-1"></span> {{ $cat['label'] }}
+                            <span class="fa {{ $cat->icon }} mr-1"></span> {{ $cat->name }}
                         </button>
                         @endif
                     @endforeach
@@ -185,21 +148,23 @@ $categoryConfig = [
 {{-- ═══════════════════════════════════════════════════════ --}}
 {{-- SERVICE SECTIONS — fully dynamic from DB                --}}
 {{-- ═══════════════════════════════════════════════════════ --}}
+@php $catIndex = 0; @endphp
 @foreach($categoryConfig as $key => $cat)
     @if($services->has($key))
+    @php $catIndex++; @endphp
 
-    <section class="ftco-section ftco-no-pt psk-services-section {{ $cat['shade'] ? 'bg-half-light' : '' }}"
+    <section class="ftco-section ftco-no-pt psk-services-section {{ $catIndex % 2 === 0 ? 'bg-half-light' : '' }}"
              id="cat-{{ $key }}"
              data-category="{{ $key }}">
         <div class="container">
 
             <div class="psk-cat-header ftco-animate">
-                <div class="psk-cat-header__icon" style="background:{{ $cat['color'] }}18;">
-                    <span class="fa {{ $cat['icon'] }}" style="color:{{ $cat['color'] }};"></span>
+                <div class="psk-cat-header__icon" style="background:{{ $cat->color }}18;">
+                    <span class="fa {{ $cat->icon }}" style="color:{{ $cat->color }};"></span>
                 </div>
                 <div>
-                    <h3 class="psk-cat-header__title">{{ $cat['heading'] }}</h3>
-                    <p class="psk-cat-header__sub">{{ $cat['subheading'] }}</p>
+                    <h3 class="psk-cat-header__title">{{ $cat->name }}</h3>
+                    <p class="psk-cat-header__sub">{{ $cat->subheading }}</p>
                 </div>
             </div>
 
@@ -212,9 +177,13 @@ $categoryConfig = [
                         <div class="psk-service-card__popular">⭐ Most Requested</div>
                         @endif
 
+                        @if($svc->image_url)
+                        <div class="psk-service-card__cover" style="background-image: url('{{ $svc->image_url }}');"></div>
+                        @endif
+
                         <div class="psk-service-card__header">
-                            <div class="psk-service-card__icon" style="background:{{ $svc->color ?? $cat['color'] }}15;">
-                                <span class="fa {{ $svc->icon ?? $cat['icon'] }}" style="color:{{ $svc->color ?? $cat['color'] }};"></span>
+                            <div class="psk-service-card__icon" style="background:{{ $svc->color ?? $cat->color }}15;">
+                                <span class="fa {{ $svc->icon ?? $cat->icon }}" style="color:{{ $svc->color ?? $cat->color }};"></span>
                             </div>
                             <div>
                                 <span class="psk-service-card__tag">{{ $svc->tag }}</span>
@@ -537,6 +506,12 @@ $categoryConfig = [
     padding: 4px 12px;
     border-radius: 0 14px 0 10px;
     letter-spacing: 0.3px;
+}
+.psk-service-card__cover {
+    margin: -22px -20px 16px -20px;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
 }
 .psk-service-card__header {
     display: flex;

@@ -8731,8 +8731,8 @@ h1, h2, h3, h4, h5,
     color: #fff !important; }
     .btn.btn-primary:hover {
       border: 1px solid #fc5e28;
-      background: #fc5e28;
-      color: #fc5e28; }
+      background: #e04d1a;
+      color: #fff; }
     .btn.btn-primary.btn-outline-primary {
       border: 2px solid #fc5e28 !important;
       background: transparent !important;
@@ -9207,6 +9207,14 @@ textarea.form-control {
       color: rgba(255, 255, 255, 0.8); }
       .project:hover .text p span {
         color: #fff; }
+    .project:hover .text .btn.btn-primary {
+      background: #fff;
+      border-color: #fff !important;
+      color: #fc5e28 !important; }
+      .project:hover .text .btn.btn-primary:hover {
+        background: #fff;
+        border-color: #fff;
+        color: #fc5e28; }
   .project:hover .img .icon {
     opacity: 1; }
 
@@ -11268,6 +11276,15 @@ textarea.form-control {
     font-weight: 700 !important;
     color: #1e2a3a !important;
     line-height: 1.25 !important;
+}
+
+/* Orange heading text only where the background behind it is dark
+   (e.g. the "Punjab's Most Trusted..." section). The testimony section
+   reuses the same .heading-section-white class but sits on an ORANGE
+   background, so it needs to stay white there instead — orange-on-orange
+   would be invisible. */
+.ftco-counter .heading-section.heading-section-white h2 {
+    color: #fc5e28 !important;
 }
 
 @media (max-width: 767px) {

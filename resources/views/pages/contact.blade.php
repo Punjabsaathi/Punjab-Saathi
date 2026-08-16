@@ -300,7 +300,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6 col-md-3 psk-stat">
-                <span class="psk-stat__num">75,000+</span>
+                <span class="psk-stat__num">7500+</span>
                 <span class="psk-stat__label">Services Completed</span>
             </div>
             <div class="col-6 col-md-3 psk-stat">

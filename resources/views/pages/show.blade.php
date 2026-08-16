@@ -61,7 +61,7 @@ $serviceSchema = json_encode([
 {{-- HERO BANNER                                             --}}
 {{-- ═══════════════════════════════════════════════════════ --}}
 <section class="psk-detail-hero"
-         style="background-image: url('{{ asset('images/bg_1.jpg') }}');">
+         style="background-image: url('{{ $service->image_url ?: asset('images/bg_1.jpg') }}');">
     <div class="psk-detail-hero__overlay"></div>
     <div class="container">
 
@@ -467,7 +467,7 @@ $serviceSchema = json_encode([
                         <h3 class="psk-sidebar-card__title">Why Choose Us</h3>
                         <ul class="psk-trust-list">
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> Authorised CSC Operator</li>
-                            <li><span class="fa fa-check-circle" style="color:#059669;"></span> 75,000+ Services Completed</li>
+                            <li><span class="fa fa-check-circle" style="color:#059669;"></span> + Services Completed</li>
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> No Visit Required</li>
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> 100% Accurate — No Rejections</li>
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> Punjabi / Hindi Support</li>

@@ -17,6 +17,8 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\AgentRegistrationController;
+use App\Http\Controllers\Admin\ServiceImageController;
+use App\Http\Controllers\Admin\ServiceCategoryImageController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -138,3 +140,17 @@ Route::get('/register-agent/success',  [AgentRegistrationController::class, 'suc
 // Live mobile-number check (called from the registration form via JS)
 Route::get('/agent/check-mobile', [AgentRegistrationController::class, 'checkMobile'])
     ->name('agent.check-mobile');
+
+// Plain (non-Livewire) service image upload — see ServiceImageController
+// for why this exists instead of just using Filament's FileUpload field.
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/services/{service}/image', [ServiceImageController::class, 'edit'])
+        ->name('admin.services.image.edit');
+    Route::post('/admin/services/{service}/image', [ServiceImageController::class, 'update'])
+        ->name('admin.services.image.update');
+
+    Route::get('/admin/service-categories/{serviceCategory}/image', [ServiceCategoryImageController::class, 'edit'])
+        ->name('admin.service-categories.image.edit');
+    Route::post('/admin/service-categories/{serviceCategory}/image', [ServiceCategoryImageController::class, 'update'])
+        ->name('admin.service-categories.image.update');
+});

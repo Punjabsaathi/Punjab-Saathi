@@ -15,7 +15,7 @@
                             <span style="color:#f4c542;">ਹੁਣ ਔਨਲਾਈਨ - ਘਰ ਬੈਠੇ </span>
                         </h1>
                         <p class="mb-2" style="font-size:1.1rem;">
-                            Get  your government certificates online now, documents, and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
+                            Getyour government certificates online now, documents, and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
                         </p>
                         <p class="mb-4" style="font-size:0.95rem;opacity:0.85;">
                             Aadhaar &middot; PAN &middot; Income Certificate &middot; Caste Certificate &middot; Voter ID &middot; and 50+ more services across Punjab.
@@ -143,59 +143,29 @@
             </div>
 
             @php
-                $categoryConfig = [
-                    'identity' => [
-                        'label'   => 'Identity and ID Cards',
-                        'desc'    => 'Aadhaar enrolment and correction, PAN card apply and update, Voter ID, Driving Licence — all in one place.',
-                        'img'     => 'services-1.jpg',
-                        'btnText' => 'See All ID Services',
-                    ],
-                    'certificates' => [
-                        'label'   => 'Revenue and Certificates',
-                        'desc'    => 'Caste certificate, residence certificate, property nakal, fard, and other revenue department documents.',
-                        'img'     => 'services-2.jpg',
-                        'btnText' => 'See All Certificates',
-                    ],
-                    'registrations' => [
-                        'label'   => 'Registrations and Schemes',
-                        'desc'    => 'Birth and death registration, ration card, pension schemes and government welfare scheme enrolment.',
-                        'img'     => 'services-3.jpg',
-                        'btnText' => 'Explore All Services',
-                    ],
-                    'schemes' => [
-                        'label'   => 'Government Schemes',
-                        'desc'    => 'Pension, PM-KISAN, Ayushman Bharat, scholarships — get enrolled in the schemes you qualify for.',
-                        'img'     => 'services-1.jpg',
-                        'btnText' => 'Explore Schemes',
-                    ],
-                    'jobs' => [
-                        'label'   => 'Jobs and Form Filling',
-                        'desc'    => 'Punjab Government job alerts, exam form filling, admit card downloads, and recruitment updates.',
-                        'img'     => 'services-2.jpg',
-                        'btnText' => 'View Job Services',
-                    ],
-                ];
-
-                $activeCategories = collect($categoryConfig)
-                    ->filter(function($cat, $key) use ($serviceCategories) {
-                        return $serviceCategories->has($key);
-                    });
+                $activeCategories = $categoryDisplay->filter(function($cat, $key) use ($serviceCategories) {
+                    return $serviceCategories->has($key);
+                });
             @endphp
 
             <div class="row">
                 @foreach($activeCategories as $key => $cat)
+                @php
+                    $catImage = $serviceCategories->get($key)->first(fn($s) => $s->image_url)?->image_url
+                        ?? $cat->image_url
+                        ?? asset('images/services-1.jpg');
+                @endphp
                 <div class="col-md-4">
                     <div class="services-wrap ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('images/' . $cat['img']) }});"></div>
+                        <div class="img" style="background-image: url('{{ $catImage }}');"></div>
                         <div class="text">
-                            <h2>{{ $cat['label'] }}</h2>
-                            <p>{{ $cat['desc'] }}</p>
+                            <h2>{{ $cat->name }}</h2>
                             <p style="font-size:0.8rem;color:#aaa;">
                                 <span class="fa fa-list mr-1"></span>
                                 {{ $serviceCategories->get($key)->count() }} services available
                             </p>
                             <a href="{{ url('/services#cat-' . $key) }}" class="btn-custom">
-                                {{ $cat['btnText'] }}
+                                {{ $cat->button_text ?: 'View Services' }}
                             </a>
                         </div>
                     </div>
@@ -342,27 +312,20 @@
                     <p class="text-muted">These are the services our customers apply for most frequently. Click to apply instantly.</p>
                 </div>
             </div>
-            @php
-            $popularServices = [
-                ['icon' => 'fa-id-card',     'title' => 'Aadhaar Card Update',          'tag' => 'Identity',            'desc' => 'Name, DOB, address, and mobile number correction on Aadhaar.'],
-                ['icon' => 'fa-file-text-o', 'title' => 'Income Certificate',           'tag' => 'Revenue Dept.',       'desc' => 'Required for scholarships, loans, and government schemes.'],
-                ['icon' => 'fa-users',       'title' => 'Caste Certificate',            'tag' => 'Revenue Dept.',       'desc' => 'SC/ST/OBC/EWS certificates for jobs, admissions, and schemes.'],
-                ['icon' => 'fa-credit-card', 'title' => 'PAN Card Apply or Correction', 'tag' => 'Income Tax',          'desc' => 'New PAN or corrections for individuals and businesses.'],
-                ['icon' => 'fa-home',        'title' => 'Property Nakal or Fard',       'tag' => 'Patwari / Jamabandi', 'desc' => 'Land record copies for property matters and legal purposes.'],
-                ['icon' => 'fa-heartbeat',   'title' => 'Birth and Death Certificate',  'tag' => 'Municipality',        'desc' => 'Online application for birth and death registration across Punjab.'],
-            ];
-            @endphp
             <div class="row">
                 @foreach($popularServices as $svc)
+                @php
+                    $svcCardImg = $svc->image_url ?: asset('images/image_1.jpg');
+                @endphp
                 <div class="col-md-4">
                     <div class="project">
-                        <a href="{{ url('/services') }}" class="img image-popup d-flex align-items-center" style="background-image: url({{ asset('images/project-1.jpg') }});">
+                        <a href="{{ route('services.show', $svc->slug) }}" class="img image-popup d-flex align-items-center" style="background-image: url('{{ $svcCardImg }}');">
                         </a>
                         <div class="text">
-                            <span class="subheading">{{ $svc['tag'] }}</span>
-                            <h3>{{ $svc['title'] }}</h3>
-                            <p>{{ $svc['desc'] }}</p>
-                            <a href="{{ url('/services') }}" class="btn btn-sm btn-primary mt-1">Apply Now</a>
+                            <span class="subheading">{{ $svc->tag }}</span>
+                            <h3>{{ $svc->title }}</h3>
+                            <p>{{ $svc->short_desc }}</p>
+                            <a href="{{ route('services.show', $svc->slug) }}" class="btn btn-sm btn-primary mt-1">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -372,44 +335,55 @@
     </section>
 
 
-    <section class="ftco-section ftco-no-pt ftco-no-pb testimony-section img">
+    <section class="ftco-section ftco-no-pt ftco-no-pb testimony-section img psk-testimony">
         <div class="overlay"></div>
         <div class="container">
-            <div class="row ftco-animate justify-content-center">
+            <div class="row ftco-animate justify-content-center align-items-center">
                 <div class="col-md-6 p-4 pl-md-0 py-md-5 pr-md-5 aside-stretch d-flex align-items-center">
                     <div class="heading-section heading-section-white">
                         <span class="subheading" style="color:#fff;">Read Testimonials</span>
                         <h2 class="mb-4" style="font-size:40px;">Thousands of Punjab families trust us with their most important paperwork</h2>
                         <p style="color:rgba(255,255,255,0.8);">Real reviews from real citizens across Ludhiana, Amritsar, Jalandhar, Patiala, and beyond.</p>
+
+                        @if($reviewAvgRating)
+                        <div class="psk-review-stat">
+                            <div class="psk-review-stat__score">{{ number_format($reviewAvgRating, 1) }}</div>
+                            <div>
+                                <div class="psk-review-stat__stars">
+                                    @for($i = 0; $i < round($reviewAvgRating); $i++)<span class="fa fa-star"></span>@endfor
+                                </div>
+                                <div class="psk-review-stat__label">
+                                    Verified Google Reviews
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6 pl-md-5 py-4 py-md-5 aside-stretch-right">
                     <div class="carousel-testimony owl-carousel ftco-owl">
-                        @php
-                        $testimonials = [
-                            ['img' => 'person_1.jpg', 'name' => 'Gurpreet Singh', 'loc' => 'Ludhiana',  'text' => 'Mera income certificate sirf 2 din vich ready ho gaya. Staff bahut helpful hai te process completely online si. Bohot vadhia seva!'],
-                            ['img' => 'person_2.jpg', 'name' => 'Harjinder Kaur', 'loc' => 'Amritsar',  'text' => "My daughter's scholarship form was submitted perfectly. Punjab Saathi saved us from going to the block office three times. Highly recommended."],
-                            ['img' => 'person_3.jpg', 'name' => 'Rajesh Kumar',   'loc' => 'Jalandhar', 'text' => 'Aadhaar address correction in just one visit. The team knew exactly what documents were needed. Very professional and affordable service.'],
-                        ];
-                        @endphp
-                        @foreach($testimonials as $t)
+                        @foreach($googleReviews as $review)
                         <div class="item">
-                            <div class="testimony-wrap py-4 pb-5 d-flex justify-content-between align-items-end">
-                                <div class="user-img" style="background-image: url({{ asset('images/' . $t['img']) }})">
-                                    <span class="quote d-flex align-items-center justify-content-center">
-                                        <i class="fa fa-quote-left"></i>
-                                    </span>
+                            <div class="psk-testimony-card">
+                                <span class="psk-testimony-card__bigquote fa fa-quote-right"></span>
+                                <div class="psk-testimony-card__stars">
+                                    @for($i = 0; $i < $review->rating; $i++)<span class="fa fa-star"></span>@endfor
                                 </div>
-                                <div class="text">
-                                    <p class="mb-4">{{ $t['text'] }}</p>
-                                    <p class="name">{{ $t['name'] }}</p>
-                                    <span class="position">Citizen, {{ $t['loc'] }}</span>
-                                    <div class="mt-1" style="color:#f4c542;">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
+                                <p class="psk-testimony-card__text">{{ $review->review_text }}</p>
+                                <div class="psk-testimony-card__footer">
+                                    <div class="psk-testimony-card__avatar" style="background:{{ $review->avatar_color }};">
+                                        {{ $review->initial }}
+                                    </div>
+                                    <div>
+                                        <p class="psk-testimony-card__name">
+                                            {{ $review->reviewer_name }}
+                                            @if($review->city)
+                                                <span class="psk-testimony-card__city">— {{ $review->city }}</span>
+                                            @endif
+                                        </p>
+                                        <span class="psk-testimony-card__source">
+                                            Google Review
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -420,6 +394,97 @@
             </div>
         </div>
     </section>
+
+    @push('styles')
+    <style>
+    .psk-review-stat {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 22px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .psk-review-stat__score {
+        font-size: 2.6rem;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1;
+    }
+    .psk-review-stat__stars { color: #f4c542; font-size: 0.95rem; margin-bottom: 4px; }
+    .psk-review-stat__label { color: rgba(255,255,255,0.75); font-size: 0.85rem; }
+
+    .psk-testimony-card {
+        position: relative;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(6px);
+        border-radius: 18px;
+        padding: 34px 30px 28px;
+        overflow: hidden;
+    }
+    .psk-testimony-card__bigquote {
+        position: absolute;
+        top: 14px;
+        right: 22px;
+        font-size: 3.5rem;
+        color: rgba(252,94,40,0.18);
+        line-height: 1;
+    }
+    .psk-testimony-card__stars { color: #f4c542; font-size: 0.95rem; margin-bottom: 14px; }
+    .psk-testimony-card__text {
+        color: rgba(255,255,255,0.92);
+        font-size: 1.05rem;
+        line-height: 1.75;
+        min-height: 110px;
+        margin-bottom: 22px;
+        position: relative;
+        z-index: 1;
+    }
+    .psk-testimony-card__footer {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255,255,255,0.14);
+    }
+    .psk-testimony-card__avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    .psk-testimony-card__name { color: #fff; font-weight: 600; margin: 0; font-size: 0.95rem; }
+    .psk-testimony-card__city { color: rgba(255,255,255,0.6); font-weight: 400; font-size: 0.85rem; }
+    .psk-testimony-card__source { color: #fc5e28; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+
+    .psk-testimony .owl-dots { text-align: left; margin-top: 22px; }
+    .psk-testimony .owl-dots .owl-dot span {
+        width: 8px;
+        height: 8px;
+        margin: 0 4px 0 0;
+        background: rgba(255,255,255,0.3);
+        transition: all 0.25s ease;
+    }
+    .psk-testimony .owl-dots .owl-dot.active span {
+        width: 24px;
+        border-radius: 5px;
+        background: #fc5e28;
+    }
+
+    @media (max-width: 767px) {
+        .psk-testimony-card { padding: 26px 22px 22px; }
+        .psk-testimony-card__text { min-height: 0; }
+    }
+    </style>
+    @endpush
 
     <section class="ftco-section bg-light">
         <div class="container">

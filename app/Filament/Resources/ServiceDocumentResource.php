@@ -20,6 +20,13 @@ class ServiceDocumentResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Services';
 
+    // Documents are now managed inline from the Service edit form's
+    // "Documents" tab — this resource still exists and works, it's just
+    // no longer shown in the sidebar to avoid two places to edit the same data.
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function form(Form $form): Form
     {

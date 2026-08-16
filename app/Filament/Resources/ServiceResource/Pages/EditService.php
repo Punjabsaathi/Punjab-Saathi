@@ -13,6 +13,8 @@ class EditService extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            // Image upload now lives inline on the "Image" tab of the form
+            // itself (see ServiceResource::form()) — no separate button needed.
             Actions\DeleteAction::make(),
         ];
     }
