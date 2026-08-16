@@ -165,7 +165,6 @@
                         <h2>12. Contact Us</h2>
                         <p>If you have any questions, concerns, or requests regarding this Privacy Policy or how your information is handled, please contact:</p>
                         <div class="psk-legal-contact">
-                            <p class="mb-1"><strong>Grievance / Privacy Officer:</strong> [GRIEVANCE OFFICER NAME]</p>
                             <p class="mb-1"><strong>Punjab Saathi</strong></p>
                             <p class="mb-1">Shop No. 1, Lal Market, Near OHM Omjee Cinema, Grand Trunk Rd, 143001, Amritsar, Punjab, India</p>
                             <p class="mb-1">Phone: <a href="tel:+917710556330">+91 7710556330</a></p>
