@@ -42,7 +42,7 @@ class ServiceCategorySeeder extends Seeder
                 'icon'        => 'fa-registered',
                 'color'       => '#0ea5e9',
                 'description' => 'Birth and death registration, ration card, pension schemes and government welfare scheme enrolment.',
-                'subheading'  => 'Birth, death, ration card, and all essential registrations processed online for Punjab citizens.',
+                'subheading'  => 'Birth, death, ration card, and all essential registrations processed online for Punjab people.',
                 'button_text' => 'Explore All Services',
                 'sort_order'  => 3,
             ],

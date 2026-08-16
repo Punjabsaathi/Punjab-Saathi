@@ -70,7 +70,7 @@
             <div class="col-md-8 text-center heading-section ftco-animate">
                 <span class="subheading">Our Purpose</span>
                 <h2 class="mb-4">Mission, Vision & Values</h2>
-                <p class="text-muted">Everything we do is guided by one goal — making government services accessible to every citizen of Punjab.</p>
+                <p class="text-muted">Everything we do is guided by one goal — making government services accessible to every person in Punjab.</p>
             </div>
         </div>
 
@@ -83,7 +83,7 @@
                     </div>
                     <div class="media-body pl-4">
                         <h3 class="heading mb-3">Our Mission</h3>
-                        <p>To bring every government service to every citizen of Punjab — online, fast, affordable, and in their own language — so nobody is left behind due to distance, language, or lack of knowledge.</p>
+                        <p>To bring every government service to every person in Punjab — online, fast, affordable, and in their own language — so nobody is left behind due to distance, language, or lack of knowledge.</p>
                     </div>
                 </div>
             </div>
