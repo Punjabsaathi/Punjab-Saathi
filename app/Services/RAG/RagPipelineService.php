@@ -4,6 +4,7 @@ namespace App\Services\RAG;
 
 use App\Models\ChatMessage;
 use App\Models\ChatSession;
+use App\Models\CscCenter;
 use App\Models\Service;
 use App\Models\ServiceApplication;
 use App\Services\AI\GeminiService;
@@ -44,6 +45,13 @@ class RagPipelineService
         // of letting it fall through to the "no information" fallback.
         if ($this->isBrowseServicesQuery($query)) {
             return $this->handleBrowseServices($language);
+        }
+
+        // Step 2c: CSC center lookup — same direct-DB-query shape as the
+        // two branches above, bypassing vector search and the LLM's own
+        // "knowledge" entirely. See handleCscLocatorQuery() for why.
+        if ($this->isCscLocatorQuery($query)) {
+            return $this->handleCscLocatorQuery($query, $language);
         }
 
         // Step 3: Translate to English for embedding only if not English
@@ -303,6 +311,147 @@ class RagPipelineService
             'intent'        => 'service_info',
             'sources'       => [],
             'quick_replies' => ['Required documents', 'Processing time', 'Application fee'],
+            'tokens'        => 0,
+            'provider'      => null,
+        ];
+    }
+
+    /**
+     * The 23 official Punjab districts — same list used in the CSC
+     * self-registration form's district dropdown
+     * (resources/views/agents/agent-registration.blade.php). Reused here
+     * for a simple substring match against a chat query, not a dropdown.
+     */
+    protected const PUNJAB_DISTRICTS = [
+        'Amritsar', 'Barnala', 'Bathinda', 'Faridkot',
+        'Fatehgarh Sahib', 'Fazilka', 'Ferozepur', 'Gurdaspur',
+        'Hoshiarpur', 'Jalandhar', 'Kapurthala', 'Ludhiana',
+        'Malerkotla', 'Mansa', 'Moga', 'Pathankot', 'Patiala',
+        'Rupnagar', 'S.A.S. Nagar', 'Mohali', 'Sangrur',
+        'Shahid Bhagat Singh Nagar', 'Sri Muktsar Sahib', 'Tarn Taran',
+    ];
+
+    /**
+     * Unambiguous CSC-network lookup signals only — deliberately narrow so
+     * generic "what's your office address" style questions (already
+     * handled fine by the existing 'location'/'contact' RAG intents)
+     * don't get hijacked by this check.
+     */
+    protected function isCscLocatorQuery(string $query): bool
+    {
+        $q = mb_strtolower($query);
+
+        if (str_contains($q, 'csc') || str_contains($q, 'kiosk') || str_contains($q, 'vle')) {
+            return true;
+        }
+
+        $mentionsCenter = str_contains($q, 'center') || str_contains($q, 'centre');
+        if (!$mentionsCenter) {
+            return false;
+        }
+
+        if (preg_match('/\b\d{6}\b/', $query)) {
+            return true;
+        }
+
+        foreach (self::PUNJAB_DISTRICTS as $district) {
+            if (str_contains($q, mb_strtolower($district))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Direct, deterministic CSC center lookup — bypasses embedding search
+     * and the LLM's own "knowledge" entirely (same reasoning as
+     * handleStatusCheck()/handleBrowseServices()): pincode/district
+     * matching is an exact filter, not a semantic-similarity question,
+     * and stuffing 36,000 csc_centers rows into the knowledge_chunks
+     * vector search isn't workable at that scale. Reuses the exact same
+     * CscCenter::publiclyVisible() scope the public /csc-centers
+     * directory uses, so the chatbot can never surface a center the
+     * directory itself wouldn't show.
+     */
+    protected function handleCscLocatorQuery(string $query, string $language): array
+    {
+        $directoryUrl = route('csc.directory');
+
+        preg_match('/\b\d{6}\b/', $query, $matches);
+        $pincode = $matches[0] ?? null;
+
+        $district = null;
+        if (!$pincode) {
+            $q = mb_strtolower($query);
+            foreach (self::PUNJAB_DISTRICTS as $candidate) {
+                if (str_contains($q, mb_strtolower($candidate))) {
+                    $district = $candidate;
+                    break;
+                }
+            }
+        }
+
+        // Neither a pincode nor a recognized district — ask, don't guess.
+        if (!$pincode && !$district) {
+            $answer = "Sure! Which city, district, or 6-digit PIN code should I search for CSC centers in? "
+                . "Or browse the full list yourself at {$directoryUrl}.";
+
+            if ($language !== 'en') {
+                $answer = $this->gemini->translate($answer, $language);
+            }
+
+            return [
+                'answer'        => $answer,
+                'intent'        => 'csc_locator',
+                'sources'       => [],
+                'quick_replies' => ['Search by PIN code', 'Find nearest center', 'Register your CSC'],
+                'tokens'        => 0,
+                'provider'      => null,
+            ];
+        }
+
+        $centersQuery = CscCenter::publiclyVisible();
+        $centersQuery = $pincode
+            ? $centersQuery->where('pincode', $pincode)
+            : $centersQuery->where('district', 'like', "%{$district}%");
+
+        $total   = (clone $centersQuery)->count();
+        $centers = $centersQuery->orderBy('vle_name')->take(5)->get();
+
+        $searchedFor = $pincode ? "PIN code {$pincode}" : "{$district} district";
+        $linkParams  = $pincode ? ['pincode' => $pincode] : ['district' => $district];
+        $fullListUrl = route('csc.directory', $linkParams);
+
+        if ($centers->isEmpty()) {
+            $answer = "I couldn't find any CSC centers for {$searchedFor}. "
+                . "Try a nearby PIN code or district, or search the full directory at {$directoryUrl}.";
+        } else {
+            $list = $centers->map(function ($c) {
+                $name = $c->kiosk_name ?: $c->vle_name;
+                $location = trim(collect([$c->sub_district, $c->district])->filter()->implode(', '));
+                $line = "• **{$name}**" . ($location ? " — {$location}" : '');
+                if ($c->mobile) {
+                    $line .= " (📞 {$c->mobile})";
+                }
+                return $line;
+            })->implode("\n");
+
+            $answer = "Found {$total} CSC center" . ($total === 1 ? '' : 's') . " for {$searchedFor}:\n\n{$list}";
+            if ($total > 5) {
+                $answer .= "\n\nSee all {$total} results at {$fullListUrl}.";
+            }
+        }
+
+        if ($language !== 'en') {
+            $answer = $this->gemini->translate($answer, $language);
+        }
+
+        return [
+            'answer'        => $answer,
+            'intent'        => 'csc_locator',
+            'sources'       => [],
+            'quick_replies' => ['Find nearest center', 'Register your CSC', 'Contact helpline'],
             'tokens'        => 0,
             'provider'      => null,
         ];
