@@ -550,7 +550,6 @@
     color: #555;
     line-height: 1.65;
     margin-bottom: 14px;
-    flex: 1;
 }
 .psk-service-card__docs {
     background: #f4f6f9;
