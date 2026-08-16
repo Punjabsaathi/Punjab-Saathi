@@ -145,7 +145,16 @@
 @media (max-width: 767.98px) {
     .psk-reg-hero { padding: 100px 0 40px; }
     .psk-reg-hero__title { font-size: 1.6rem; }
+    .psk-reg-form-card { padding: 22px 16px 20px !important; }
 }
+
+/* ── Registration form: breathing room between fields ── */
+#agent-register-form .form-group { margin-bottom: 24px; }
+#agent-register-form label { margin-bottom: 8px; }
+#agent-register-form .input-group-text {
+    width: 44px; justify-content: center; padding: 0.375rem 0;
+}
+#agent-register-form small { display: block; margin-top: 6px; line-height: 1.5; }
 </style>
 @endpush
 
@@ -197,7 +206,7 @@
                 @endif
 
                 {{-- ── Form card ──────────────────────────────────── --}}
-                <div class="ftco-animate"
+                <div class="ftco-animate psk-reg-form-card"
                     style="background:#fff;border-radius:16px;padding:40px 40px 36px;
                            box-shadow:0 4px 32px rgba(0,0,0,0.08);border:1px solid #f0f0f0;">
 

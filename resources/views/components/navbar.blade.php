@@ -237,6 +237,9 @@
                 </ul>
 
                 <div class="d-flex align-items-center ml-lg-3">
+                    <a href="{{ route('csc.directory') }}" class="psk-track mr-3">
+                        <span class="fa fa-search mr-1"></span> Find CSC Center
+                    </a>
                     <a href="{{ url('/track-application') }}" class="psk-track mr-3">
                         <span class="fa fa-map-marker mr-1"></span> Track Application
                     </a>

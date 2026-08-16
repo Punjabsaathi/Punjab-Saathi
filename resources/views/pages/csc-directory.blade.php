@@ -640,6 +640,8 @@
     .psk-csc-stats { padding: 18px 0; }
     .psk-csc-stats__item { min-width: 45%; margin-bottom: 14px; }
     .psk-csc-search { max-width: 100%; }
+    .psk-csc-search__form { flex-direction: column; }
+    .psk-csc-search__btn { width: 100%; }
     .psk-csc-card { flex-direction: column; align-items: stretch; }
     .psk-csc-card__icon { display: none; }
     .psk-csc-card__side { align-items: stretch; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f0f0; }
