@@ -268,6 +268,7 @@
                             <strong>{{ $centers->total() }}</strong> CSC center{{ $centers->total() === 1 ? '' : 's' }} found
                             @if($mode === 'pincode') for PIN code <strong>{{ request('pincode') }}</strong> @endif
                             @if($mode === 'nearest') near you @endif
+                            @if($mode === 'district') in <strong>{{ request('district') }}</strong> @endif
                         </p>
                     </div>
 
