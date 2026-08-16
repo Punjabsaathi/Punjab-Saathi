@@ -151,8 +151,12 @@
             <div class="row">
                 @foreach($activeCategories as $key => $cat)
                 @php
-                    $catImage = $serviceCategories->get($key)->first(fn($s) => $s->image_url)?->image_url
-                        ?? $cat->image_url
+                    // Prefer the category's OWN dedicated image first — falling back to a
+                    // member service's photo only if the category has none — so these
+                    // cards don't end up showing the same photo as the Popular Services
+                    // cards further down the page.
+                    $catImage = $cat->image_url
+                        ?? $serviceCategories->get($key)->first(fn($s) => $s->image_url)?->image_url
                         ?? asset('images/services-1.jpg');
                 @endphp
                 <div class="col-md-4">
