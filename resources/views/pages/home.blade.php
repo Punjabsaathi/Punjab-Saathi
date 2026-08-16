@@ -284,7 +284,7 @@
                                 <li><span class="fa fa-check-circle text-primary mr-2"></span> Eligibility & Age Limit Guidance</li>
                                 <li><span class="fa fa-check-circle text-primary mr-2"></span> Job Last Date Reminders</li>
                             </ul>
-                            <a href="{{ url('/govt-jobs') }}" class="btn btn-primary mt-2">View Latest Job Alerts</a>
+                            <a href="{{ route('jobs.index') }}" class="btn btn-primary mt-2">View Latest Job Alerts</a>
                         </div>
                     </div>
                 </div>
@@ -305,7 +305,7 @@
                                 <li><span class="fa fa-check-circle text-primary mr-2"></span> Result & Answer Key Updates</li>
                                 <li><span class="fa fa-check-circle text-primary mr-2"></span> Exam Date Notifications</li>
                             </ul>
-                            <a href="{{ url('/admit-card') }}" class="btn btn-primary mt-2">Get Admit Card Help</a>
+                            <a href="{{ route('jobs.admit-cards') }}" class="btn btn-primary mt-2">Get Admit Card Help</a>
                         </div>
                     </div>
                 </div>
@@ -325,7 +325,7 @@
                                 <li><span class="fa fa-check-circle text-primary mr-2"></span> Exam Form & Document Upload Help</li>
                                 <li><span class="fa fa-check-circle text-primary mr-2"></span> Passport Apply Support</li>
                             </ul>
-                            <a href="{{ url('/form-filling') }}" class="btn btn-primary mt-2">Get Form Filling Help</a>
+                            <a href="{{ route('jobs.form-help') }}" class="btn btn-primary mt-2">Get Form Filling Help</a>
                         </div>
                     </div>
                 </div>
