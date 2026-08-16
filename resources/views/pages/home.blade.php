@@ -164,6 +164,11 @@
                         <div class="img" style="background-image: url('{{ $catImage }}');"></div>
                         <div class="text">
                             <h2>{{ $cat->name }}</h2>
+                            @if($cat->description)
+                            <p style="font-size:0.85rem;color:#666;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                                {{ $cat->description }}
+                            </p>
+                            @endif
                             <p style="font-size:0.8rem;color:#aaa;">
                                 <span class="fa fa-list mr-1"></span>
                                 {{ $serviceCategories->get($key)->count() }} services available
