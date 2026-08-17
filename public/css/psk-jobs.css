@@ -272,14 +272,24 @@
 .psk-job-card__meta-item.psk-urgent .fas { color: var(--psk-red); }
 .psk-job-card__meta-item.psk-urgent[data-expired="true"] strong { color: #9ca3af; }
 
-/* ── Countdown item: same orange theme color, not red ── */
-.psk-job-card__meta-item.psk-job-countdown-inline { font-weight: 600; }
+/* ── Countdown item: compact orange pill/button, not plain text ── */
+.psk-job-card__meta-item.psk-job-countdown-inline {
+    background: linear-gradient(135deg, #fc5e28, #e04d1c);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(252,94,40,0.35);
+}
 .psk-job-card__meta-item.psk-job-countdown-inline strong,
-.psk-job-card__meta-item.psk-job-countdown-inline .psk-job-countdown-inline__text { color: #fc5e28; }
+.psk-job-card__meta-item.psk-job-countdown-inline .psk-job-countdown-inline__text { color: #fff; }
 .psk-job-card__meta-item.psk-job-countdown-inline .fa,
-.psk-job-card__meta-item.psk-job-countdown-inline .fas { color: #fc5e28; }
+.psk-job-card__meta-item.psk-job-countdown-inline .fas { color: #fff; }
+.psk-job-card__meta-item.psk-job-countdown-inline[data-expired="true"] {
+    background: #9ca3af;
+    box-shadow: none;
+}
 .psk-job-card__meta-item.psk-job-countdown-inline[data-expired="true"] strong,
-.psk-job-card__meta-item.psk-job-countdown-inline[data-expired="true"] .psk-job-countdown-inline__text { color: #9ca3af; }
+.psk-job-card__meta-item.psk-job-countdown-inline[data-expired="true"] .psk-job-countdown-inline__text { color: #fff; }
 
 
 /* ── Badges (job type / status) — small pills, consistent sizing ── */
