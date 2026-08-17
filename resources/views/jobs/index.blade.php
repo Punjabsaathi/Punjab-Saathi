@@ -145,8 +145,8 @@
                                     <div class="psk-job-card__count-num">{{ number_format($job->total_posts) }}</div>
                                     <div class="psk-job-card__count-label">Vacancies</div>
                                 </div>
-                                @if($job->apply_end && $job->apply_end->copy()->endOfDay()->isFuture())
-                                <div class="psk-job-countdown-banner {{ $job->is_urgent ? 'psk-job-countdown-banner--urgent' : '' }}"
+                                @if($job->apply_end && $job->is_urgent)
+                                <div class="psk-job-countdown-banner psk-job-countdown-banner--urgent"
                                      data-deadline="{{ $job->apply_end->copy()->endOfDay()->toIso8601String() }}">
                                     <div class="psk-job-countdown-banner__label">
                                         <i class="fas fa-bolt"></i> Closes In
