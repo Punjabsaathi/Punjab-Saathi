@@ -272,6 +272,15 @@
 .psk-job-card__meta-item.psk-urgent .fas { color: var(--psk-red); }
 .psk-job-card__meta-item.psk-urgent[data-expired="true"] strong { color: #9ca3af; }
 
+/* ── Countdown item: same orange theme color, not red ── */
+.psk-job-card__meta-item.psk-job-countdown-inline { font-weight: 600; }
+.psk-job-card__meta-item.psk-job-countdown-inline strong,
+.psk-job-card__meta-item.psk-job-countdown-inline .psk-job-countdown-inline__text { color: #fc5e28; }
+.psk-job-card__meta-item.psk-job-countdown-inline .fa,
+.psk-job-card__meta-item.psk-job-countdown-inline .fas { color: #fc5e28; }
+.psk-job-card__meta-item.psk-job-countdown-inline[data-expired="true"] strong,
+.psk-job-card__meta-item.psk-job-countdown-inline[data-expired="true"] .psk-job-countdown-inline__text { color: #9ca3af; }
+
 
 /* ── Badges (job type / status) — small pills, consistent sizing ── */
 .psk-badge {
