@@ -1,0 +1,13 @@
+/* This page is entirely inline-styled with no responsive handling at
+   all. The 4-step horizontal progress bar (Received/In Review/
+   Processing/Completed) is the one place that actually needs it — on
+   a 320-375px phone, four flex:1 columns leave each step only ~55-65px
+   wide, cramping the 46px circles and wrapping labels like "In Review"
+   awkwardly. Scale it down instead of leaving desktop sizing. */
+@media (max-width: 575.98px) {
+    .psk-progress-card { padding: 20px 14px !important; }
+    .psk-progress-circle { width: 34px !important; height: 34px !important; }
+    .psk-progress-circle .fa { font-size: 13px !important; }
+    .psk-progress-label { font-size: 10px !important; }
+    .psk-ref-number { font-size: 17px !important; letter-spacing: 1px !important; }
+}
