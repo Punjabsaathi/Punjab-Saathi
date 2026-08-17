@@ -160,6 +160,15 @@
                                     {{ $job->apply_end->format('d M Y') }}
                                     @if($job->is_urgent) <i class="fas fa-fire" title="Closing soon!"></i> @endif
                                 </strong></span>
+                                @if($job->apply_end->copy()->endOfDay()->isFuture())
+                                <span class="psk-job-countdown" data-deadline="{{ $job->apply_end->copy()->endOfDay()->toIso8601String() }}">
+                                    <i class="fas fa-hourglass-half"></i>
+                                    <span class="psk-job-countdown__d">--</span>d
+                                    <span class="psk-job-countdown__h">--</span>h
+                                    <span class="psk-job-countdown__m">--</span>m
+                                    <span class="psk-job-countdown__s">--</span>s
+                                </span>
+                                @endif
                             </div>
                             @endif
                             @if($job->qualification)
@@ -229,3 +238,7 @@
 </section>
 
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/psk-job-countdown.js') }}"></script>
+@endpush

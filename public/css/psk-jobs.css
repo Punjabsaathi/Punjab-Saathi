@@ -289,6 +289,31 @@
 .psk-job-card__meta-item strong { color: #040e26; font-weight: 700; }
 .psk-job-card__meta-item.psk-urgent strong { color: var(--psk-red); }
 
+/* ── Live countdown pill, next to "Last Date" ── */
+.psk-job-countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    padding: 2px 9px;
+    background: var(--psk-amber-bg);
+    color: var(--psk-amber);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+}
+.psk-job-countdown .fas { color: inherit !important; font-size: 10px !important; width: auto !important; }
+.psk-job-card__meta-item.psk-urgent .psk-job-countdown {
+    background: var(--psk-red-bg);
+    color: var(--psk-red);
+}
+.psk-job-countdown[data-expired="true"] {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
 .psk-job-card__footer {
     display: flex;
     align-items: center;
@@ -467,6 +492,8 @@
     .psk-jobs-section { padding: 32px 0; }
     .psk-job-card__body { padding: 16px; }
     .psk-job-card__footer { padding: 12px 16px; }
+    .psk-job-card__meta-item { flex-wrap: wrap; row-gap: 4px; }
+    .psk-job-countdown { margin-left: 18px; }
 }
 @media (max-width: 575.98px) {
     .psk-job-filter__search { flex: 1 1 100%; min-width: 0; }
