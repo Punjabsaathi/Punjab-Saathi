@@ -199,17 +199,7 @@
                                 <span>{{ Str::limit($job->qualification, 50) }}</span>
                             </div>
                             @endif
-                            @if($job->salary_pay_scale)
-                            <div class="psk-job-card__meta-item">
-                                <i class="fas fa-rupee-sign"></i>
-                                <span><strong>{{ $job->salary_pay_scale }}</strong></span>
-                            </div>
-                            @endif
                         </div>
-
-                        @if($job->short_description)
-                        <p class="psk-job-card__desc">{{ Str::limit($job->short_description, 160) }}</p>
-                        @endif
                     </div>
                     <div class="psk-job-card__footer">
                         <span class="psk-job-card__posted">
