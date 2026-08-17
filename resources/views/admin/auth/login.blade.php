@@ -5,7 +5,7 @@
     <title>Admin Login - Punjab Saathi</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <link href="{{ asset('images/punjab_seva_kendra.png') }}" rel="icon" type="image/png">
+    <link href="{{ asset('images/punjab-saathi-logo.png') }}" rel="icon" type="image/png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +39,7 @@
 
                         {{-- Header --}}
                         <div class="text-center mb-4">
-                            <img src="{{ asset('images/punjab_seva_kendra.png') }}" alt="Punjab Saathi" class="login-brand-logo mb-3">
+                            <img src="{{ asset('images/punjab-saathi-logo.png') }}" alt="Punjab Saathi" class="login-brand-logo mb-3">
                             <h3 class="mb-0">Admin Sign In</h3>
                         </div>
 

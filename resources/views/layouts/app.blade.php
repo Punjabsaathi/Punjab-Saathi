@@ -9,8 +9,8 @@
     <meta name="description" content="@yield('meta_description', 'Punjab Saathi - Online Public Services in Punjab')">
 
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
-    <link rel="icon" type="image/png" href="{{ asset('images/punjab_seva_kendra.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/punjab_seva_kendra.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/punjab-saathi-logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/punjab-saathi-logo.png') }}">
 
     {{-- Pages push canonical URLs, Open Graph tags, and JSON-LD schema
          here via @push('head') (e.g. blogs/show.blade.php). This stack
@@ -66,7 +66,7 @@
     <div id="psk-form-loader" class="psk-form-loader" role="status" aria-live="polite" aria-hidden="true">
         <div class="psk-form-loader__box">
             <div class="psk-form-loader__logo-badge">
-                <img src="{{ asset('images/punjab_seva_kendra.png') }}" alt="Punjab Saathi" class="psk-form-loader__logo">
+                <img src="{{ asset('images/punjab-saathi-logo.png') }}" alt="Punjab Saathi" class="psk-form-loader__logo">
             </div>
             <svg class="psk-form-loader__spinner" viewBox="0 0 50 50">
                 <circle class="psk-form-loader__track" cx="25" cy="25" r="20" fill="none"></circle>

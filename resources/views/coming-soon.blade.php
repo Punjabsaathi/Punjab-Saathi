@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <img src="https://punjabsaathi.in/images/punjab_seva_kendra.png" alt="Punjab Saathi" class="logo">
+    <img src="https://punjabsaathi.in/images/punjab-saathi-logo.png" alt="Punjab Saathi" class="logo">
 
     <div class="tag">Punjab Saathi</div>
     <h1>We're getting things ready for you</h1>

@@ -32,9 +32,9 @@
                 ->login()
                 // ->registration(Register::class)  // ← add this line
                 ->brandName('Punjab Saathi')
-                ->brandLogo(asset('images/punjab_seva_kendra.png'))
+                ->brandLogo(asset('images/punjab-saathi-logo.png'))
                 ->brandLogoHeight('2.5rem')
-                ->favicon(asset('images/punjab_seva_kendra.png'))
+                ->favicon(asset('images/punjab-saathi-logo.png'))
                 ->font('Roboto')
                 ->colors([
                     'primary' => Color::hex('#fc5e28'),
