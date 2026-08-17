@@ -1,0 +1,330 @@
+/* ── TRUST BAR ─────────────────────────────────────── */
+.psk-trust-bar__inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+.psk-trust-bar__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 18px 12px;
+    color: #fff;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.2);
+}
+.psk-trust-bar__item:last-child { border-right: none; }
+.psk-trust-bar__item .fa {
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+    opacity: 0.9;
+}
+.psk-trust-bar__item strong {
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1;
+}
+.psk-trust-bar__item span {
+    font-size: 0.75rem;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ── MINI STEPS ────────────────────────────────────── */
+.psk-mini-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 24px 0 0;
+}
+.psk-mini-steps__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.psk-mini-steps__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.psk-mini-steps__icon .fa { font-size: 1.3rem; }
+.psk-mini-steps__step span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #444;
+    text-align: center;
+    max-width: 90px;
+    line-height: 1.3;
+}
+.psk-mini-steps__arrow {
+    color: #ccc;
+    font-size: 1.2rem;
+    margin-bottom: 22px;
+    padding: 0 4px;
+}
+
+/* ── FILTER TABS ───────────────────────────────────── */
+.psk-filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+.psk-filter-tab {
+    background: #f4f4f4;
+    border: 1px solid #e0e0e0;
+    color: #555;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    letter-spacing: 0.3px;
+}
+.psk-filter-tab:hover {
+    background: #fc5e28;
+    color: #fff;
+    border-color: #fc5e28;
+}
+.psk-filter-tab.active {
+    background: #fc5e28;
+    color: #fff;
+    border-color: #fc5e28;
+    box-shadow: 0 3px 12px rgba(252,94,40,0.30);
+}
+
+/* ── CATEGORY HEADER ───────────────────────────────── */
+.psk-cat-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 0 28px;
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 32px;
+}
+.psk-cat-header__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.psk-cat-header__icon .fa { font-size: 1.5rem; }
+.psk-cat-header__title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #040e26;
+    margin: 0 0 4px;
+}
+.psk-cat-header__sub {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* ── SERVICE GRID ──────────────────────────────────── */
+.psk-service-grid {
+    row-gap: 28px;
+}
+
+/* ── SERVICE CARD ──────────────────────────────────── */
+.psk-service-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e2e6ea;
+    padding: 22px 20px 18px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.psk-service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 38px rgba(0,0,0,0.12);
+    border-color: #fc5e28;
+}
+.psk-service-card__popular {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #fc5e28;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 0 14px 0 10px;
+    letter-spacing: 0.3px;
+}
+.psk-service-card__cover {
+    margin: -22px -20px 16px -20px;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+}
+.psk-service-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.psk-service-card__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.psk-service-card__icon .fa { font-size: 1.2rem; }
+.psk-service-card__tag {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #aaa;
+    margin-bottom: 2px;
+}
+.psk-service-card__title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #040e26;
+    margin: 0;
+    line-height: 1.35;
+}
+.psk-service-card__desc {
+    font-size: 0.845rem;
+    color: #555;
+    line-height: 1.65;
+    margin-bottom: 14px;
+    flex-grow: 0;
+}
+.psk-service-card__docs {
+    background: #f4f6f9;
+    border-radius: 8px;
+    border: 1px solid #e8eaed;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+}
+.psk-service-card__docs-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+.psk-service-card__docs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.psk-service-card__docs ul li {
+    font-size: 0.78rem;
+    color: #555;
+    line-height: 1.85;
+}
+.doc-note { color: #94a3b8; }
+/* Cards on grey bg-half-light sections get stronger shadow */
+.bg-half-light .psk-service-card {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.bg-half-light .psk-service-card:hover {
+    box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+}
+.psk-service-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 12px;
+    margin-top: auto;
+}
+.psk-service-card__time {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #888;
+}
+
+/* ── FAQ ───────────────────────────────────────────── */
+.psk-faq-card {
+    border: 1px solid #eee;
+    border-radius: 10px !important;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.psk-faq-card .card-header { background: #fff; padding: 0; border: none; }
+.psk-faq-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 18px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #040e26;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.psk-faq-btn:focus { outline: none; }
+.psk-faq-btn__icon { color: #fc5e28; flex-shrink: 0; }
+.psk-faq-btn__chevron {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: #aaa;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+}
+.psk-faq-btn[aria-expanded="true"] .psk-faq-btn__chevron {
+    transform: rotate(180deg);
+}
+.psk-faq-card__body {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.75;
+    padding: 0 20px 18px 44px;
+}
+
+/* ── HIDDEN FILTER STATE ───────────────────────────── */
+.psk-service-item.psk-hidden {
+    display: none !important;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 767px) {
+    /* 5 equal-flex-grow columns (.col) don't have a fixed width to wrap
+       at — they just kept shrinking to fit all 5 on one line, squeezing
+       "75,000+ / Services Completed" etc. into a sliver on narrow
+       phones instead of actually wrapping to a new row. Force a 2-up
+       grid instead. */
+    .psk-trust-bar__item {
+        flex: 0 0 50%;
+        max-width: 50%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    .psk-mini-steps__arrow { display: none; }
+    .psk-cat-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .psk-faq-card__body { padding-left: 20px; }
+    .psk-service-grid { row-gap: 20px; }
+}
