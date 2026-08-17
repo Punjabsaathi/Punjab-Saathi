@@ -148,6 +148,13 @@ Route::get('/terms-conditions', fn () => view('pages.terms-conditions'))->name('
 Route::get('/refund-cancellation-policy', fn () => view('pages.refund-cancellation-policy'))->name('refund-cancellation-policy');
 Route::get('/disclaimer', fn () => view('pages.disclaimer'))->name('disclaimer');
 
+// Sitemap — generated live from the database (not a static file) so it
+// never goes stale. CSC centers (36,000+ rows) are split into their own
+// sub-sitemap, referenced from the index, instead of one giant file.
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap-pages.xml', [\App\Http\Controllers\SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('/sitemap-csc-centers.xml', [\App\Http\Controllers\SitemapController::class, 'cscCenters'])->name('sitemap.cscCenters');
+
 // ─────────────────────────────────────────────────────────────────────────────
 // ADD THESE LINES TO YOUR routes/api.php
 // ─────────────────────────────────────────────────────────────────────────────

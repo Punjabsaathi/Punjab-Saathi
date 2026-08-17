@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /admin-legacy/
+Disallow: /psk-admin/
+Disallow: /api/
+
+Sitemap: https://punjabsaathi.in/sitemap.xml
