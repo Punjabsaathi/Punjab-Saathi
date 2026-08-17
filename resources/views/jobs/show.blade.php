@@ -345,7 +345,7 @@
                         <p style="color:rgba(255,255,255,.72);font-size:12px;margin-bottom:12px;">Our experts will fill the complete application for you — zero errors, zero rejections.</p>
                         <div class="d-flex justify-content-center flex-wrap" style="gap:10px;">
                             <a href="{{ route('jobs.form-help') }}" class="btn-dl-doc"><i class="fas fa-file-alt"></i> Request Form Help</a>
-                            <a href="https://wa.me/91XXXXXXXXXX?text=I need help applying for {{ urlencode($job->title) }}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;font-weight:800;font-size:12px;padding:8px 18px;border-radius:4px;text-decoration:none;">
+                            <a href="https://wa.me/917710556330?text=I need help applying for {{ urlencode($job->title) }}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;font-weight:800;font-size:12px;padding:8px 18px;border-radius:4px;text-decoration:none;">
                                 <i class="fab fa-whatsapp"></i> WhatsApp Us
                             </a>
                         </div>

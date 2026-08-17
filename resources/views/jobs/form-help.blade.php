@@ -139,7 +139,7 @@
                     <i class="fab fa-whatsapp"></i>
                     <h5>Prefer to Talk Directly?</h5>
                     <p>Call or WhatsApp us — we respond within minutes during business hours</p>
-                    <a href="https://wa.me/91XXXXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+                    <a href="https://wa.me/917710556330" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
                 </div>
             </div>
         </div>

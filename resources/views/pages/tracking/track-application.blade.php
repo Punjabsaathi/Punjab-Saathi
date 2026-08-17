@@ -335,7 +335,7 @@
                         <p style="color:rgba(255,255,255,0.7); margin:0; font-size:15px;">Our team is available Mon–Sat, 9 AM to 7 PM</p>
                     </div>
                     <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                        <a href="https://wa.me/91XXXXXXXXXX?text=My+reference+number+is+{{ $application->reference_no }}"
+                        <a href="https://wa.me/917710556330?text=My+reference+number+is+{{ $application->reference_no }}"
                             target="_blank"
                             style="display:inline-flex; align-items:center; gap:8px; background:#25D366; color:#fff; font-weight:700; font-size:14px; padding:12px 22px; border-radius:8px; text-decoration:none;">
                             <span class="fa fa-whatsapp"></span> WhatsApp Us
@@ -397,7 +397,7 @@
 @endempty
 
 {{-- Floating WhatsApp Button --}}
-<a href="https://wa.me/91XXXXXXXXXX?text=Hello%2C%20I%20need%20help%20tracking%20my%20application"
+<a href="https://wa.me/917710556330?text=Hello%2C%20I%20need%20help%20tracking%20my%20application"
     target="_blank"
     rel="noopener"
     title="Chat with Punjab Saathi on WhatsApp"

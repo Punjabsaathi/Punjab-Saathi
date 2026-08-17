@@ -46,7 +46,7 @@ $serviceSchema = json_encode([
         'name'       => 'Punjab Saathi',
         'url'        => url('/'),
         'areaServed' => 'Punjab, India',
-        'telephone'  => '+91XXXXXXXXXX',
+        'telephone'  => '+917710556330',
     ],
     'serviceType' => $service->tag,
     'url'         => $service->canonical_url,
