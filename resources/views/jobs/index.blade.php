@@ -138,44 +138,13 @@
                                     @if($job->location) · <i class="fas fa-map-marker-alt"></i> {{ $job->location }} @endif
                                 </div>
                             </div>
-                            <div class="psk-job-card__stats">
-                                <div class="psk-job-card__count">
-                                    <div class="psk-job-card__count-num">{{ number_format($job->total_posts) }}</div>
-                                    <div class="psk-job-card__count-label">Vacancies</div>
-                                </div>
-                                @if($job->apply_end && $job->is_urgent)
-                                <div class="psk-job-countdown-banner psk-job-countdown-banner--urgent"
-                                     data-deadline="{{ $job->apply_end->copy()->endOfDay()->toIso8601String() }}">
-                                    <div class="psk-job-countdown-banner__label">
-                                        <i class="fas fa-bolt"></i> Closes In
-                                    </div>
-                                    <div class="psk-job-countdown-banner__timer">
-                                        <div class="psk-job-countdown-banner__unit">
-                                            <span class="psk-job-countdown-banner__num psk-cd-d">--</span>
-                                            <span class="psk-job-countdown-banner__lbl">Days</span>
-                                        </div>
-                                        <span class="psk-job-countdown-banner__colon">:</span>
-                                        <div class="psk-job-countdown-banner__unit">
-                                            <span class="psk-job-countdown-banner__num psk-cd-h">--</span>
-                                            <span class="psk-job-countdown-banner__lbl">Hrs</span>
-                                        </div>
-                                        <span class="psk-job-countdown-banner__colon">:</span>
-                                        <div class="psk-job-countdown-banner__unit">
-                                            <span class="psk-job-countdown-banner__num psk-cd-m">--</span>
-                                            <span class="psk-job-countdown-banner__lbl">Min</span>
-                                        </div>
-                                        <span class="psk-job-countdown-banner__colon">:</span>
-                                        <div class="psk-job-countdown-banner__unit">
-                                            <span class="psk-job-countdown-banner__num psk-cd-s">--</span>
-                                            <span class="psk-job-countdown-banner__lbl">Sec</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
                         </div>
 
                         <div class="psk-job-card__meta">
+                            <div class="psk-job-card__meta-item">
+                                <i class="fas fa-users"></i>
+                                <span>Vacancies: <strong>{{ number_format($job->total_posts) }}</strong></span>
+                            </div>
                             @if($job->apply_start)
                             <div class="psk-job-card__meta-item">
                                 <i class="fas fa-calendar-plus"></i>
@@ -191,10 +160,16 @@
                                 </strong></span>
                             </div>
                             @endif
-                            @if($job->qualification)
-                            <div class="psk-job-card__meta-item">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>{{ Str::limit($job->qualification, 50) }}</span>
+                            @if($job->apply_end && $job->is_urgent)
+                            <div class="psk-job-card__meta-item psk-urgent psk-job-countdown-inline"
+                                 data-deadline="{{ $job->apply_end->copy()->endOfDay()->toIso8601String() }}">
+                                <i class="fas fa-bolt"></i>
+                                <span class="psk-job-countdown-inline__text">Closes in: <strong>
+                                    <span class="psk-cd-d">--</span>d
+                                    <span class="psk-cd-h">--</span>h
+                                    <span class="psk-cd-m">--</span>m
+                                    <span class="psk-cd-s">--</span>s
+                                </strong></span>
                             </div>
                             @endif
                         </div>

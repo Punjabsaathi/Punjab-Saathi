@@ -6,7 +6,7 @@
     }
 
     function tick() {
-        var els = document.querySelectorAll('.psk-job-countdown-banner[data-deadline]');
+        var els = document.querySelectorAll('[data-deadline]');
 
         els.forEach(function (el) {
             var deadline = Date.parse(el.getAttribute('data-deadline'));
@@ -17,8 +17,8 @@
             if (diff <= 0) {
                 if (el.getAttribute('data-expired') !== 'true') {
                     el.setAttribute('data-expired', 'true');
-                    el.innerHTML = '<span class="psk-job-countdown-banner__expired-msg">'
-                        + '<i class="fas fa-hourglass-end mr-1"></i> Deadline Passed</span>';
+                    var textEl = el.querySelector('.psk-job-countdown-inline__text');
+                    if (textEl) textEl.innerHTML = '<strong>Deadline passed</strong>';
                 }
                 return;
             }
@@ -42,7 +42,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        if (!document.querySelector('.psk-job-countdown-banner[data-deadline]')) return;
+        if (!document.querySelector('[data-deadline]')) return;
         tick();
         setInterval(tick, 1000);
     });

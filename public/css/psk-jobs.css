@@ -255,41 +255,6 @@
 .psk-job-card__dept .fa,
 .psk-job-card__dept .fas { font-size: 10px; margin-right: 3px; color: #fc5e28; }
 
-.psk-job-card__stats {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    gap: 10px;
-    flex-shrink: 0;
-}
-
-.psk-job-card__count {
-    text-align: center;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    background: rgba(252,94,40,0.08);
-    border: 1px solid rgba(252,94,40,0.18);
-    border-radius: 8px;
-    padding: 4px 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.psk-job-card__count-num {
-    font-size: 22px;
-    font-weight: 900;
-    color: #fc5e28;
-    line-height: 1.1;
-    font-variant-numeric: tabular-nums;
-}
-.psk-job-card__count-label {
-    font-size: 9px;
-    font-weight: 800;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
 .psk-job-card__meta {
     display: flex;
     flex-wrap: wrap;
@@ -303,81 +268,9 @@
 .psk-job-card__meta-item .fas { color: #fc5e28; font-size: 11px; width: 14px; text-align: center; }
 .psk-job-card__meta-item strong { color: #040e26; font-weight: 700; }
 .psk-job-card__meta-item.psk-urgent strong { color: var(--psk-red); }
-
-/* ── Live countdown banner — bold, high-contrast, impossible to miss ── */
-.psk-job-countdown-banner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    padding: 5px 12px 6px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #fc5e28, #e04d1c);
-    box-shadow: 0 3px 10px rgba(252,94,40,0.30);
-}
-.psk-job-countdown-banner--urgent {
-    animation: psk-cd-pulse 1.6s ease-in-out infinite;
-}
-@keyframes psk-cd-pulse {
-    0%, 100% { box-shadow: 0 3px 10px rgba(252,94,40,0.30); }
-    50%      { box-shadow: 0 3px 18px rgba(252,94,40,0.60); }
-}
-.psk-job-countdown-banner__label {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: #fff;
-    font-size: 9px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.psk-job-countdown-banner__timer {
-    display: flex;
-    align-items: flex-start;
-    gap: 4px;
-}
-.psk-job-countdown-banner__unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 26px;
-}
-.psk-job-countdown-banner__num {
-    font-size: 17px;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-}
-.psk-job-countdown-banner__lbl {
-    font-size: 8px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.85);
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    margin-top: 1px;
-}
-.psk-job-countdown-banner__colon {
-    color: rgba(255,255,255,0.55);
-    font-size: 14px;
-    font-weight: 800;
-    margin-top: 1px;
-}
-.psk-job-countdown-banner[data-expired="true"] {
-    background: linear-gradient(135deg, #9ca3af, #6b7280);
-    box-shadow: none;
-    animation: none;
-    padding: 9px 14px;
-}
-.psk-job-countdown-banner[data-expired="true"] .psk-job-countdown-banner__expired-msg {
-    color: #fff;
-    font-size: 12px;
-    font-weight: 800;
-}
+.psk-job-card__meta-item.psk-urgent .fa,
+.psk-job-card__meta-item.psk-urgent .fas { color: var(--psk-red); }
+.psk-job-card__meta-item.psk-urgent[data-expired="true"] strong { color: #9ca3af; }
 
 
 /* ── Badges (job type / status) — small pills, consistent sizing ── */
@@ -545,11 +438,6 @@
     .psk-jobs-section { padding: 32px 0; }
     .psk-job-card__body { padding: 16px; }
     .psk-job-card__meta-item { flex-wrap: wrap; row-gap: 4px; }
-    .psk-job-card__stats { width: 100%; }
-    .psk-job-countdown-banner { flex: 1 1 auto; }
-    .psk-job-card__count { flex: 1 1 auto; }
-    .psk-job-countdown-banner__num { font-size: 18px; }
-    .psk-job-countdown-banner__unit { min-width: 28px; }
 }
 @media (max-width: 575.98px) {
     .psk-job-filter__search { flex: 1 1 100%; min-width: 0; }
