@@ -405,7 +405,7 @@
     </section>
 
     @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/psk-home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/psk-testimony.css') }}">
     @endpush
 
     <section class="ftco-section bg-light">
