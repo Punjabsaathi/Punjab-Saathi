@@ -1,0 +1,78 @@
+/* ── Legal pages — Privacy Policy, Terms & Conditions, Refund &
+   Cancellation Policy, Disclaimer. Shared component: navy hero with
+   effective-date pill, sticky TOC sidebar, and the content card. ── */
+
+.psk-legal-hero {
+    position: relative; background: #040e26; padding: 130px 0 50px; overflow: hidden; color: #fff;
+}
+.psk-legal-hero__bg {
+    position: absolute; inset: 0;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(252,94,40,0.20) 0, transparent 40%),
+        radial-gradient(circle at 88% 15%, rgba(252,94,40,0.12) 0, transparent 35%),
+        radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1.5px);
+    background-size: auto, auto, 26px 26px;
+}
+.psk-legal-hero .container { position: relative; z-index: 1; }
+.psk-legal-hero__breadcrumbs { color: rgba(255,255,255,0.55); font-size: 0.82rem; margin-bottom: 20px; }
+.psk-legal-hero__breadcrumbs a { color: rgba(255,255,255,0.75); text-decoration: none; }
+.psk-legal-hero__title { font-size: 2.1rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.psk-legal-hero__sub { color: rgba(255,255,255,0.72); font-size: 1rem; margin-bottom: 20px; max-width: 620px; }
+.psk-legal-hero__pill {
+    display: inline-flex; align-items: center; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.22); padding: 8px 18px; border-radius: 24px;
+    font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.9);
+}
+.psk-legal-hero__pill .fa { color: #fc5e28; }
+
+/* ── TOC sidebar ── */
+.psk-legal-toc {
+    background: #fff; border: 1px solid #e2e6ea; border-radius: 16px;
+    padding: 22px; position: sticky; top: 90px;
+}
+.psk-legal-toc h2 {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.6px;
+    color: #9ca3af; margin: 0 0 12px; font-weight: 700;
+}
+.psk-legal-toc ol { margin: 0; padding-left: 18px; }
+.psk-legal-toc li { margin-bottom: 9px; font-size: 0.87rem; }
+.psk-legal-toc a { color: #374151; text-decoration: none; }
+.psk-legal-toc a:hover { color: #fc5e28; }
+
+/* ── Content card ── */
+.psk-legal-card {
+    background: #fff; border: 1px solid #e2e6ea; border-radius: 16px;
+    padding: 34px 38px; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.psk-legal-card section { margin-bottom: 32px; scroll-margin-top: 100px; }
+.psk-legal-card section:last-child { margin-bottom: 0; }
+.psk-legal-card h2 {
+    font-size: 1.25rem; font-weight: 800; color: #040e26;
+    margin: 0 0 14px; padding-bottom: 10px; border-bottom: 2px solid #fff1ea;
+}
+.psk-legal-card h3 { font-size: 1rem; font-weight: 700; color: #040e26; margin: 18px 0 8px; }
+.psk-legal-card p { margin: 0 0 14px; color: #4b5563; line-height: 1.75; }
+.psk-legal-card ul, .psk-legal-card ol { margin: 0 0 14px; padding-left: 22px; }
+.psk-legal-card li { margin-bottom: 7px; color: #4b5563; }
+.psk-legal-card strong { color: #040e26; }
+.psk-legal-card a { color: #fc5e28; }
+
+.psk-legal-callout {
+    background: rgba(252,94,40,0.06); border-left: 4px solid #fc5e28; border-radius: 8px;
+    padding: 16px 18px; margin: 0 0 18px; font-size: 0.95rem; color: #5a3a1e;
+}
+.psk-legal-callout strong { display: block; margin-bottom: 4px; color: #c2410c; }
+
+.psk-legal-contact {
+    background: #f8f9fb; border: 1px solid #e2e6ea; border-radius: 10px; padding: 20px 22px;
+}
+.psk-legal-contact p { color: #374151; }
+
+@media (max-width: 991.98px) {
+    .psk-legal-toc { position: static; margin-bottom: 20px; }
+}
+@media (max-width: 767.98px) {
+    .psk-legal-hero { padding: 100px 0 36px; }
+    .psk-legal-hero__title { font-size: 1.5rem; }
+    .psk-legal-card { padding: 24px 20px; }
+}
