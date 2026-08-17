@@ -121,12 +121,12 @@
 
                 {{-- Jobs List --}}
                 @forelse($jobs as $job)
-                <div class="psk-job-card {{ $job->is_featured ? 'psk-job-card--featured' : '' }}">
+                <a href="{{ route('jobs.show', $job->slug) }}" class="psk-job-card {{ $job->is_featured ? 'psk-job-card--featured' : '' }}">
                     <div class="psk-job-card__body">
                         <div class="psk-job-card__top">
                             <div>
                                 <div class="psk-job-card__title">
-                                    <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
+                                    <span class="psk-job-card__title-text">{{ $job->title }}</span>
                                     @if($job->is_new) <span class="psk-badge psk-badge--new">NEW</span> @endif
                                     <span class="psk-badge psk-badge--category">{{ $job->category->name }}</span>
                                     @if($job->is_featured) <span class="psk-badge psk-badge--featured"><i class="fas fa-star mr-1"></i>Featured</span> @endif
@@ -199,14 +199,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="psk-job-card__footer">
-                        <div class="psk-job-card__actions">
-                            <a href="{{ route('jobs.show', $job->slug) }}" class="btn btn-primary btn-outline-primary btn-sm">
-                                <i class="fas fa-eye mr-1"></i> Full Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                </a>
                 @empty
                 <div class="psk-no-results">
                     <i class="fas fa-search"></i>
