@@ -128,16 +128,14 @@
                                 <div class="psk-job-card__title">
                                     <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
                                     @if($job->is_new) <span class="psk-badge psk-badge--new">NEW</span> @endif
-                                </div>
-                                <div class="psk-job-card__dept">
-                                    <i class="fas fa-building"></i> {{ $job->department }}
-                                    @if($job->location) · <i class="fas fa-map-marker-alt"></i> {{ $job->location }} @endif
-                                </div>
-                                <div class="psk-job-card__badges">
                                     <span class="psk-badge psk-badge--category">{{ $job->category->name }}</span>
                                     @if($job->is_featured) <span class="psk-badge psk-badge--featured"><i class="fas fa-star mr-1"></i>Featured</span> @endif
                                     @php $sb = $job->status_badge; @endphp
                                     <span class="psk-badge psk-badge--{{ str_replace('badge-', '', $sb['class']) }}">{{ $sb['label'] }}</span>
+                                </div>
+                                <div class="psk-job-card__dept">
+                                    <i class="fas fa-building"></i> {{ $job->department }}
+                                    @if($job->location) · <i class="fas fa-map-marker-alt"></i> {{ $job->location }} @endif
                                 </div>
                             </div>
                             <div class="psk-job-card__stats">
@@ -202,23 +200,10 @@
                         </div>
                     </div>
                     <div class="psk-job-card__footer">
-                        <span class="psk-job-card__posted">
-                            <i class="fas fa-clock mr-1"></i> Posted {{ $job->created_at->diffForHumans() }}
-                        </span>
                         <div class="psk-job-card__actions">
                             <a href="{{ route('jobs.show', $job->slug) }}" class="btn btn-primary btn-outline-primary btn-sm">
                                 <i class="fas fa-eye mr-1"></i> Full Details
                             </a>
-                            @if($job->apply_link)
-                            <a href="{{ $job->apply_link }}" target="_blank" class="btn btn-primary btn-sm">
-                                <i class="fas fa-external-link-alt mr-1"></i> Apply Online
-                            </a>
-                            @endif
-                            @if($job->notification_link)
-                            <a href="{{ $job->notification_link }}" target="_blank" class="btn btn-primary btn-outline-primary btn-sm">
-                                <i class="fas fa-file-pdf mr-1"></i> Notification
-                            </a>
-                            @endif
                         </div>
                     </div>
                 </div>
