@@ -1,0 +1,87 @@
+/* ── Home page — testimonials / Google Reviews section ─────────── */
+.psk-review-stat {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+}
+.psk-review-stat__score {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+}
+.psk-review-stat__stars { color: #f4c542; font-size: 0.95rem; margin-bottom: 4px; }
+.psk-review-stat__label { color: rgba(255,255,255,0.75); font-size: 0.85rem; }
+
+.psk-testimony-card {
+    position: relative;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 34px 30px 28px;
+    overflow: hidden;
+}
+.psk-testimony-card__bigquote {
+    position: absolute;
+    top: 14px;
+    right: 22px;
+    font-size: 3.5rem;
+    color: rgba(252,94,40,0.18);
+    line-height: 1;
+}
+.psk-testimony-card__stars { color: #f4c542; font-size: 0.95rem; margin-bottom: 14px; }
+.psk-testimony-card__text {
+    color: rgba(255,255,255,0.92);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    min-height: 110px;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 1;
+}
+.psk-testimony-card__footer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+}
+.psk-testimony-card__avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.psk-testimony-card__name { color: #fff; font-weight: 600; margin: 0; font-size: 0.95rem; }
+.psk-testimony-card__city { color: rgba(255,255,255,0.6); font-weight: 400; font-size: 0.85rem; }
+.psk-testimony-card__source { color: #fc5e28; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.psk-testimony .owl-dots { text-align: left; margin-top: 22px; }
+.psk-testimony .owl-dots .owl-dot span {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px 0 0;
+    background: rgba(255,255,255,0.3);
+    transition: all 0.25s ease;
+}
+.psk-testimony .owl-dots .owl-dot.active span {
+    width: 24px;
+    border-radius: 5px;
+    background: #fc5e28;
+}
+
+@media (max-width: 767px) {
+    .psk-testimony-card { padding: 26px 22px 22px; }
+    .psk-testimony-card__text { min-height: 0; }
+}
