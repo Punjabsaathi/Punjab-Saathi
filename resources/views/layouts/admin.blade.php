@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Favicon --}}
-    <link href="{{ asset('images/punjab-saathi-logo.png') }}" rel="icon" type="image/png">
+    <link href="{{ asset('favicon.ico') }}" rel="icon" sizes="any">
+    <link href="{{ asset('images/favicon-32x32.png') }}" rel="icon" type="image/png">
 
     {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

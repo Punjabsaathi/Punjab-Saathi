@@ -34,7 +34,7 @@
                 ->brandName('Punjab Saathi')
                 ->brandLogo(asset('images/punjab-saathi-logo.png'))
                 ->brandLogoHeight('2.5rem')
-                ->favicon(asset('images/punjab-saathi-logo.png'))
+                ->favicon(asset('images/favicon-32x32.png'))
                 ->font('Roboto')
                 ->colors([
                     'primary' => Color::hex('#fc5e28'),

@@ -9,8 +9,11 @@
     <meta name="description" content="@yield('meta_description', 'Punjab Saathi - Online Public Services in Punjab')">
 
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
-    <link rel="icon" type="image/png" href="{{ asset('images/punjab-saathi-logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/punjab-saathi-logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('images/favicon-48x48.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/android-chrome-192x192.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
 
     {{-- Pages push canonical URLs, Open Graph tags, and JSON-LD schema
          here via @push('head') (e.g. blogs/show.blade.php). This stack

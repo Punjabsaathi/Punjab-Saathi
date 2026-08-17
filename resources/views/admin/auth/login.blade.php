@@ -5,7 +5,8 @@
     <title>Admin Login - Punjab Saathi</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <link href="{{ asset('images/punjab-saathi-logo.png') }}" rel="icon" type="image/png">
+    <link href="{{ asset('favicon.ico') }}" rel="icon" sizes="any">
+    <link href="{{ asset('images/favicon-32x32.png') }}" rel="icon" type="image/png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
