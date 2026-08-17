@@ -66,7 +66,7 @@ class GovJob extends Model
     }
     public function getIsUrgentAttribute(): bool
     {
-        return $this->apply_end && $this->apply_end->diffInDays(now(), false) <= 7 && $this->apply_end->isFuture();
+        return $this->apply_end && $this->apply_end->isFuture() && $this->apply_end->diffInDays(now(), true) <= 7;
     }
     public function getStatusBadgeAttribute(): array
     {
