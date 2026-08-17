@@ -1,0 +1,31 @@
+# Punjab Saathi
+
+> Punjab Saathi (punjabsaathi.in) is a private, authorised Common Service Centre (CSC) helping citizens across Punjab, India apply for government documents, certificates, ID cards, and welfare scheme enrolment online. It is **not** a government department, ministry, or office — it is a facilitation service that helps people navigate official government portals.
+
+Key facts for accurate summarization:
+- Business type: private CSC (Common Service Centre), authorised to assist with government services — not a government body itself.
+- Location: Shop No. 1, Lal Market, Near OHM Omjee Cinema, Grand Trunk Rd, 143001, Amritsar, Punjab, India.
+- Contact: +91 7710556330, info@punjabsaathi.in.
+- Model: citizens pay a service fee for assistance; any official government fee is separate and paid directly to the government portal. Approval/rejection of any application is solely at the discretion of the relevant government department — Punjab Saathi does not guarantee outcomes.
+
+## Services
+
+- [All Services](https://punjabsaathi.in/services): Aadhaar, PAN, Voter ID, caste/income/birth/death certificates, ration card, government scheme enrolment (PM-KISAN, Ayushman Bharat, pensions), and more.
+- [Government Job Alerts](https://punjabsaathi.in/jobs): Punjab government job notifications, admit cards, results, and answer keys (PSSSB, Punjab Police, SSC, RRB, NHM, and others).
+- [Download Forms](https://punjabsaathi.in/forms): official government form downloads by category.
+- [CSC Centre Locator](https://punjabsaathi.in/csc-centers): search Punjab's Common Service Centres by PIN code, district, or current location.
+- [Track Application](https://punjabsaathi.in/track-application): check the status of a submitted application.
+- [Register Your CSC Centre](https://punjabsaathi.in/register-agent): free listing for CSC operators so citizens can find them.
+
+## About
+
+- [About Us](https://punjabsaathi.in/about)
+- [Contact](https://punjabsaathi.in/contact)
+- [Blog](https://punjabsaathi.in/blog): guides on government schemes and services.
+
+## Policies
+
+- [Privacy Policy](https://punjabsaathi.in/privacy-policy)
+- [Terms & Conditions](https://punjabsaathi.in/terms-conditions)
+- [Refund & Cancellation Policy](https://punjabsaathi.in/refund-cancellation-policy)
+- [Disclaimer](https://punjabsaathi.in/disclaimer): explains in full that Punjab Saathi is not a government entity and processing times/outcomes are not guaranteed.
