@@ -1,0 +1,48 @@
+.psk-csc-profile-hero {
+    position: relative;
+    background: #040e26;
+    background-image: radial-gradient(circle at 15% 20%, rgba(252,94,40,0.18) 0, transparent 45%),
+                       radial-gradient(circle at 85% 80%, rgba(252,94,40,0.12) 0, transparent 45%);
+    padding: 100px 0 48px;
+    color: #fff;
+}
+.psk-csc-profile-hero .breadcrumbs { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-bottom: 18px; }
+.psk-csc-profile-hero .breadcrumbs a { color: rgba(255,255,255,0.75); text-decoration: none; }
+.psk-verified-pill {
+    display: inline-flex; align-items: center;
+    background: rgba(37,211,102,0.15); color: #25D366;
+    border: 1px solid rgba(37,211,102,0.35);
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.3px;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;
+}
+.psk-csc-profile-hero__name { font-size: 2.1rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.psk-csc-profile-hero__operator { color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 4px; }
+.psk-csc-profile-hero__location { color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 22px; }
+.psk-csc-profile-hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.psk-csc-info-card {
+    background: #fff; border: 1px solid #e2e6ea; border-radius: 16px;
+    padding: 28px 30px; margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.psk-csc-info-card__title { font-size: 1.15rem; font-weight: 700; color: #1e2a3a; margin-bottom: 18px; }
+.psk-csc-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+.psk-csc-info-item { display: flex; flex-direction: column; gap: 4px; }
+.psk-csc-info-item__label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #9ca3af; }
+.psk-csc-info-item__value { font-size: 0.95rem; color: #1e2a3a; font-weight: 500; }
+.psk-csc-info-item__value--muted { color: #9ca3af; font-weight: 400; font-style: italic; font-size: 0.85rem; }
+
+.psk-csc-side-card {
+    background: #fff; border: 1px solid #e2e6ea; border-radius: 16px;
+    padding: 26px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.psk-csc-side-card__title { font-size: 1rem; font-weight: 700; color: #1e2a3a; margin-bottom: 8px; }
+.psk-csc-side-card--cta { background: #040e26; border-color: #040e26; }
+.psk-csc-side-card--cta .psk-csc-side-card__title { color: #fff; }
+
+@media (max-width: 767.98px) {
+    .psk-csc-profile-hero { padding: 80px 0 36px; }
+    .psk-csc-profile-hero__name { font-size: 1.5rem; }
+    .psk-csc-info-grid { grid-template-columns: 1fr; }
+    .psk-csc-info-card, .psk-csc-side-card { padding: 22px; }
+}
