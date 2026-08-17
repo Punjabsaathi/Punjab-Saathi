@@ -6,7 +6,7 @@
     }
 
     function tick() {
-        var els = document.querySelectorAll('.psk-job-countdown[data-deadline]');
+        var els = document.querySelectorAll('.psk-job-countdown-banner[data-deadline]');
 
         els.forEach(function (el) {
             var deadline = Date.parse(el.getAttribute('data-deadline'));
@@ -15,8 +15,11 @@
             var diff = deadline - Date.now();
 
             if (diff <= 0) {
-                el.setAttribute('data-expired', 'true');
-                el.innerHTML = '<i class="fas fa-hourglass-end"></i> Deadline passed';
+                if (el.getAttribute('data-expired') !== 'true') {
+                    el.setAttribute('data-expired', 'true');
+                    el.innerHTML = '<span class="psk-job-countdown-banner__expired-msg">'
+                        + '<i class="fas fa-hourglass-end mr-1"></i> Deadline Passed</span>';
+                }
                 return;
             }
 
@@ -26,10 +29,10 @@
             var minutes = Math.floor((totalSeconds % 3600) / 60);
             var seconds = totalSeconds % 60;
 
-            var dEl = el.querySelector('.psk-job-countdown__d');
-            var hEl = el.querySelector('.psk-job-countdown__h');
-            var mEl = el.querySelector('.psk-job-countdown__m');
-            var sEl = el.querySelector('.psk-job-countdown__s');
+            var dEl = el.querySelector('.psk-cd-d');
+            var hEl = el.querySelector('.psk-cd-h');
+            var mEl = el.querySelector('.psk-cd-m');
+            var sEl = el.querySelector('.psk-cd-s');
 
             if (dEl) dEl.textContent = days;
             if (hEl) hEl.textContent = pad(hours);
@@ -39,7 +42,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        if (!document.querySelector('.psk-job-countdown[data-deadline]')) return;
+        if (!document.querySelector('.psk-job-countdown-banner[data-deadline]')) return;
         tick();
         setInterval(tick, 1000);
     });

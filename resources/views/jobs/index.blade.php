@@ -140,9 +140,40 @@
                                     <span class="psk-badge psk-badge--{{ str_replace('badge-', '', $sb['class']) }}">{{ $sb['label'] }}</span>
                                 </div>
                             </div>
-                            <div class="psk-job-card__count">
-                                <div class="psk-job-card__count-num">{{ number_format($job->total_posts) }}</div>
-                                <div class="psk-job-card__count-label">Vacancies</div>
+                            <div class="psk-job-card__stats">
+                                @if($job->apply_end && $job->apply_end->copy()->endOfDay()->isFuture())
+                                <div class="psk-job-countdown-banner {{ $job->is_urgent ? 'psk-job-countdown-banner--urgent' : '' }}"
+                                     data-deadline="{{ $job->apply_end->copy()->endOfDay()->toIso8601String() }}">
+                                    <div class="psk-job-countdown-banner__label">
+                                        <i class="fas fa-bolt"></i> Closes In
+                                    </div>
+                                    <div class="psk-job-countdown-banner__timer">
+                                        <div class="psk-job-countdown-banner__unit">
+                                            <span class="psk-job-countdown-banner__num psk-cd-d">--</span>
+                                            <span class="psk-job-countdown-banner__lbl">Days</span>
+                                        </div>
+                                        <span class="psk-job-countdown-banner__colon">:</span>
+                                        <div class="psk-job-countdown-banner__unit">
+                                            <span class="psk-job-countdown-banner__num psk-cd-h">--</span>
+                                            <span class="psk-job-countdown-banner__lbl">Hrs</span>
+                                        </div>
+                                        <span class="psk-job-countdown-banner__colon">:</span>
+                                        <div class="psk-job-countdown-banner__unit">
+                                            <span class="psk-job-countdown-banner__num psk-cd-m">--</span>
+                                            <span class="psk-job-countdown-banner__lbl">Min</span>
+                                        </div>
+                                        <span class="psk-job-countdown-banner__colon">:</span>
+                                        <div class="psk-job-countdown-banner__unit">
+                                            <span class="psk-job-countdown-banner__num psk-cd-s">--</span>
+                                            <span class="psk-job-countdown-banner__lbl">Sec</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="psk-job-card__count">
+                                    <div class="psk-job-card__count-num">{{ number_format($job->total_posts) }}</div>
+                                    <div class="psk-job-card__count-label">Vacancies</div>
+                                </div>
                             </div>
                         </div>
 
@@ -160,15 +191,6 @@
                                     {{ $job->apply_end->format('d M Y') }}
                                     @if($job->is_urgent) <i class="fas fa-fire" title="Closing soon!"></i> @endif
                                 </strong></span>
-                                @if($job->apply_end->copy()->endOfDay()->isFuture())
-                                <span class="psk-job-countdown" data-deadline="{{ $job->apply_end->copy()->endOfDay()->toIso8601String() }}">
-                                    <i class="fas fa-hourglass-half"></i>
-                                    <span class="psk-job-countdown__d">--</span>d
-                                    <span class="psk-job-countdown__h">--</span>h
-                                    <span class="psk-job-countdown__m">--</span>m
-                                    <span class="psk-job-countdown__s">--</span>s
-                                </span>
-                                @endif
                             </div>
                             @endif
                             @if($job->qualification)
