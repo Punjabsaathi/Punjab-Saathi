@@ -60,7 +60,7 @@
                 @php $featuredPost = $featured->first(); @endphp
                 @if($featuredPost)
                 <a href="{{ route('blog.show', $featuredPost->slug) }}" class="psk-featured-post">
-                    <div class="psk-featured-post__img" style="background-image:url('{{ $featuredPost->featured_image ? asset('storage/'.$featuredPost->featured_image) : asset('images/image_1.jpg') }}');"></div>
+                    <div class="psk-featured-post__img" style="background-image:url('{{ $featuredPost->featured_image ? asset('storage/'.$featuredPost->featured_image) : asset('images/blog-post-default-thumbnail.jpg') }}');"></div>
                     <div class="psk-featured-post__body">
                         <span class="psk-featured-tag"><span class="fa fa-star"></span> Featured</span>
                         @if($featuredPost->category)
@@ -98,7 +98,7 @@
                     @foreach($gridPosts as $post)
                     <div class="psk-blog-card">
                         <a href="{{ route('blog.show', $post->slug) }}" class="psk-blog-card__img-link" aria-label="{{ $post->title }}">
-                            <div class="psk-blog-card__img" style="background-image:url('{{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/image_1.jpg') }}');"></div>
+                            <div class="psk-blog-card__img" style="background-image:url('{{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/blog-post-default-thumbnail.jpg') }}');"></div>
                         </a>
                         <div class="psk-blog-card__body">
                             @if($post->category)

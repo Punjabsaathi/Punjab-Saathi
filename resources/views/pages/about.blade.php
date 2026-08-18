@@ -7,7 +7,7 @@
 {{-- ═══════════════════════════════════════════════ --}}
 {{-- HERO SECTION                                    --}}
 {{-- ═══════════════════════════════════════════════ --}}
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/compagnon.jpg') }}');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/punjab-farmers-field-banner.jpg') }}');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -32,7 +32,7 @@
         <div class="row">
             {{-- Left image --}}
             <div class="col-md-6 d-flex align-items-stretch">
-                <div class="about-wrap img w-100" style="background-image: url({{ asset('images/scott-graham.jpg') }});">
+                <div class="about-wrap img w-100" style="background-image: url({{ asset('images/punjab-saathi-csc-operator-helping-citizen.jpg') }});">
                     <div class="icon d-flex align-items-center justify-content-center">
                         <span class="flaticon-crane"></span>
                     </div>
@@ -122,7 +122,7 @@
 <section class="ftco-section ftco-no-pt ftco-no-pb psk-counter-section" style="position:relative;overflow:hidden;">
 
     {{-- Full-bleed background image with overlay --}}
-    <div style="position:absolute;inset:0;background-image:url({{ asset('images/annie-spratt.jpg') }});background-size:cover;background-position:center;z-index:0;"></div>
+    <div style="position:absolute;inset:0;background-image:url({{ asset('images/document-submission-service.jpg') }});background-size:cover;background-position:center;z-index:0;"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(100deg,#040e26 0%,rgba(4,14,38,0.92) 48%,rgba(4,14,38,0.55) 100%);z-index:1;"></div>
 
     <div class="container" style="position:relative;z-index:2;">
