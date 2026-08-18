@@ -198,12 +198,12 @@ class CscCenterResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('district')
-                    ->options(fn() => CscCenter::distinct()->orderBy('district')->pluck('district', 'district'))
+                    ->options(fn() => CscCenter::whereNotNull('district')->where('district', '!=', '')->distinct()->orderBy('district')->pluck('district', 'district'))
                     ->searchable(),
 
                 SelectFilter::make('sub_district')
                     ->label('Sub-District')
-                    ->options(fn() => CscCenter::distinct()->orderBy('sub_district')->pluck('sub_district', 'sub_district'))
+                    ->options(fn() => CscCenter::whereNotNull('sub_district')->where('sub_district', '!=', '')->distinct()->orderBy('sub_district')->pluck('sub_district', 'sub_district'))
                     ->searchable(),
 
                 SelectFilter::make('source')
