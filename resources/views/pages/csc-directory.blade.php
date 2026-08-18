@@ -21,6 +21,12 @@
 <meta name="twitter:title"       content="Find a CSC Center Near You - Punjab Saathi">
 <meta name="twitter:description" content="Search {{ number_format($stats['total_centers']) }}+ Common Service Centers (CSC) across all districts of Punjab.">
 <meta name="twitter:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<script type="application/ld+json">{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES) !!}</script>
+<script type="application/ld+json">{!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES) !!}</script>
+@if($itemListSchema)
+<script type="application/ld+json">{!! json_encode($itemListSchema, JSON_UNESCAPED_SLASHES) !!}</script>
+@endif
 @endpush
 
 @section('content')

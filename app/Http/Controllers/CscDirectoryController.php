@@ -80,7 +80,56 @@ class CscDirectoryController extends Controller
             ->orderBy('district')
             ->pluck('district');
 
-        return view('pages.csc-directory', compact('mode', 'centers', 'stats', 'districts'));
+        // ── Structured data ──────────────────────────────────
+        // Built here (real PHP), not inline in the .blade.php file — a
+        // literal '@context' string typed directly into a Blade template
+        // gets swallowed by Blade's own @context/@endcontext directive
+        // and silently corrupted (see CscCenter::toBreadcrumbSchema()).
+        $breadcrumbSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Find a CSC Center', 'item' => route('csc.directory')],
+            ],
+        ];
+
+        $websiteSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => 'Punjab Saathi',
+            'url' => url('/'),
+            'potentialAction' => [
+                '@type' => 'SearchAction',
+                'target' => [
+                    '@type' => 'EntryPoint',
+                    'urlTemplate' => route('csc.directory') . '?pincode={pincode}',
+                ],
+                'query-input' => 'required name=pincode',
+            ],
+        ];
+
+        // Only the CURRENT PAGE's results, never the full 36,000+ dataset —
+        // that's the correct pattern for a paginated listing's ItemList.
+        $itemListSchema = null;
+        if ($centers && $centers->count() > 0) {
+            $startPosition = ($centers->currentPage() - 1) * $centers->perPage() + 1;
+            $itemListSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'ItemList',
+                'itemListElement' => collect($centers->items())->values()->map(fn ($center, $i) => [
+                    '@type' => 'ListItem',
+                    'position' => $startPosition + $i,
+                    'url' => route('csc.show', $center),
+                    'name' => $center->display_name,
+                ])->all(),
+            ];
+        }
+
+        return view('pages.csc-directory', compact(
+            'mode', 'centers', 'stats', 'districts',
+            'breadcrumbSchema', 'websiteSchema', 'itemListSchema',
+        ));
     }
 
     /**
