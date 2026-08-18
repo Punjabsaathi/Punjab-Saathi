@@ -1,16 +1,37 @@
 @extends('layouts.app')
 
 @php
-    $displayName = $center->kiosk_name ?: $center->vle_name;
-    $locationLine = trim(collect([$center->sub_district, $center->district, 'Punjab'])->filter()->implode(', '));
+    $displayName = $center->display_name;
+    $locationLine = $center->location_line;
     $waText = "Hello, I found this CSC center on Punjab Saathi and need help:\n"
         . "Center: {$displayName}\n"
         . "Location: " . ($locationLine ?: 'Punjab') . ($center->pincode ? " — {$center->pincode}" : '');
     $waUrl = 'https://wa.me/917710556330?text=' . urlencode($waText);
 @endphp
 
-@section('title', $displayName . ' - CSC Center in ' . $center->district . ' | Punjab Saathi')
-@section('meta_description', 'CSC Center ' . $displayName . ' in ' . $locationLine . '. Contact details and nearby CSC centers on Punjab Saathi.')
+@section('title', $center->seo_title)
+@section('meta_description', $center->seo_description)
+
+<link rel="canonical" href="{{ route('csc.show', $center) }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="{{ $center->seo_title }}">
+<meta property="og:description" content="{{ $center->seo_description }}">
+<meta property="og:url"         content="{{ route('csc.show', $center) }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $center->seo_title }}">
+<meta name="twitter:description" content="{{ $center->seo_description }}">
+<meta name="twitter:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<script type="application/ld+json">{!! json_encode($center->toLocalBusinessSchema(), JSON_UNESCAPED_SLASHES) !!}</script>
+<script type="application/ld+json">{!! json_encode($center->toBreadcrumbSchema(), JSON_UNESCAPED_SLASHES) !!}</script>
+@if($faqSchema = $center->toFaqSchema())
+<script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_SLASHES) !!}</script>
+@endif
 
 @section('content')
 
@@ -29,7 +50,7 @@
         </span>
         @endif
 
-        <h1 class="psk-csc-profile-hero__name">{{ $displayName }}</h1>
+        <h1 class="psk-csc-profile-hero__name">{{ $displayName }} <span class="psk-csc-profile-hero__name-sub">— CSC Center in {{ $locationLine ?: 'Punjab' }}</span></h1>
 
         @if($displayName !== $center->vle_name)
         <p class="psk-csc-profile-hero__operator"><span class="fa fa-user mr-1"></span> Operated by {{ $center->vle_name }}</p>
@@ -105,6 +126,20 @@
                         <span class="fa fa-list mr-1"></span> Browse All Services
                     </a>
                 </div>
+
+                @if($center->faqs->isNotEmpty())
+                <div class="psk-csc-info-card">
+                    <h2 class="psk-csc-info-card__title">Frequently Asked Questions</h2>
+                    <div class="psk-csc-faq-list">
+                        @foreach($center->faqs as $faq)
+                        <div class="psk-csc-faq-item">
+                            <h3 class="psk-csc-faq-item__q">{{ $faq->question }}</h3>
+                            <p class="psk-csc-faq-item__a">{{ $faq->answer }}</p>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
 
             </div>
 

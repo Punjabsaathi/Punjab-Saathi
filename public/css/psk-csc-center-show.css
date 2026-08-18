@@ -16,6 +16,7 @@
     padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;
 }
 .psk-csc-profile-hero__name { font-size: 2.1rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.psk-csc-profile-hero__name-sub { display: block; font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.75); margin-top: 4px; }
 .psk-csc-profile-hero__operator { color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 4px; }
 .psk-csc-profile-hero__location { color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 22px; }
 .psk-csc-profile-hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -31,6 +32,12 @@
 .psk-csc-info-item__label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #9ca3af; }
 .psk-csc-info-item__value { font-size: 0.95rem; color: #1e2a3a; font-weight: 500; }
 .psk-csc-info-item__value--muted { color: #9ca3af; font-weight: 400; font-style: italic; font-size: 0.85rem; }
+
+.psk-csc-faq-list { display: flex; flex-direction: column; gap: 18px; }
+.psk-csc-faq-item { border-bottom: 1px solid #f0f0f0; padding-bottom: 16px; }
+.psk-csc-faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+.psk-csc-faq-item__q { font-size: 0.98rem; font-weight: 700; color: #1e2a3a; margin-bottom: 6px; }
+.psk-csc-faq-item__a { font-size: 0.9rem; color: #555; line-height: 1.65; margin: 0; }
 
 .psk-csc-side-card {
     background: #fff; border: 1px solid #e2e6ea; border-radius: 16px;

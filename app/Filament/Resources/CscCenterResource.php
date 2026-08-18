@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CscCenterResource\Pages;
+use App\Filament\Resources\CscCenterResource\RelationManagers;
 use App\Models\CscCenter;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -34,94 +35,123 @@ class CscCenterResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
+            Forms\Components\Tabs::make('Center Details')
+                ->columnSpanFull()
+                ->tabs([
 
-            Forms\Components\Section::make('Identity')
-                ->columns(2)
-                ->schema([
-                    Forms\Components\TextInput::make('csc_id')
-                        ->label('CSC ID')
-                        ->placeholder('e.g. 110136780019')
-                        ->maxLength(30)
-                        ->unique(ignoreRecord: true),
+                // ── TAB 1: Identity ─────────────────────────────
+                Forms\Components\Tabs\Tab::make('Identity')
+                    ->icon('heroicon-o-identification')
+                    ->schema([
+                        Forms\Components\Grid::make(2)->schema([
+                            Forms\Components\TextInput::make('csc_id')
+                                ->label('CSC ID')
+                                ->placeholder('e.g. 110136780019')
+                                ->maxLength(30)
+                                ->unique(ignoreRecord: true),
 
-                    Forms\Components\TextInput::make('vle_name')
-                        ->label('VLE / Operator Name')
-                        ->required()
-                        ->maxLength(255),
+                            Forms\Components\TextInput::make('vle_name')
+                                ->label('VLE / Operator Name')
+                                ->required()
+                                ->maxLength(255),
 
-                    Forms\Components\TextInput::make('kiosk_name')
-                        ->label('Kiosk / Center Name')
-                        ->maxLength(255),
+                            Forms\Components\TextInput::make('kiosk_name')
+                                ->label('Kiosk / Center Name')
+                                ->maxLength(255),
 
-                    Forms\Components\TextInput::make('mobile')
-                        ->label('Mobile Number')
-                        ->tel()
-                        ->required()
-                        ->unique(ignoreRecord: true)
-                        ->maxLength(15)
-                        ->helperText('Used to prevent duplicate registrations.'),
+                            Forms\Components\TextInput::make('mobile')
+                                ->label('Mobile Number')
+                                ->tel()
+                                ->required()
+                                ->unique(ignoreRecord: true)
+                                ->maxLength(15)
+                                ->helperText('Used to prevent duplicate registrations.'),
 
-                    Forms\Components\TextInput::make('email')
-                        ->email()
-                        ->maxLength(255),
-                ]),
+                            Forms\Components\TextInput::make('email')
+                                ->email()
+                                ->maxLength(255),
+                        ]),
+                    ]),
 
-            Forms\Components\Section::make('Location')
-                ->columns(2)
-                ->schema([
-                    Forms\Components\Textarea::make('address')
-                        ->rows(2)
-                        ->columnSpanFull(),
+                // ── TAB 2: Location ──────────────────────────────
+                Forms\Components\Tabs\Tab::make('Location')
+                    ->icon('heroicon-o-map-pin')
+                    ->schema([
+                        Forms\Components\Textarea::make('address')
+                            ->rows(2)
+                            ->columnSpanFull(),
 
-                    Forms\Components\TextInput::make('sub_district')
-                        ->label('Sub-District / Block'),
+                        Forms\Components\Grid::make(2)->schema([
+                            Forms\Components\TextInput::make('sub_district')
+                                ->label('Sub-District / Block'),
 
-                    Forms\Components\TextInput::make('district')
-                        ->required(),
+                            Forms\Components\TextInput::make('district')
+                                ->required(),
 
-                    Forms\Components\TextInput::make('state')
-                        ->default('Punjab'),
+                            Forms\Components\TextInput::make('state')
+                                ->default('Punjab'),
 
-                    Forms\Components\TextInput::make('pincode')
-                        ->maxLength(10),
+                            Forms\Components\TextInput::make('pincode')
+                                ->maxLength(10),
 
-                    Forms\Components\TextInput::make('latitude')
-                        ->numeric()
-                        ->step(0.0000001),
+                            Forms\Components\TextInput::make('latitude')
+                                ->numeric()
+                                ->step(0.0000001),
 
-                    Forms\Components\TextInput::make('longitude')
-                        ->numeric()
-                        ->step(0.0000001),
-                ]),
+                            Forms\Components\TextInput::make('longitude')
+                                ->numeric()
+                                ->step(0.0000001),
+                        ]),
+                    ]),
 
-            Forms\Components\Section::make('Status')
-                ->columns(3)
-                ->schema([
-                    Forms\Components\DatePicker::make('registered_on')
-                        ->label('Registered On (Portal)'),
+                // ── TAB 3: Status ────────────────────────────────
+                Forms\Components\Tabs\Tab::make('Status')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->schema([
+                        Forms\Components\Grid::make(3)->schema([
+                            Forms\Components\DatePicker::make('registered_on')
+                                ->label('Registered On (Portal)'),
 
-                    Forms\Components\Select::make('source')
-                        ->options([
-                            'locator.csccloud.in' => 'CSC Cloud Portal',
-                            'self-registered'     => 'Self-Registered',
-                            'admin'               => 'Added by Admin',
-                        ])
-                        ->default('self-registered')
-                        ->required(),
+                            Forms\Components\Select::make('source')
+                                ->options([
+                                    'locator.csccloud.in' => 'CSC Cloud Portal',
+                                    'self-registered'     => 'Self-Registered',
+                                    'admin'               => 'Added by Admin',
+                                ])
+                                ->default('self-registered')
+                                ->required(),
 
-                    Forms\Components\Toggle::make('is_verified')
-                        ->label('Verified')
-                        ->helperText('Mark after manual verification.'),
+                            Forms\Components\Toggle::make('is_verified')
+                                ->label('Verified')
+                                ->helperText('Mark after manual verification.'),
 
-                    Forms\Components\Toggle::make('is_active')
-                        ->label('Active')
-                        ->default(true),
+                            Forms\Components\Toggle::make('is_active')
+                                ->label('Active')
+                                ->default(true),
+                        ]),
 
-                    Forms\Components\Textarea::make('notes')
-                        ->label('Admin Notes')
-                        ->rows(2)
-                        ->columnSpanFull(),
-                ]),
+                        Forms\Components\Textarea::make('notes')
+                            ->label('Admin Notes')
+                            ->rows(2)
+                            ->columnSpanFull(),
+                    ]),
+
+                // ── TAB 4: SEO ───────────────────────────────────
+                Forms\Components\Tabs\Tab::make('SEO')
+                    ->icon('heroicon-o-magnifying-glass')
+                    ->schema([
+                        Forms\Components\TextInput::make('meta_title')
+                            ->label('Meta Title')
+                            ->maxLength(70)
+                            ->helperText('Leave blank to auto-generate from the center name and district. Max 70 characters.'),
+
+                        Forms\Components\Textarea::make('meta_description')
+                            ->label('Meta Description')
+                            ->rows(2)
+                            ->maxLength(160)
+                            ->helperText('Leave blank to auto-generate from the address and location. Max 160 characters.'),
+                    ]),
+            ]),
         ]);
     }
 
@@ -257,7 +287,9 @@ class CscCenterResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            RelationManagers\FaqsRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

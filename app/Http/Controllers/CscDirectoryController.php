@@ -95,6 +95,8 @@ class CscDirectoryController extends Controller
             404
         );
 
+        $cscCenter->load('faqs');
+
         return view('pages.csc-center-show', ['center' => $cscCenter]);
     }
 }
