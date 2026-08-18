@@ -12,6 +12,42 @@
         z-index: 10040 !important;
     }
 
+    /* ══ HERO BANNERS: shrink the oversized fixed heights (desktop) ══ */
+    /* style.css hard-codes .hero-wrap to 700px and .hero-wrap.hero-wrap-2
+       (the breadcrumb+title banner shared by About, Services, Blog, Forms,
+       Track Application, and more) to 600px, on EVERY screen size. On
+       desktop that means a banner holding only a breadcrumb and one heading
+       fills almost the entire first viewport before any real content
+       appears. Shrink both down to a height that comfortably fits their
+       actual content instead of an arbitrary full-screen guess. Scoped to
+       desktop (min-width: 992px) so it doesn't fight the separate, already
+       content-tuned mobile heights set further down this file. */
+    @media (min-width: 992px) {
+        .hero-wrap.hero-wrap-2,
+        .hero-wrap.hero-wrap-2 .slider-text {
+            height: 320px !important;
+        }
+        /* The home page hero holds a lot more content (heading, two
+           paragraphs, a button row, a phone/hours line) than the plain
+           breadcrumb+title banners above, so a fixed height clipped it —
+           the buttons were overflowing past the box's bottom edge into
+           the section below. min-height lets it grow to fit whatever
+           content a given page puts in it instead of guessing a number. */
+        .hero-wrap:not(.hero-wrap-2) {
+            height: auto !important;
+            min-height: 480px !important;
+            /* With height now driven by content instead of a tall fixed
+               box, the vertically-centered content had no breathing room
+               left below it — the button row ended up flush against the
+               next section. Explicit top/bottom padding restores that
+               gap regardless of how tall the content ends up being. */
+            padding: 70px 0 !important;
+        }
+        .hero-wrap:not(.hero-wrap-2) .slider-text {
+            height: auto !important;
+        }
+    }
+
     /* ══════════════════════════════════════════
     GLOBAL MOBILE OVERFLOW FIX
     Fixes right-side space on ALL pages

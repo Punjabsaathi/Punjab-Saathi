@@ -8,7 +8,7 @@
 <script type="application/ld+json">{!! $schemaMarkup !!}</script>
 
 <section class="hero-wrap hero-wrap-2 js-fullheight"
-         style="background-image:url('{{ asset('images/bg_1.jpg') }}');"
+         style="background-image:url('{{ asset('images/contactless-digital-fee-payment.jpg') }}');"
          data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">

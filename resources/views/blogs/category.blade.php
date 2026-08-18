@@ -9,7 +9,7 @@
 
 @section('content')
 
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/bg_1.jpg') }}');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/lpg-gas-connection-service.jpg') }}');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -59,7 +59,7 @@
                     @foreach($posts as $post)
                     <div class="psk-blog-card">
                         <a href="{{ route('blog.show', $post->slug) }}" class="psk-blog-card__img-link" aria-label="{{ $post->title }}">
-                            <div class="psk-blog-card__img" style="background-image:url('{{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/image_1.jpg') }}');"></div>
+                            <div class="psk-blog-card__img" style="background-image:url('{{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/blog-post-default-thumbnail.jpg') }}');"></div>
                         </a>
                         <div class="psk-blog-card__body">
                             @if($post->category)

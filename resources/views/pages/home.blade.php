@@ -76,7 +76,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 d-flex align-items-stretch">
-                    <div class="about-wrap img w-100" style="background-image: url({{ asset('images/aboutus.jpg') }});">
+                    <div class="about-wrap img w-100" style="background-image: url({{ asset('images/book-appointment-online-service.jpg') }});">
                         <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-crane"></span></div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
-                    <div class="img" style="background-image: url({{ asset('images/hivan.jpg') }});">
+                    <div class="img" style="background-image: url({{ asset('images/apply-online-government-certificate.jpg') }});">
                         <div class="overlay"></div>
                         <h2>Need a Government Certificate or Document in Punjab?</h2>
                         <p>Apply online in minutes. Our operators handle the rest — correctly, the first time.</p>
@@ -159,24 +159,20 @@
                         ?? $serviceCategories->get($key)->first(fn($s) => $s->image_url)?->image_url
                         ?? asset('images/registrations_and_schemes.webp');
                 @endphp
-                <div class="col-md-4">
-                    <div class="services-wrap ftco-animate">
-                        <div class="img" style="background-image: url('{{ $catImage }}');"></div>
-                        <div class="text">
-                            <h2>{{ $cat->name }}</h2>
-                            @if($cat->description)
-                            <p style="font-size:0.85rem;color:#666;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                                {{ $cat->description }}
-                            </p>
-                            @endif
-                            <p style="font-size:0.8rem;color:#aaa;">
-                                <span class="fa fa-list mr-1"></span>
-                                {{ $serviceCategories->get($key)->count() }} services available
-                            </p>
-                            <a href="{{ url('/services#cat-' . $key) }}" class="btn-custom">
-                                {{ $cat->button_text ?: 'View Services' }}
-                            </a>
-                        </div>
+                <div class="col-md-4 d-flex align-items-stretch ftco-animate">
+                    <div class="psk-category-card">
+                        <div class="psk-category-card__cover" style="background-image: url('{{ $catImage }}');"></div>
+                        <h3 class="psk-category-card__title">{{ $cat->name }}</h3>
+                        @if($cat->description)
+                        <p class="psk-category-card__desc">{{ $cat->description }}</p>
+                        @endif
+                        <p class="psk-category-card__count">
+                            <span class="fa fa-list"></span>
+                            {{ $serviceCategories->get($key)->count() }} services available
+                        </p>
+                        <a href="{{ url('/services#cat-' . $key) }}" class="psk-category-card__btn">
+                            {{ $cat->button_text ?: 'View Services' }}
+                        </a>
                     </div>
                 </div>
                 @endforeach
@@ -196,7 +192,7 @@
 
 
     <section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter">
-        <div class="img image-overlay" style="background-image: url({{ asset('images/aboutus3.jpg') }});"></div>
+        <div class="img image-overlay" style="background-image: url({{ asset('images/customer-support-help-desk.jpg') }});"></div>
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-md-6 py-5 bg-secondary aside-stretch">
@@ -405,6 +401,7 @@
     </section>
 
     @push('styles')
+    <link rel="stylesheet" href="{{ asset('css/psk-home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/psk-testimony.css') }}">
     @endpush
 
@@ -421,7 +418,7 @@
             $blogPosts = [
                 ['img' => 'caste.webp', 'title' => 'How to Apply for Caste Certificate Online in Punjab (2024 Guide)',      'tag' => 'Certificates'],
                 ['img' => 'adharcard.png', 'title' => 'Aadhaar Address Change: Documents Required and Step-by-Step Process',   'tag' => 'Aadhaar Services'],
-                ['img' => 'ayush-bhoyar-d2gQdAbTtRc-unsplash.jpg', 'title' => 'PM-KISAN New Registration: Who is Eligible and How to Apply in Punjab', 'tag' => 'Government Schemes'],
+                ['img' => 'punjab-farmers-agriculture-field.jpg', 'title' => 'PM-KISAN New Registration: Who is Eligible and How to Apply in Punjab', 'tag' => 'Government Schemes'],
             ];
             @endphp
             <div class="row d-flex">
