@@ -49,6 +49,12 @@ class GovJob extends Model
     public function scopeByCategory($query, $slug) {
         return $query->whereHas('category', fn($q) => $q->where('slug', $slug));
     }
+    // Punjab-specific postings first, then everything else (e.g. national
+    // bank/PSU drives) — ties broken by the caller's own ->orderBy() calls,
+    // since MySQL keeps prior ORDER BY columns as tie-breakers.
+    public function scopePunjabFirst($query) {
+        return $query->orderByRaw("CASE WHEN location LIKE '%Punjab%' THEN 0 ELSE 1 END");
+    }
 
     // ── Relationships ────────────────────────────────────
     public function category(): BelongsTo    { return $this->belongsTo(GovJobCategory::class, 'category_id'); }

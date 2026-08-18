@@ -49,7 +49,7 @@
 
 {{-- ── Live Ticker ──────────────────────────────────────── --}}
 @php
-    $tickerJobs = \App\Models\GovJob::published()->where('status','active')->latest()->limit(8)->get();
+    $tickerJobs = \App\Models\GovJob::published()->where('status','active')->punjabFirst()->latest()->limit(8)->get();
 @endphp
 @if($tickerJobs->count())
 <div class="psk-ticker">

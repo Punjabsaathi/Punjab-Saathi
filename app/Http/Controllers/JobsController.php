@@ -29,6 +29,7 @@ class JobsController extends Controller
 
         $query = GovJob::published()
             ->with('category')
+            ->punjabFirst()
             ->orderByDesc('is_featured')
             ->orderByDesc('created_at');
 
@@ -51,7 +52,7 @@ class JobsController extends Controller
             'upcoming' => GovJob::published()->where('status', 'upcoming')->count(),
         ];
 
-        $recentJobs = GovJob::published()->latest()->limit(5)->get();
+        $recentJobs = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
         return view('jobs.index', compact('jobs', 'categories', 'stats', 'recentJobs'));
     }
@@ -67,6 +68,7 @@ class JobsController extends Controller
         $jobs = GovJob::published()
             ->where('category_id', $category->id)
             ->with('category')
+            ->punjabFirst()
             ->orderByDesc('created_at')
             ->paginate(15)->withQueryString();
 
@@ -76,7 +78,7 @@ class JobsController extends Controller
             'upcoming' => GovJob::published()->where('status', 'upcoming')->count(),
         ];
 
-        $recentJobs = GovJob::published()->latest()->limit(5)->get();
+        $recentJobs = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
         return view('jobs.index', compact('jobs', 'categories', 'stats', 'recentJobs', 'category'));
     }
@@ -126,7 +128,7 @@ class JobsController extends Controller
             ->paginate(20);
 
         $categories  = GovJobCategory::where('is_active', true)->withCount('jobs')->orderBy('sort_order')->get();
-        $recentJobs  = GovJob::published()->latest()->limit(5)->get();
+        $recentJobs  = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
         return view('jobs.admit-cards', compact('cards', 'categories', 'recentJobs'));
     }
@@ -140,7 +142,7 @@ class JobsController extends Controller
             ->paginate(20);
 
         $categories = GovJobCategory::where('is_active', true)->withCount('jobs')->orderBy('sort_order')->get();
-        $recentJobs = GovJob::published()->latest()->limit(5)->get();
+        $recentJobs = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
         return view('jobs.results', compact('results', 'categories', 'recentJobs'));
     }
@@ -154,7 +156,7 @@ class JobsController extends Controller
             ->paginate(20);
 
         $categories = GovJobCategory::where('is_active', true)->withCount('jobs')->orderBy('sort_order')->get();
-        $recentJobs = GovJob::published()->latest()->limit(5)->get();
+        $recentJobs = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
         return view('jobs.answer-keys', compact('answerKeys', 'categories', 'recentJobs'));
     }
@@ -163,7 +165,7 @@ class JobsController extends Controller
     public function formHelp()
     {
         $categories = GovJobCategory::where('is_active', true)->withCount('jobs')->orderBy('sort_order')->get();
-        $recentJobs = GovJob::published()->latest()->limit(5)->get();
+        $recentJobs = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
         return view('jobs.form-help', compact('categories', 'recentJobs'));
     }
