@@ -12,6 +12,7 @@
 @section('title', $center->seo_title)
 @section('meta_description', $center->seo_description)
 
+@push('head')
 <link rel="canonical" href="{{ route('csc.show', $center) }}">
 <meta name="robots" content="index, follow">
 
@@ -32,6 +33,7 @@
 @if($faqSchema = $center->toFaqSchema())
 <script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_SLASHES) !!}</script>
 @endif
+@endpush
 
 @section('content')
 

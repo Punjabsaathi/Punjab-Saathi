@@ -3,6 +3,7 @@
 @section('title', 'Find a CSC Center Near You - Punjab Saathi')
 @section('meta_description', 'Search ' . number_format($stats['total_centers']) . '+ Common Service Centers (CSC) across all districts of Punjab by pincode, or find the nearest CSC center to your current location.')
 
+@push('head')
 {{-- Canonical always points at the clean, unfiltered URL — search/filter
      query strings (?district=, ?pincode=, ?page=) shouldn't be treated
      as separate pages competing with each other for the same ranking. --}}
@@ -20,6 +21,7 @@
 <meta name="twitter:title"       content="Find a CSC Center Near You - Punjab Saathi">
 <meta name="twitter:description" content="Search {{ number_format($stats['total_centers']) }}+ Common Service Centers (CSC) across all districts of Punjab.">
 <meta name="twitter:image"       content="{{ asset('images/og-default.jpg') }}">
+@endpush
 
 @section('content')
 
