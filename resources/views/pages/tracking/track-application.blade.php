@@ -2,6 +2,10 @@
 
 @section('title', 'Track Your Application - Punjab Saathi')
 
+@push('head')
+<link rel="preload" as="image" href="{{ asset('images/track-application-status-check.webp') }}">
+@endpush
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/psk-track-application.css') }}">
 @endpush

@@ -4,6 +4,10 @@
 
 @section('meta_description', 'Punjab Saathi offers ' . $totalServices . '+ government services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more. Fast, affordable, doorstep delivery across all 22 districts of Punjab.')
 
+@push('head')
+<link rel="preload" as="image" href="{{ asset('images/government-services-support.webp') }}">
+@endpush
+
 @section('content')
 
 {{-- ═══════════════════════════════════════════════════════ --}}

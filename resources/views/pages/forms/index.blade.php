@@ -3,6 +3,10 @@
 @section('title', 'Download Government Forms – Punjab Saathi')
 @section('meta_description', 'Browse and download all government forms — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.')
 
+@push('head')
+<link rel="preload" as="image" href="{{ asset('images/forms.webp') }}">
+@endpush
+
 @section('content')
 
 <section class="hero-wrap hero-wrap-2 js-fullheight"

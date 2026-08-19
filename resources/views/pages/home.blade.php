@@ -2,6 +2,16 @@
     @section('title', 'Punjab Saathi - Online Public Services in Punjab')
     @section('meta_description', 'Punjab Saathi offers fast, affordable online government services in Punjab — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep delivery across all 22 districts.')
 
+    @push('head')
+    {{-- This hero background-image is the page's Largest Contentful
+         Paint element — a browser can't discover it until it's parsed
+         far enough into <body> to reach this CSS rule, by which point
+         render-blocking CSS/fonts have already eaten into the LCP
+         budget. Preloading tells the browser to start the download
+         immediately, in parallel with everything else in <head>. --}}
+    <link rel="preload" as="image" href="{{ asset('images/punjab-saathi-hero.webp') }}">
+    @endpush
+
     @section('content')
 
     <section class="hero-wrap js-fullheight" style="background-image: url('{{ asset('images/punjab-saathi-hero.webp') }}');" data-stellar-background-ratio="0.5">

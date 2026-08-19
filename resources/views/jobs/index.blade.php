@@ -5,6 +5,10 @@
 
 @section('title', 'Sarkari Naukri | Government Jobs | Punjab Saathi')
 
+@push('head')
+<link rel="preload" as="image" href="{{ asset('images/sarkari-naukri-job-application-form.webp') }}">
+@endpush
+
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('css/psk-jobs.css') }}">

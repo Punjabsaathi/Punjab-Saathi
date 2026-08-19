@@ -3,6 +3,10 @@
 @section('title', 'Blog - Punjab Saathi')
 @section('meta_description', 'Read helpful guides and news about Public services in Punjab.')
 
+@push('head')
+<link rel="preload" as="image" href="{{ asset('images/blog.webp') }}">
+@endpush
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/psk-blog.css') }}">
 @endpush

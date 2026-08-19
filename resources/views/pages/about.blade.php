@@ -2,6 +2,10 @@
 
 @section('title', 'About Us - Punjab Saathi | Trusted Public Services in Punjab')
 
+@push('head')
+<link rel="preload" as="image" href="{{ asset('images/punjab-farmers-field-banner.webp') }}">
+@endpush
+
 @section('content')
 
 {{-- ═══════════════════════════════════════════════ --}}
