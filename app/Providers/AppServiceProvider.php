@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
          View::composer('*', function ($view) {
-        $view->with('megaServices', Service::orderBy('category')->orderBy('title')->get()->groupBy('category'));
+        $view->with('megaServices', Service::active()->orderBy('category')->orderBy('title')->get()->groupBy('category'));
     });
 
         ContactQuery::observe(StatusChangeObserver::class);
