@@ -124,7 +124,7 @@ class SitemapController extends Controller
             }
 
             // Government job listings + categories
-            foreach (GovJob::query()->get(['slug', 'updated_at']) as $job) {
+            foreach (GovJob::published()->get(['slug', 'updated_at']) as $job) {
                 $urls[] = [
                     'url' => route('jobs.show', $job->slug),
                     'lastmod' => $job->updated_at?->toAtomString(),
