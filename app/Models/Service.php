@@ -81,16 +81,7 @@ class Service extends Model
 
     public function getImageUrlAttribute(): ?string
     {
-        // Cards without a cover photo skip the fixed-height cover block
-        // entirely (see services.blade.php), so a row mixing covered and
-        // uncovered cards stretches to equal height and leaves a large
-        // blank gap above the footer on the shorter ones. A shared
-        // fallback image keeps every card in a row the same shape.
-        if ($this->og_image) {
-            return Storage::disk('public')->url($this->og_image);
-        }
-
-        return asset('images/apply-online-government-certificate.webp');
+        return $this->og_image ? Storage::disk('public')->url($this->og_image) : null;
     }
 
     // ── Route model binding key ──────────────────────────────
