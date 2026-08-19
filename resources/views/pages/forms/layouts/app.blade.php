@@ -43,7 +43,7 @@
 <header class="bg-blue-800 text-white shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         <a href="{{ route('home') }}" class="flex items-center gap-2 font-bold text-xl">
-            <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" class="h-9 w-auto" onerror="this.style.display='none'">
+            <img src="{{ asset('images/punjab-saathi-logo.webp') }}" alt="{{ config('app.name') }}" class="h-9 w-auto" onerror="this.style.display='none'">
             <span>{{ config('app.name', 'Punjab Saathi') }}</span>
         </a>
 

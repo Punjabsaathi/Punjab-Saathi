@@ -61,7 +61,7 @@ $serviceSchema = json_encode([
 {{-- HERO BANNER                                             --}}
 {{-- ═══════════════════════════════════════════════════════ --}}
 <section class="psk-detail-hero"
-         style="background-image: url('{{ $service->image_url ?: asset('images/forms.jpg') }}');">
+         style="background-image: url('{{ $service->image_url ?: asset('images/forms.webp') }}');">
     <div class="psk-detail-hero__overlay"></div>
     <div class="container">
 

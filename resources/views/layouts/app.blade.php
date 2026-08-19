@@ -80,7 +80,7 @@
     <div id="psk-form-loader" class="psk-form-loader" role="status" aria-live="polite" aria-hidden="true">
         <div class="psk-form-loader__box">
             <div class="psk-form-loader__logo-badge">
-                <img src="{{ asset('images/punjab-saathi-logo.png') }}" alt="Punjab Saathi" class="psk-form-loader__logo">
+                <img src="{{ asset('images/punjab-saathi-logo.webp') }}" alt="Punjab Saathi" class="psk-form-loader__logo">
             </div>
             <svg class="psk-form-loader__spinner" viewBox="0 0 50 50">
                 <circle class="psk-form-loader__track" cx="25" cy="25" r="20" fill="none"></circle>

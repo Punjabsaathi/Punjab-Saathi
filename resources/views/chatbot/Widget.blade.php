@@ -19,7 +19,7 @@
     {{-- Header --}}
     <div class="psk-header">
       <div class="psk-header-logo">
-        <img src="{{ asset('images/punjab-saathi-logo.png') }}" alt="Punjab Saathi">
+        <img src="{{ asset('images/punjab-saathi-logo.webp') }}" alt="Punjab Saathi">
       </div>
       <div class="psk-header-info">
         <p class="psk-header-title">Punjab Saathi</p>

@@ -65,7 +65,7 @@
         @foreach($recent as $r)
         <div class="psk-blog-mini">
             <a href="{{ route('blog.show', $r->slug) }}" class="psk-blog-mini__thumb" aria-label="{{ $r->title }}"
-               style="background-image:url('{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/blog-post-default-thumbnail.jpg') }}');"></a>
+               style="background-image:url('{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/blog-post-default-thumbnail.webp') }}');"></a>
             <div>
                 <a href="{{ route('blog.show', $r->slug) }}" class="psk-blog-mini__title">{{ Str::limit($r->title, 60) }}</a>
                 <span class="psk-blog-mini__meta"><span class="fa fa-calendar mr-1"></span>{{ $r->published_at?->format('d M Y') }}</span>

@@ -60,7 +60,7 @@
 
 <div class="psk-reading-progress" id="pskReadingProgress"></div>
 
-@php $heroBg = $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/blog-post-default-thumbnail.jpg'); @endphp
+@php $heroBg = $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/blog-post-default-thumbnail.webp'); @endphp
 
 {{-- HERO --}}
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ $heroBg }}');" data-stellar-background-ratio="0.5">
@@ -199,7 +199,7 @@
                     <div class="psk-related-grid">
                         @foreach($related as $r)
                         <a href="{{ route('blog.show', $r->slug) }}" class="psk-related-card">
-                            <div class="psk-related-card__img" style="background-image:url('{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/blog-post-default-thumbnail.jpg') }}');"></div>
+                            <div class="psk-related-card__img" style="background-image:url('{{ $r->featured_image ? asset('storage/'.$r->featured_image) : asset('images/blog-post-default-thumbnail.webp') }}');"></div>
                             <div class="psk-related-card__body">
                                 <div class="psk-related-card__title">{{ Str::limit($r->title, 60) }}</div>
                                 <span class="psk-related-card__date">{{ $r->published_at?->format('d M Y') }}</span>

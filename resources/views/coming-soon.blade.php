@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Punjab Saathi - Coming Soon</title>
     <meta name="description" content="Punjab Saathi - Online Public Services in Punjab. Launching soon.">
-    <link rel="icon" href="/images/favicon.png">
+    <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="{{ asset('css/psk-coming-soon.css') }}">
 </head>
 <body>
 
-    <img src="https://punjabsaathi.in/images/punjab-saathi-logo.png" alt="Punjab Saathi" class="logo">
+    <img src="https://punjabsaathi.in/images/punjab-saathi-logo.webp" alt="Punjab Saathi" class="logo">
 
     <div class="tag">Punjab Saathi</div>
     <h1>We're getting things ready for you</h1>

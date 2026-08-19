@@ -4,7 +4,7 @@
 
     @section('content')
 
-    <section class="hero-wrap js-fullheight" style="background-image: url('{{ asset('images/punjab-saathi-hero.jpg') }}');" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap js-fullheight" style="background-image: url('{{ asset('images/punjab-saathi-hero.webp') }}');" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
@@ -76,7 +76,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 d-flex align-items-stretch">
-                    <div class="about-wrap img w-100" style="background-image: url({{ asset('images/book-appointment-online-service.jpg') }});">
+                    <div class="about-wrap img w-100" style="background-image: url({{ asset('images/book-appointment-online-service.webp') }});">
                         <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-crane"></span></div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
-                    <div class="img" style="background-image: url({{ asset('images/apply-online-government-certificate.jpg') }});">
+                    <div class="img" style="background-image: url({{ asset('images/apply-online-government-certificate.webp') }});">
                         <div class="overlay"></div>
                         <h2>Need a Government Certificate or Document in Punjab?</h2>
                         <p>Apply online in minutes. Our operators handle the rest — correctly, the first time.</p>
@@ -192,7 +192,7 @@
 
 
     <section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter">
-        <div class="img image-overlay" style="background-image: url({{ asset('images/customer-support-help-desk.jpg') }});"></div>
+        <div class="img image-overlay" style="background-image: url({{ asset('images/customer-support-help-desk.webp') }});"></div>
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-md-6 py-5 bg-secondary aside-stretch">
@@ -320,7 +320,7 @@
             <div class="row">
                 @foreach($popularServices as $svc)
                 @php
-                    $svcCardImg = $svc->image_url ?: asset('images/forms.jpg');
+                    $svcCardImg = $svc->image_url ?: asset('images/forms.webp');
                 @endphp
                 <div class="col-md-4">
                     <div class="project">
@@ -425,8 +425,8 @@
             @php
             $blogPosts = [
                 ['img' => 'caste.webp', 'title' => 'How to Apply for Caste Certificate Online in Punjab (2024 Guide)',      'tag' => 'Certificates'],
-                ['img' => 'adharcard.png', 'title' => 'Aadhaar Address Change: Documents Required and Step-by-Step Process',   'tag' => 'Aadhaar Services'],
-                ['img' => 'punjab-farmers-agriculture-field.jpg', 'title' => 'PM-KISAN New Registration: Who is Eligible and How to Apply in Punjab', 'tag' => 'Government Schemes'],
+                ['img' => 'adharcard.webp', 'title' => 'Aadhaar Address Change: Documents Required and Step-by-Step Process',   'tag' => 'Aadhaar Services'],
+                ['img' => 'punjab-farmers-agriculture-field.webp', 'title' => 'PM-KISAN New Registration: Who is Eligible and How to Apply in Punjab', 'tag' => 'Government Schemes'],
             ];
             @endphp
             <div class="row d-flex">

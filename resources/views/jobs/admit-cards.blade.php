@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-<section class="psk-detail-hero" style="background-image: url('{{ asset('images/exam-admit-card-omr-sheet.jpg') }}');">
+<section class="psk-detail-hero" style="background-image: url('{{ asset('images/exam-admit-card-omr-sheet.webp') }}');">
     <div class="psk-detail-hero__overlay"></div>
     <div class="container">
         <nav class="psk-breadcrumb" aria-label="breadcrumb">

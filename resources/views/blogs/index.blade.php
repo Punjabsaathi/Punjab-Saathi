@@ -10,7 +10,7 @@
 @section('content')
 
 {{-- HERO --}}
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/blog.jpg') }}');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/blog.webp') }}');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -60,7 +60,7 @@
                 @php $featuredPost = $featured->first(); @endphp
                 @if($featuredPost)
                 <a href="{{ route('blog.show', $featuredPost->slug) }}" class="psk-featured-post">
-                    <div class="psk-featured-post__img" style="background-image:url('{{ $featuredPost->featured_image ? asset('storage/'.$featuredPost->featured_image) : asset('images/blog-post-default-thumbnail.jpg') }}');"></div>
+                    <div class="psk-featured-post__img" style="background-image:url('{{ $featuredPost->featured_image ? asset('storage/'.$featuredPost->featured_image) : asset('images/blog-post-default-thumbnail.webp') }}');"></div>
                     <div class="psk-featured-post__body">
                         <span class="psk-featured-tag"><span class="fa fa-star"></span> Featured</span>
                         @if($featuredPost->category)
@@ -98,7 +98,7 @@
                     @foreach($gridPosts as $post)
                     <div class="psk-blog-card">
                         <a href="{{ route('blog.show', $post->slug) }}" class="psk-blog-card__img-link" aria-label="{{ $post->title }}">
-                            <div class="psk-blog-card__img" style="background-image:url('{{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/blog-post-default-thumbnail.jpg') }}');"></div>
+                            <div class="psk-blog-card__img" style="background-image:url('{{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('images/blog-post-default-thumbnail.webp') }}');"></div>
                         </a>
                         <div class="psk-blog-card__body">
                             @if($post->category)

@@ -16,7 +16,7 @@
      (.psk-detail-hero, already used by /services/{slug}) instead of
      a page-specific one, and the same background photo, so utility
      pages share one consistent banner style. ── --}}
-<section class="psk-detail-hero" style="background-image: url('{{ asset('images/sarkari-naukri-job-application-form.jpg') }}');">
+<section class="psk-detail-hero" style="background-image: url('{{ asset('images/sarkari-naukri-job-application-form.webp') }}');">
     <div class="psk-detail-hero__overlay"></div>
     <div class="container">
         <nav class="psk-breadcrumb" aria-label="breadcrumb">

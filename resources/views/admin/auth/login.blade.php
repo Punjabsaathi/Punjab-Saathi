@@ -40,7 +40,7 @@
 
                         {{-- Header --}}
                         <div class="text-center mb-4">
-                            <img src="{{ asset('images/punjab-saathi-logo.png') }}" alt="Punjab Saathi" class="login-brand-logo mb-3">
+                            <img src="{{ asset('images/punjab-saathi-logo.webp') }}" alt="Punjab Saathi" class="login-brand-logo mb-3">
                             <h3 class="mb-0">Admin Sign In</h3>
                         </div>
 

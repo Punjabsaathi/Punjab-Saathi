@@ -2,7 +2,7 @@
     <nav class="navbar bg-secondary navbar-dark">
 
         <a href="{{ route('admin.dashboard') }}" class="navbar-brand mx-4 mb-3">
-            <img src="{{ asset('images/punjab-saathi-logo.png') }}" alt="Punjab Saathi" class="sidebar-brand-logo">
+            <img src="{{ asset('images/punjab-saathi-logo.webp') }}" alt="Punjab Saathi" class="sidebar-brand-logo">
         </a>
         <div class="navbar-nav w-100">
 
