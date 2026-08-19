@@ -559,6 +559,12 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/psk-testimony.css') }}">
+<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+@endpush
+
+@push('plugin-scripts')
+<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
 @endpush
 
 {{-- ═══════════════════════════════════════════════ --}}

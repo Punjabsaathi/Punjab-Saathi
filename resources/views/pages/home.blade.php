@@ -403,6 +403,14 @@
     @push('styles')
     <link rel="stylesheet" href="{{ asset('css/psk-home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/psk-testimony.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    @endpush
+
+    @push('plugin-scripts')
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
     @endpush
 
     <section class="ftco-section bg-light">
