@@ -21,17 +21,20 @@
          on every page that used it — this is the fix. --}}
     @stack('head')
 
-    {{-- Establishes the connection to these two external CDNs while the
-         rest of <head> is still parsing, instead of only starting the
-         DNS lookup + TLS handshake once the browser reaches the <link>
-         tag below — shaves the round-trip latency off the critical
-         rendering path for the very first thing every page loads. --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{-- Both Google Fonts and Font Awesome used to load from external
+         CDNs (fonts.googleapis.com/fonts.gstatic.com, stackpath.
+         bootstrapcdn.com) — under HTTP/1.1 with no multiplexing, each
+         extra origin costs a full DNS+TLS round trip before its first
+         byte, which showed up directly as high FCP/LCP on mobile even
+         after preconnect. Self-hosting both removes those two origins
+         from the critical path entirely. Roboto is Latin-subset only
+         (a single ~42KB variable-weight file covers 300-900 — this
+         site has no Cyrillic/Greek/Vietnamese content, and Punjabi
+         text already falls back to a system font since Roboto doesn't
+         cover Gurmukhi anyway). Font Awesome is the same 4.7.0 files
+         the CDN served, just local now. --}}
+    <link rel="stylesheet" href="{{ asset('css/psk-fonts.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">

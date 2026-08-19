@@ -1,0 +1,16 @@
+/* Self-hosted Roboto (Latin subset only — this site has no Cyrillic,
+   Greek, or Vietnamese content, and Punjabi/Gurmukhi text always falls
+   back to a system font since Roboto doesn't cover that script anyway).
+   Single variable-weight file instead of Google's default 45 declarations
+   across 9 unicode subsets — removes an entire external CDN origin
+   (fonts.googleapis.com + fonts.gstatic.com), which matters far more
+   than it sounds under HTTP/1.1 + slow-network conditions, where every
+   extra cross-origin connection costs a full DNS+TLS round trip. */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300 900;
+    font-display: swap;
+    src: url('../fonts/roboto-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
