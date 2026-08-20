@@ -35,7 +35,7 @@
                         <li><a href="{{ url('/') }}"><span class="fa fa-chevron-right mr-2"></span>Home</a></li>
                         <li><a href="{{ url('/about') }}"><span class="fa fa-chevron-right mr-2"></span>About Us</a></li>
                         <li><a href="{{ url('/services') }}"><span class="fa fa-chevron-right mr-2"></span>All Services</a></li>
-                        <li><a href="{{ url('/jobs') }}"><span class="fa fa-chevron-right mr-2"></span>Jobs Alerts</a></li>
+                        <li><a href="{{ url('/jobs') }}"><span class="fa fa-chevron-right mr-2"></span>Job Saathi</a></li>
                         <li><a href="{{ url('/blog') }}"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
                         <li><a href="{{ url('/forms') }}"><span class="fa fa-chevron-right mr-2"></span>Download Forms</a></li>
                         <li><a href="{{ url('/track-application') }}"><span class="fa fa-chevron-right mr-2"></span>Track Application</a></li>
