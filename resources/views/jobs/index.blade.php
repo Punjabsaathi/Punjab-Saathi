@@ -74,15 +74,6 @@
     </div>
 </section>
 
-{{-- ── Intro (hub only, short by design — the listing below is the
-     actual content searchers came for; this just orients them and
-     gives crawlers a keyword-relevant lead paragraph) ──────────── --}}
-@if(!isset($category) && $pageSettings->intro_content)
-<div class="container">
-    <div class="psk-jobs-intro">{!! $pageSettings->intro_content !!}</div>
-</div>
-@endif
-
 {{-- ── Live Ticker ──────────────────────────────────────── --}}
 @php
     $tickerJobs = \App\Models\GovJob::published()->where('status','active')->punjabFirst()->latest()->limit(8)->get();
@@ -238,29 +229,13 @@
     </div>
 </section>
 
-{{-- ── Below-the-listing content — the hub's how-to-apply, eligibility
-     and FAQ blocks only render here, never on category pages, so the
-     ~15 department pages don't all carry the same paragraphs as
-     duplicate/near-duplicate content. ──────────────────────────── --}}
+{{-- ── Below-the-listing content — the FAQ block only renders here,
+     never on category pages, so the ~15 department pages don't all
+     carry the same content as duplicate content. Generic "How to
+     Apply"/"Eligibility" boilerplate was deliberately dropped — it
+     duplicated what's already on each individual job page in far
+     more specific form, and added no real unique value. ─────────── --}}
 @if(!isset($category))
-
-    @if($pageSettings->how_to_apply_content)
-    <section class="ftco-section ftco-no-pt psk-jobs-content-block">
-        <div class="container">
-            <h2 class="psk-jobs-content-block__h2">How to Apply for a Punjab Government Job</h2>
-            <div class="psk-jobs-content-block__body">{!! $pageSettings->how_to_apply_content !!}</div>
-        </div>
-    </section>
-    @endif
-
-    @if($pageSettings->eligibility_content)
-    <section class="ftco-section ftco-no-pt psk-jobs-content-block">
-        <div class="container">
-            <h2 class="psk-jobs-content-block__h2">Eligibility for Punjab Government Jobs</h2>
-            <div class="psk-jobs-content-block__body">{!! $pageSettings->eligibility_content !!}</div>
-        </div>
-    </section>
-    @endif
 
     @if(!empty($pageSettings->faqs))
     <section class="ftco-section ftco-no-pt psk-jobs-content-block" id="faq">
@@ -286,18 +261,6 @@
     @endif
 
 @endif
-
-{{-- Disclaimer — same component used on /services, must appear on jobs
-     pages too since this is exactly the content most likely to read as
-     "official" to a first-time visitor. --}}
-<div class="psk-disclaimer-bar">
-    <div class="container">
-        <span class="fa fa-info-circle mr-2"></span>
-        <strong>Disclaimer:</strong> Punjab Saathi is a <strong>private information & assistance platform</strong>
-        and is <strong>not an official government website or recruitment board</strong>. Always verify
-        vacancy details, dates, and apply through the official notification/website linked on each posting.
-    </div>
-</div>
 
 @endsection
 
