@@ -41,7 +41,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about',    [HomeController::class, 'about'])->name('about');
 Route::get('/services', [HomeController::class, 'services'])->name('services');
-Route::get('/projects', [HomeController::class, 'projects'])->name('projects');
 Route::get('/blog',     [HomeController::class, 'blog'])->name('blog');
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');
 // Contact Us page
@@ -63,7 +62,6 @@ Route::post('/track-application', [ApplicationTrackingController::class, 'search
 
 /**/
 // Search
-Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/api/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
 // Categories
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');

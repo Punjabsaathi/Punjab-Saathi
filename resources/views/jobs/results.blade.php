@@ -1,6 +1,42 @@
 {{-- Save as: resources/views/jobs/results.blade.php --}}
 @extends('layouts.app')
 @section('title', 'Exam Results | Merit List | Punjab Saathi')
+@section('meta_description', 'Check the latest Punjab government exam results and merit lists — PSSSB, Punjab Police, SSC, RRB, Banking and more, updated as soon as they are declared.')
+
+@push('head')
+<link rel="canonical" href="{{ route('jobs.results') }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Exam Results | Merit List | Punjab Saathi">
+<meta property="og:description" content="Check the latest Punjab government exam results and merit lists, updated as soon as they are declared.">
+<meta property="og:url"         content="{{ route('jobs.results') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Exam Results | Merit List | Punjab Saathi">
+<meta name="twitter:description" content="Check the latest Punjab government exam results and merit lists, updated as soon as they are declared.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Job Saathi', 'url' => route('jobs.index')],
+    ['name' => 'Results', 'url' => route('jobs.results')],
+])) !!}</script>
+
+@if($results->count())
+<script type="application/ld+json">{!! \App\Support\Seo::json([
+    '@context' => 'https://schema.org',
+    '@type'    => 'ItemList',
+    'itemListElement' => collect($results->items())->values()->map(fn ($result, $i) => [
+        '@type'    => 'ListItem',
+        'position' => (($results->currentPage() - 1) * $results->perPage()) + $i + 1,
+        'url'      => route('jobs.show', $result->job->slug),
+        'name'     => $result->title,
+    ])->all(),
+]) !!}</script>
+@endif
+@endpush
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

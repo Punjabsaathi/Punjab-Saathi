@@ -3,6 +3,41 @@
 @section('title', $category->name . ' - Blog - Punjab Saathi')
 @section('meta_description', $category->description ?? 'Browse posts in ' . $category->name)
 
+@push('head')
+<link rel="canonical" href="{{ route('blog.category', $category->slug) }}{{ request('page') > 1 ? '?page='.request('page') : '' }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="{{ $category->name . ' - Blog - Punjab Saathi' }}">
+<meta property="og:description" content="{{ $category->description ?? 'Browse posts in ' . $category->name }}">
+<meta property="og:url"         content="{{ route('blog.category', $category->slug) }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $category->name . ' - Blog - Punjab Saathi' }}">
+<meta name="twitter:description" content="{{ $category->description ?? 'Browse posts in ' . $category->name }}">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Blog', 'url' => route('blog.index')],
+    ['name' => $category->name, 'url' => route('blog.category', $category->slug)],
+])) !!}</script>
+
+@if($posts->count())
+<script type="application/ld+json">{!! \App\Support\Seo::json([
+    '@context' => 'https://schema.org',
+    '@type'    => 'ItemList',
+    'itemListElement' => collect($posts->items())->values()->map(fn ($post, $i) => [
+        '@type'    => 'ListItem',
+        'position' => (($posts->currentPage() - 1) * $posts->perPage()) + $i + 1,
+        'url'      => route('blog.show', $post->slug),
+        'name'     => $post->title,
+    ])->all(),
+]) !!}</script>
+@endif
+@endpush
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/psk-blog.css') }}">
 @endpush

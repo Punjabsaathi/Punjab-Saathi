@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-<!-- @section('title', 'Contact Punjab Saathi | Government Service Assistance in Amritsar')
-
+@section('title', 'Contact Punjab Saathi | Government Service Assistance in Amritsar')
 @section('meta_description', 'Contact Punjab Saathi for government application assistance, online service help, and CSC support in Punjab. Call, WhatsApp, or visit our office in Amritsar.')
- -->
+
+@push('head')
 <meta name="keywords" content="Punjab Saathi contact, Contact Punjab Saathi, Punjab Saathi support, government service help in Punjab, online government application assistance, CSC Amritsar">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="{{ url('/contact') }}">
@@ -20,8 +20,17 @@
 <meta name="twitter:description" content="Contact Punjab Saathi for government application assistance and CSC support in Punjab, Amritsar.">
 <meta name="twitter:image"       content="{{ asset('images/og-contact.jpg') }}">
 
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Contact Us', 'url' => url('/contact')],
+])) !!}</script>
 
+<script type="application/ld+json">{!! \App\Support\Seo::json(array_merge(\App\Support\Seo::organizationSchema(), ['@type' => 'LocalBusiness'])) !!}</script>
+@endpush
+
+@push('styles')
 <link rel="stylesheet" href="{{ asset('css/psk-contact.css') }}">
+@endpush
 
 @section('content')
 

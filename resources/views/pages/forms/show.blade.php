@@ -1,11 +1,42 @@
 @extends('layouts.app')
 
-@section('title', ($form->seo_title ?? $form->title) . ' – Punjab Saathi')
+@section('title', $form->seo_title_display)
 @section('meta_description', $form->meta_description ?? $form->short_description)
 
-@section('content')
+@php
+    $formCanonical = $form->canonical_url ?: route('forms.show', $form->slug);
+@endphp
+
+@push('head')
+<link rel="canonical" href="{{ $formCanonical }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="{{ $form->seo_title_display }}">
+<meta property="og:description" content="{{ $form->meta_description ?? $form->short_description }}">
+<meta property="og:url"         content="{{ $formCanonical }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+@if($form->og_image)
+<meta property="og:image" content="{{ asset('storage/'.$form->og_image) }}">
+@else
+<meta property="og:image" content="{{ asset('images/og-default.jpg') }}">
+@endif
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $form->seo_title_display }}">
+<meta name="twitter:description" content="{{ $form->meta_description ?? $form->short_description }}">
 
 <script type="application/ld+json">{!! $schemaMarkup !!}</script>
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Download Forms', 'url' => route('forms.index')],
+    ['name' => $form->category->name, 'url' => route('categories.show', $form->category->slug)],
+    ['name' => $form->title, 'url' => $formCanonical],
+])) !!}</script>
+@endpush
+
+@section('content')
 
 <section class="hero-wrap hero-wrap-2 js-fullheight"
          style="background-image:url('{{ asset('images/contactless-digital-fee-payment.webp') }}');"

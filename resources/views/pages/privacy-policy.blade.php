@@ -3,6 +3,20 @@
 @section('title', 'Privacy Policy - Punjab Saathi')
 @section('meta_description', 'How Punjab Saathi collects, uses, and protects your personal information when helping you apply for government services.')
 
+@push('head')
+<link rel="canonical" href="{{ route('privacy-policy') }}">
+<meta name="robots" content="index, follow">
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Privacy Policy - Punjab Saathi">
+<meta property="og:description" content="How Punjab Saathi collects, uses, and protects your personal information when helping you apply for government services.">
+<meta property="og:url"         content="{{ route('privacy-policy') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Privacy Policy', 'url' => route('privacy-policy')],
+])) !!}</script>
+@endpush
+
 @section('content')
 
 <section class="psk-legal-hero">

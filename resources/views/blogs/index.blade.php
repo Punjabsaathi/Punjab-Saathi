@@ -5,6 +5,38 @@
 
 @push('head')
 <link rel="preload" as="image" href="{{ asset('images/blog.webp') }}">
+
+<link rel="canonical" href="{{ route('blog.index') }}{{ request('page') > 1 ? '?page='.request('page') : '' }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Blog - Punjab Saathi">
+<meta property="og:description" content="Read helpful guides and news about Public services in Punjab.">
+<meta property="og:url"         content="{{ route('blog.index') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Blog - Punjab Saathi">
+<meta name="twitter:description" content="Read helpful guides and news about Public services in Punjab.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Blog', 'url' => route('blog.index')],
+])) !!}</script>
+
+@if($posts->count())
+<script type="application/ld+json">{!! \App\Support\Seo::json([
+    '@context' => 'https://schema.org',
+    '@type'    => 'ItemList',
+    'itemListElement' => collect($posts->items())->values()->map(fn ($post, $i) => [
+        '@type'    => 'ListItem',
+        'position' => (($posts->currentPage() - 1) * $posts->perPage()) + $i + 1,
+        'url'      => route('blog.show', $post->slug),
+        'name'     => $post->title,
+    ])->all(),
+]) !!}</script>
+@endif
 @endpush
 
 @push('styles')

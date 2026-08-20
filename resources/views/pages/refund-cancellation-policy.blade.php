@@ -3,6 +3,20 @@
 @section('title', 'Refund & Cancellation Policy - Punjab Saathi')
 @section('meta_description', 'Refund and Cancellation Policy for Punjab Saathi\'s government application facilitation services.')
 
+@push('head')
+<link rel="canonical" href="{{ route('refund-cancellation-policy') }}">
+<meta name="robots" content="index, follow">
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Refund & Cancellation Policy - Punjab Saathi">
+<meta property="og:description" content="Refund and Cancellation Policy for Punjab Saathi's government application facilitation services.">
+<meta property="og:url"         content="{{ route('refund-cancellation-policy') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Refund & Cancellation Policy', 'url' => route('refund-cancellation-policy')],
+])) !!}</script>
+@endpush
+
 @section('content')
 
 <section class="psk-legal-hero">

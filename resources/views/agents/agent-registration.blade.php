@@ -5,6 +5,27 @@
 @section('title', 'Register Your CSC Center - Punjab Saathi')
 @section('meta_description', 'List your Common Service Center on Punjab Saathi so citizens searching by pincode or location can find you. Free listing, verified badge, takes under two minutes.')
 
+@push('head')
+<link rel="canonical" href="{{ route('agent.registration') }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Register Your CSC Center - Punjab Saathi">
+<meta property="og:description" content="List your Common Service Center on Punjab Saathi so citizens searching by pincode or location can find you. Free listing, verified badge, takes under two minutes.">
+<meta property="og:url"         content="{{ route('agent.registration') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Register Your CSC Center - Punjab Saathi">
+<meta name="twitter:description" content="List your Common Service Center on Punjab Saathi so citizens searching by pincode or location can find you.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Register Your CSC Center', 'url' => route('agent.registration')],
+])) !!}</script>
+@endpush
+
 @section('content')
 
 {{-- ══════════════════════════════════════════════════ --}}

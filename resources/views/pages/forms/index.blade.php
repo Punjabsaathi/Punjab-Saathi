@@ -5,6 +5,43 @@
 
 @push('head')
 <link rel="preload" as="image" href="{{ asset('images/forms.webp') }}">
+
+@php
+    $formsHasFilters = request()->hasAny(['q', 'category']);
+    $formsPage = max(1, (int) request('page', 1));
+    $formsCanonical = route('forms.index') . ($formsHasFilters ? '' : ($formsPage > 1 ? '?page='.$formsPage : ''));
+@endphp
+<link rel="canonical" href="{{ $formsCanonical }}">
+<meta name="robots" content="{{ $formsHasFilters ? 'noindex,follow' : 'index,follow' }}">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Download Government Forms – Punjab Saathi">
+<meta property="og:description" content="Browse and download all government forms — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.">
+<meta property="og:url"         content="{{ route('forms.index') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Download Government Forms – Punjab Saathi">
+<meta name="twitter:description" content="Browse and download all government forms — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Download Forms', 'url' => route('forms.index')],
+])) !!}</script>
+
+@if(!$formsHasFilters && $forms->count())
+<script type="application/ld+json">{!! \App\Support\Seo::json([
+    '@context' => 'https://schema.org',
+    '@type'    => 'ItemList',
+    'itemListElement' => collect($forms->items())->values()->map(fn ($form, $i) => [
+        '@type'    => 'ListItem',
+        'position' => (($forms->currentPage() - 1) * $forms->perPage()) + $i + 1,
+        'url'      => route('forms.show', $form->slug),
+        'name'     => $form->title,
+    ])->all(),
+]) !!}</script>
+@endif
 @endpush
 
 @section('content')

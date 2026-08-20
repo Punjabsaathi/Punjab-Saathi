@@ -10,6 +10,24 @@
          budget. Preloading tells the browser to start the download
          immediately, in parallel with everything else in <head>. --}}
     <link rel="preload" as="image" href="{{ asset('images/punjab-saathi-hero.webp') }}">
+
+    <link rel="canonical" href="{{ url('/') }}">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type"        content="website">
+    <meta property="og:title"       content="Punjab Saathi - Online Public Services in Punjab">
+    <meta property="og:description" content="Punjab Saathi offers fast, affordable online government services in Punjab — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep delivery across all 22 districts.">
+    <meta property="og:url"         content="{{ url('/') }}">
+    <meta property="og:site_name"   content="Punjab Saathi">
+    <meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Punjab Saathi - Online Public Services in Punjab">
+    <meta name="twitter:description" content="Punjab Saathi offers fast, affordable online government services in Punjab — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep delivery across all 22 districts.">
+    <meta name="twitter:image"       content="{{ asset('images/og-default.jpg') }}">
+
+    <script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::organizationSchema()) !!}</script>
+    <script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::websiteSchema()) !!}</script>
     @endpush
 
     @section('content')
@@ -25,7 +43,7 @@
                             <span style="color:#f4c542;">ਹੁਣ ਔਨਲਾਈਨ - ਘਰ ਬੈਠੇ </span>
                         </h1>
                         <p class="mb-2" style="font-size:1.1rem;">
-                            Getyour government certificates online now, documents, and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
+                            Get your government certificates online now, documents, and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
                         </p>
                         <p class="mb-4" style="font-size:0.95rem;opacity:0.85;">
                             Aadhaar &middot; PAN &middot; Income Certificate &middot; Caste Certificate &middot; Voter ID &middot; and 50+ more services across Punjab.

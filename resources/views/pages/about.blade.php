@@ -1,9 +1,29 @@
 @extends('layouts.app')
 
 @section('title', 'About Us - Punjab Saathi | Trusted Public Services in Punjab')
+@section('meta_description', 'Punjab Saathi is a private Common Service Centre (CSC) helping citizens across Punjab apply for government documents and certificates online — fast, reliable, and without the queues.')
 
 @push('head')
 <link rel="preload" as="image" href="{{ asset('images/punjab-farmers-field-banner.webp') }}">
+
+<link rel="canonical" href="{{ url('/about') }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="About Us - Punjab Saathi | Trusted Public Services in Punjab">
+<meta property="og:description" content="Punjab Saathi is a private Common Service Centre (CSC) helping citizens across Punjab apply for government documents and certificates online — fast, reliable, and without the queues.">
+<meta property="og:url"         content="{{ url('/about') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="About Us - Punjab Saathi | Trusted Public Services in Punjab">
+<meta name="twitter:description" content="Punjab Saathi is a private Common Service Centre (CSC) helping citizens across Punjab apply for government documents and certificates online — fast, reliable, and without the queues.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'About Us', 'url' => url('/about')],
+])) !!}</script>
 @endpush
 
 @section('content')

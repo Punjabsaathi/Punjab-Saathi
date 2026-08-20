@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Successful</title>
+    <title>Registration Successful | Punjab Saathi</title>
+    {{-- A thank-you/confirmation page has no unique search value and
+         shouldn't be a landing page from Google — noindex, but still
+         follow so any links on it (e.g. back to the homepage) get
+         crawled normally. --}}
+    <meta name="robots" content="noindex, follow">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center px-4">

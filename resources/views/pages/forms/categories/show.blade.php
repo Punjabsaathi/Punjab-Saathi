@@ -3,6 +3,46 @@
 @section('title', ($category->meta_title ?? $category->name . ' Forms') . ' – Punjab Saathi')
 @section('meta_description', $category->meta_description ?? 'Download ' . $category->name . ' forms online.')
 
+@php
+    $catTitle = ($category->meta_title ?? $category->name . ' Forms') . ' – Punjab Saathi';
+    $catDesc  = $category->meta_description ?? 'Download ' . $category->name . ' forms online.';
+@endphp
+
+@push('head')
+<link rel="canonical" href="{{ route('categories.show', $category->slug) }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="{{ $catTitle }}">
+<meta property="og:description" content="{{ $catDesc }}">
+<meta property="og:url"         content="{{ route('categories.show', $category->slug) }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $catTitle }}">
+<meta name="twitter:description" content="{{ $catDesc }}">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Form Categories', 'url' => route('categories.index')],
+    ['name' => $category->name, 'url' => route('categories.show', $category->slug)],
+])) !!}</script>
+
+@if($forms->count())
+<script type="application/ld+json">{!! \App\Support\Seo::json([
+    '@context' => 'https://schema.org',
+    '@type'    => 'ItemList',
+    'itemListElement' => collect($forms->items())->values()->map(fn ($form, $i) => [
+        '@type'    => 'ListItem',
+        'position' => (($forms->currentPage() - 1) * $forms->perPage()) + $i + 1,
+        'url'      => route('forms.show', $form->slug),
+        'name'     => $form->title,
+    ])->all(),
+]) !!}</script>
+@endif
+@endpush
+
 @section('content')
 
 <section class="hero-wrap hero-wrap-2 js-fullheight"

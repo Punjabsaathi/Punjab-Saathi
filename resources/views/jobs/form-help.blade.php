@@ -1,6 +1,29 @@
 {{-- Save as: resources/views/jobs/form-help.blade.php --}}
 @extends('layouts.app')
 @section('title', 'Form Filling Help | Government Job Applications | Punjab Saathi')
+@section('meta_description', 'Get expert help filling your Punjab government job application form — correct, error-free submission with document upload assistance.')
+
+@push('head')
+<link rel="canonical" href="{{ route('jobs.form-help') }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Form Filling Help | Government Job Applications | Punjab Saathi">
+<meta property="og:description" content="Get expert help filling your Punjab government job application form — correct, error-free submission with document upload assistance.">
+<meta property="og:url"         content="{{ route('jobs.form-help') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Form Filling Help | Government Job Applications | Punjab Saathi">
+<meta name="twitter:description" content="Get expert help filling your Punjab government job application form — correct, error-free submission.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Job Saathi', 'url' => route('jobs.index')],
+    ['name' => 'Form Filling Help', 'url' => route('jobs.form-help')],
+])) !!}</script>
+@endpush
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

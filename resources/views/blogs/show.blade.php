@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
-@section('title', $post->seo_title . ' - Punjab Saathi')
+@section('title', $post->seo_title)
 @section('meta_description', $post->seo_description)
 
 @push('head')
 <link rel="canonical" href="{{ $post->canonical_url ?: route('blog.show', $post->slug) }}">
+<meta name="robots" content="index, follow">
 <meta property="og:title" content="{{ $post->seo_title }}">
 <meta property="og:description" content="{{ $post->seo_description }}">
 <meta property="og:type" content="article">
@@ -12,6 +13,17 @@
 @if($post->featured_image)
 <meta property="og:image" content="{{ asset('storage/'.$post->featured_image) }}">
 @endif
+<meta property="og:site_name" content="Punjab Saathi">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $post->seo_title }}">
+<meta name="twitter:description" content="{{ $post->seo_description }}">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Blog', 'url' => route('blog.index')],
+    ['name' => $post->title, 'url' => route('blog.show', $post->slug)],
+])) !!}</script>
 
 @php
     $articleJson = json_encode([
@@ -45,13 +57,6 @@
 @endif
 @endpush
 
-{{-- layouts.app only renders @stack('styles') / @stack('scripts') —
-     there's no @stack('head'), so anything pushed to 'head' (including
-     the canonical/OG tags and schema scripts above, which predate this
-     redesign) never actually renders. That's a separate, pre-existing
-     issue I'm not fixing here since it means editing the shared layout
-     — flagging it separately. This stylesheet link goes in 'styles',
-     which the layout does render, so the redesign actually loads. --}}
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/psk-blog.css') }}">
 @endpush

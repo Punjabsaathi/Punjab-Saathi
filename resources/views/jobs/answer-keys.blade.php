@@ -1,6 +1,42 @@
 {{-- Save as: resources/views/jobs/answer-keys.blade.php --}}
 @extends('layouts.app')
 @section('title', 'Answer Keys | Official Answer Keys | Punjab Saathi')
+@section('meta_description', 'Download the latest official Punjab government exam answer keys — PSSSB, Punjab Police, SSC, RRB, Banking and more, with objection deadlines where applicable.')
+
+@push('head')
+<link rel="canonical" href="{{ route('jobs.answer-keys') }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Answer Keys | Official Answer Keys | Punjab Saathi">
+<meta property="og:description" content="Download the latest official Punjab government exam answer keys, with objection deadlines where applicable.">
+<meta property="og:url"         content="{{ route('jobs.answer-keys') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Answer Keys | Official Answer Keys | Punjab Saathi">
+<meta name="twitter:description" content="Download the latest official Punjab government exam answer keys, with objection deadlines where applicable.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Job Saathi', 'url' => route('jobs.index')],
+    ['name' => 'Answer Keys', 'url' => route('jobs.answer-keys')],
+])) !!}</script>
+
+@if($answerKeys->count())
+<script type="application/ld+json">{!! \App\Support\Seo::json([
+    '@context' => 'https://schema.org',
+    '@type'    => 'ItemList',
+    'itemListElement' => collect($answerKeys->items())->values()->map(fn ($ak, $i) => [
+        '@type'    => 'ListItem',
+        'position' => (($answerKeys->currentPage() - 1) * $answerKeys->perPage()) + $i + 1,
+        'url'      => route('jobs.show', $ak->job->slug),
+        'name'     => $ak->title,
+    ])->all(),
+]) !!}</script>
+@endif
+@endpush
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

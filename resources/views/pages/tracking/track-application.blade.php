@@ -1,9 +1,29 @@
 @extends('layouts.app')
 
 @section('title', 'Track Your Application - Punjab Saathi')
+@section('meta_description', 'Track the status of your Punjab Saathi service application in real time using your reference number.')
 
 @push('head')
 <link rel="preload" as="image" href="{{ asset('images/track-application-status-check.webp') }}">
+
+<link rel="canonical" href="{{ route('application.track') }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Track Your Application - Punjab Saathi">
+<meta property="og:description" content="Track the status of your Punjab Saathi service application in real time using your reference number.">
+<meta property="og:url"         content="{{ route('application.track') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Track Your Application - Punjab Saathi">
+<meta name="twitter:description" content="Track the status of your Punjab Saathi service application in real time using your reference number.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Track Application', 'url' => route('application.track')],
+])) !!}</script>
 @endpush
 
 @push('styles')

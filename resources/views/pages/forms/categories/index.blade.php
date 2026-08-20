@@ -3,6 +3,27 @@
 @section('title', 'Form Categories – Punjab Saathi')
 @section('meta_description', 'Browse all government form categories — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.')
 
+@push('head')
+<link rel="canonical" href="{{ route('categories.index') }}">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Form Categories – Punjab Saathi">
+<meta property="og:description" content="Browse all government form categories — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.">
+<meta property="og:url"         content="{{ route('categories.index') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Form Categories – Punjab Saathi">
+<meta name="twitter:description" content="Browse all government form categories — PAN Card, Passport, Aadhaar, Voter ID, Income Certificate and more.">
+
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Form Categories', 'url' => route('categories.index')],
+])) !!}</script>
+@endpush
+
 @section('content')
 
 <section class="hero-wrap hero-wrap-2 js-fullheight"

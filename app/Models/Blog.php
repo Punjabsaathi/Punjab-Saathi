@@ -67,7 +67,7 @@ class Blog extends Model
 
     public function getSeoTitleAttribute(): string
     {
-        return $this->meta_title ?: $this->title;
+        return $this->meta_title ?: "{$this->title} | Punjab Saathi";
     }
 
     public function getSeoDescriptionAttribute(): string

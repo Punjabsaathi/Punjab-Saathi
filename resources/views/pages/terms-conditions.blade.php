@@ -3,6 +3,20 @@
 @section('title', 'Terms & Conditions - Punjab Saathi')
 @section('meta_description', 'Terms and Conditions for using Punjab Saathi\'s government application facilitation services.')
 
+@push('head')
+<link rel="canonical" href="{{ route('terms-conditions') }}">
+<meta name="robots" content="index, follow">
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Terms & Conditions - Punjab Saathi">
+<meta property="og:description" content="Terms and Conditions for using Punjab Saathi's government application facilitation services.">
+<meta property="og:url"         content="{{ route('terms-conditions') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Terms & Conditions', 'url' => route('terms-conditions')],
+])) !!}</script>
+@endpush
+
 @section('content')
 
 <section class="psk-legal-hero">

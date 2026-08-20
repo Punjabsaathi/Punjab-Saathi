@@ -3,6 +3,20 @@
 @section('title', 'Disclaimer - Punjab Saathi')
 @section('meta_description', 'Important disclaimer — Punjab Saathi is a private CSC facilitation service and is not a government body or department.')
 
+@push('head')
+<link rel="canonical" href="{{ route('disclaimer') }}">
+<meta name="robots" content="index, follow">
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Disclaimer - Punjab Saathi">
+<meta property="og:description" content="Important disclaimer — Punjab Saathi is a private CSC facilitation service and is not a government body or department.">
+<meta property="og:url"         content="{{ route('disclaimer') }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
+    ['name' => 'Home', 'url' => url('/')],
+    ['name' => 'Disclaimer', 'url' => route('disclaimer')],
+])) !!}</script>
+@endpush
+
 @section('content')
 
 <section class="psk-legal-hero">
