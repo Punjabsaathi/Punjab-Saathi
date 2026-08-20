@@ -219,7 +219,7 @@
                     </li>
 
                     <li class="nav-item {{ request()->is('jobs') ? 'active' : '' }}">
-                        <a href="{{ url('/jobs') }}" class="nav-link psk-nl">Jobs Alerts</a>
+                        <a href="{{ url('/jobs') }}" class="nav-link psk-nl">Job Saathi</a>
                     </li>
 
                     <li class="nav-item {{ request()->is('blog*') ? 'active' : '' }}">
