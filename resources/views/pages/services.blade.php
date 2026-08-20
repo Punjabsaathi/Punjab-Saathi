@@ -2,7 +2,7 @@
 
 @section('title', 'Public Services in Punjab - Punjab Saathi | Aadhaar, PAN, Certificates & More')
 
-@section('meta_description', 'Punjab Saathi offers ' . $totalServices . '+ government services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more. Fast, affordable, doorstep delivery across all 22 districts of Punjab.')
+@section('meta_description', 'Punjab Saathi helps you access ' . $totalServices . '+ government-related services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more. Fast, affordable, doorstep assistance across all 22 districts of Punjab.')
 
 @push('head')
 <link rel="preload" as="image" href="{{ asset('images/government-services-support.webp') }}">
@@ -12,14 +12,14 @@
 
 <meta property="og:type"        content="website">
 <meta property="og:title"       content="Public Services in Punjab - Punjab Saathi | Aadhaar, PAN, Certificates & More">
-<meta property="og:description" content="{{ 'Punjab Saathi offers ' . $totalServices . '+ government services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more.' }}">
+<meta property="og:description" content="{{ 'Punjab Saathi helps you access ' . $totalServices . '+ government-related services online — Aadhaar update, PAN card, income certificate, caste certificate, voter ID, birth certificate, ration card, and more.' }}">
 <meta property="og:url"         content="{{ route('services.index') }}">
 <meta property="og:site_name"   content="Punjab Saathi">
 <meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
 
 <meta name="twitter:card"        content="summary_large_image">
 <meta name="twitter:title"       content="Public Services in Punjab - Punjab Saathi | Aadhaar, PAN, Certificates & More">
-<meta name="twitter:description" content="{{ 'Punjab Saathi offers ' . $totalServices . '+ government services online.' }}">
+<meta name="twitter:description" content="{{ 'Punjab Saathi helps you access ' . $totalServices . '+ government-related services online.' }}">
 
 <script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumbSchema([
     ['name' => 'Home', 'url' => url('/')],
@@ -159,7 +159,7 @@
         <div class="row justify-content-center mb-4">
             <div class="col-md-10 text-center ftco-animate">
                 <span class="subheading">Browse by Category</span>
-                <h2 class="mb-3">All Government Services We Offer</h2>
+                <h2 class="mb-3">All Services We Help You With</h2>
                 <p class="text-muted">Click any category below to jump directly to those services.</p>
 
                 <div class="psk-filter-tabs" id="serviceTabs">

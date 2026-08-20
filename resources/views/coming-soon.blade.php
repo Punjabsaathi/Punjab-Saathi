@@ -27,7 +27,7 @@
     <div class="features">
         <div class="feature-item">
             <i class="ti ti-certificate" aria-hidden="true"></i>
-            <span>50+ Government Services</span>
+            <span>50+ Services We Help With</span>
         </div>
         <div class="feature-item">
             <i class="ti ti-shield-check" aria-hidden="true"></i>

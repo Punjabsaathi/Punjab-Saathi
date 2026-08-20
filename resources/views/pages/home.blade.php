@@ -1,6 +1,6 @@
     @extends('layouts.app')
     @section('title', 'Punjab Saathi - Online Public Services in Punjab')
-    @section('meta_description', 'Punjab Saathi offers fast, affordable online government services in Punjab — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep delivery across all 22 districts.')
+    @section('meta_description', 'Punjab Saathi helps you access government services online in Punjab, fast and affordably — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep assistance across all 22 districts.')
 
     @push('head')
     {{-- This hero background-image is the page's Largest Contentful
@@ -16,14 +16,14 @@
 
     <meta property="og:type"        content="website">
     <meta property="og:title"       content="Punjab Saathi - Online Public Services in Punjab">
-    <meta property="og:description" content="Punjab Saathi offers fast, affordable online government services in Punjab — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep delivery across all 22 districts.">
+    <meta property="og:description" content="Punjab Saathi helps you access government services online in Punjab, fast and affordably — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep assistance across all 22 districts.">
     <meta property="og:url"         content="{{ url('/') }}">
     <meta property="og:site_name"   content="Punjab Saathi">
     <meta property="og:image"       content="{{ asset('images/og-default.jpg') }}">
 
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:title"       content="Punjab Saathi - Online Public Services in Punjab">
-    <meta name="twitter:description" content="Punjab Saathi offers fast, affordable online government services in Punjab — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep delivery across all 22 districts.">
+    <meta name="twitter:description" content="Punjab Saathi helps you access government services online in Punjab, fast and affordably — Aadhaar update, PAN card, income certificate, caste certificate, birth/death certificate, ration card and more, with doorstep assistance across all 22 districts.">
     <meta name="twitter:image"       content="{{ asset('images/og-default.jpg') }}">
 
     <script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::organizationSchema()) !!}</script>
@@ -43,7 +43,7 @@
                             <span style="color:#f4c542;">ਹੁਣ ਔਨਲਾਈਨ - ਘਰ ਬੈਠੇ </span>
                         </h1>
                         <p class="mb-2" style="font-size:1.1rem;">
-                            Get your government certificates online now, documents, and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
+                            We help you apply for government certificates online, with documents and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
                         </p>
                         <p class="mb-4" style="font-size:0.95rem;opacity:0.85;">
                             Aadhaar &middot; PAN &middot; Income Certificate &middot; Caste Certificate &middot; Voter ID &middot; and 50+ more services across Punjab.
@@ -165,7 +165,7 @@
             <div class="row justify-content-center mb-5 pb-2">
                 <div class="col-md-8 text-center heading-section ftco-animate">
                     <span class="subheading">Our Services</span>
-                    <h2 class="mb-4">Services We Offer in Punjab</h2>
+                    <h2 class="mb-4">Services We Help You With in Punjab</h2>
                     <p class="text-muted">From certificates to registrations — all processed by certified operators, with doorstep delivery available.</p>
                 </div>
             </div>

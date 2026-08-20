@@ -448,59 +448,6 @@
 
 @endsection
 @push('scripts')
-<link rel="stylesheet" href="{{ asset('css/psk-agent-registration.css') }}">
-
-{{-- ══ Modal markup ══════════════════════════════════════════ --}}
-<div id="loc-modal-backdrop">
-    <div id="loc-modal">
-
-        {{-- Icon --}}
-        <div class="loc-icon-ring state-ask" id="loc-icon-ring">
-            <i class="fa fa-map-marker" id="loc-icon" style="font-size:30px;color:#fc5e28;"></i>
-        </div>
-
-        <h4 id="loc-title">Location Access Required</h4>
-        <p class="sub" id="loc-sub">
-            We need your location to pin your CSC Center on the Punjab network map.
-            Please allow access to continue.
-        </p>
-
-        {{-- ASK state: normal steps --}}
-        <ul class="loc-steps" id="loc-steps-ask">
-            <li><span class="step-dot orange">1</span> Click <strong>"Allow My Location"</strong> below</li>
-            <li><span class="step-dot orange">2</span> Browser popup appears — click <strong>"Allow"</strong></li>
-            <li><span class="step-dot orange">3</span> Submit button unlocks automatically ✓</li>
-        </ul>
-
-        {{-- DENIED state: browser-specific unblock guide --}}
-        <div id="loc-denied-section" style="display:none;">
-            <div class="browser-tabs" id="browser-tabs">
-                <button class="browser-tab active" data-browser="chrome">Chrome</button>
-                <button class="browser-tab" data-browser="firefox">Firefox</button>
-                <button class="browser-tab" data-browser="edge">Edge</button>
-                <button class="browser-tab" data-browser="safari">Safari</button>
-            </div>
-            <div class="unblock-box">
-                <div class="ub-title"><i class="fa fa-unlock-alt"></i> How to unblock location:</div>
-                <ol id="unblock-steps">
-                    <li>Click the <code>🔒</code> or <code>ⓘ</code> icon in your address bar</li>
-                    <li>Find <strong>"Location"</strong> and change it to <strong>"Allow"</strong></li>
-                    <li>Reload this page, then click <strong>"Allow My Location"</strong> again</li>
-                </ol>
-            </div>
-        </div>
-
-        <button id="btn-modal-allow" class="btn-orange" type="button">
-            <i class="fa fa-location-arrow" id="btn-icon"></i>
-            <span id="btn-label">Allow My Location</span>
-        </button>
-        <br>
-        <button id="btn-modal-dismiss" type="button">I'll do this later (form stays locked)</button>
-    </div>
-</div>
-@push('scripts')
-<link rel="stylesheet" href="{{ asset('css/psk-agent-registration.css') }}">
-
 {{-- ══ Modal markup ══════════════════════════════════════════ --}}
 <div id="loc-modal-backdrop">
     <div id="loc-modal">

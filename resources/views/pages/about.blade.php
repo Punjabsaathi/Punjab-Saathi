@@ -72,7 +72,7 @@
 
                         <div class="d-flex about mb-3">
                             <div class="icon"><span class="flaticon-hammer"></span></div>
-                            <h3>Making Government Services Simple and Accessible for Everyone</h3>
+                            <h3>Helping You Access Government Services, Simply</h3>
                         </div>
 
                         <!-- <p>Punjab Saathi is a trusted digital service centre helping citizens across Punjab navigate complex government portals, certificates, and document processes — quickly, affordably, and without stress.</p> -->

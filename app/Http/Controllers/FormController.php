@@ -138,7 +138,9 @@ class FormController extends Controller
                 'name'  => $form->category->name,
             ],
             'publisher' => [
-                '@type' => 'GovernmentOrganization',
+                // Punjab Saathi is a private assistance platform, not a
+                // government body — must never be typed as GovernmentOrganization.
+                '@type' => 'Organization',
                 'name'  => 'Punjab Saathi',
                 'url'   => config('app.url'),
             ],
