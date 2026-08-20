@@ -462,3 +462,31 @@
     .psk-job-filter__search { flex: 1 1 100%; min-width: 0; }
     .psk-job-filter__count { margin-left: 0; flex-basis: 100%; }
 }
+
+/* ── Hub intro + below-listing content blocks ── */
+.psk-jobs-intro {
+    font-size: 0.92rem;
+    color: #555;
+    line-height: 1.75;
+    max-width: 900px;
+    margin: 22px auto 0;
+    text-align: center;
+}
+.psk-jobs-intro p:last-child { margin-bottom: 0; }
+.psk-jobs-content-block { padding: 36px 0; }
+.psk-jobs-content-block + .psk-jobs-content-block { padding-top: 0; }
+.psk-jobs-content-block__h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #040e26;
+    margin-bottom: 16px;
+}
+.psk-jobs-content-block__body {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.8;
+    max-width: 900px;
+}
+.psk-jobs-content-block__body ul,
+.psk-jobs-content-block__body ol { padding-left: 20px; margin-bottom: 12px; }
+.psk-jobs-content-block__body li { margin-bottom: 6px; }

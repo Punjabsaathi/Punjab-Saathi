@@ -3,10 +3,33 @@
      ───────────────────────────────────────────────────────── --}}
 @extends('layouts.app')
 
-@section('title', 'Sarkari Naukri | Government Jobs | Punjab Saathi')
+@section('title', $metaTitle)
+@section('meta_description', $metaDesc)
 
 @push('head')
 <link rel="preload" as="image" href="{{ asset('images/sarkari-naukri-job-application-form.webp') }}">
+<link rel="canonical" href="{{ $canonical }}">
+<meta name="robots" content="{{ $robotsMeta }}">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="{{ $metaTitle }}">
+<meta property="og:description" content="{{ $metaDesc }}">
+<meta property="og:url"         content="{{ $canonical }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $metaTitle }}">
+<meta name="twitter:description" content="{{ $metaDesc }}">
+
+@if($breadcrumbSchema)
+<script type="application/ld+json">{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endif
+@if($itemListSchema)
+<script type="application/ld+json">{!! json_encode($itemListSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endif
+@if($faqSchema)
+<script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endif
 @endpush
 
 @push('styles')
@@ -27,11 +50,11 @@
             <a href="{{ url('/') }}">Home</a>
             <span class="fa fa-chevron-right"></span>
             @if(isset($category))
-                <a href="{{ route('jobs.index') }}">Sarkari Naukri</a>
+                <a href="{{ route('jobs.index') }}">Job Saathi</a>
                 <span class="fa fa-chevron-right"></span>
                 <span>{{ $category->name }}</span>
             @else
-                <span>Sarkari Naukri</span>
+                <span>Job Saathi</span>
             @endif
         </nav>
         <div class="psk-detail-hero__body">
@@ -39,8 +62,8 @@
                 <span class="fas fa-briefcase" style="color:#fc5e28;"></span>
             </div>
             <div>
-                <h1 class="psk-detail-hero__title">{{ isset($category) ? $category->name : 'Latest Sarkari Naukri Alerts' }}</h1>
-                <p class="psk-detail-hero__desc">PSSSB · Punjab Police · SSC · RRB · Banking · NHM — All Punjab Government Jobs at One Place</p>
+                <h1 class="psk-detail-hero__title">{{ isset($category) ? (str_contains($category->name, 'Punjab') ? $category->name : $category->name . ' in Punjab') : $pageSettings->h1 }}</h1>
+                <p class="psk-detail-hero__desc">{{ isset($category) ? ($category->description ?: 'Latest ' . $category->name . ' recruitment updates in Punjab.') : $pageSettings->hero_subtitle }}</p>
                 <div class="psk-detail-hero__meta">
                     <span><strong>{{ $stats['total'] }}</strong> Total Jobs</span>
                     <span><strong>{{ $stats['active'] }}</strong> Active</span>
@@ -50,6 +73,15 @@
         </div>
     </div>
 </section>
+
+{{-- ── Intro (hub only, short by design — the listing below is the
+     actual content searchers came for; this just orients them and
+     gives crawlers a keyword-relevant lead paragraph) ──────────── --}}
+@if(!isset($category) && $pageSettings->intro_content)
+<div class="container">
+    <div class="psk-jobs-intro">{!! $pageSettings->intro_content !!}</div>
+</div>
+@endif
 
 {{-- ── Live Ticker ──────────────────────────────────────── --}}
 @php
@@ -205,6 +237,67 @@
         </div>
     </div>
 </section>
+
+{{-- ── Below-the-listing content — the hub's how-to-apply, eligibility
+     and FAQ blocks only render here, never on category pages, so the
+     ~15 department pages don't all carry the same paragraphs as
+     duplicate/near-duplicate content. ──────────────────────────── --}}
+@if(!isset($category))
+
+    @if($pageSettings->how_to_apply_content)
+    <section class="ftco-section ftco-no-pt psk-jobs-content-block">
+        <div class="container">
+            <h2 class="psk-jobs-content-block__h2">How to Apply for a Punjab Government Job</h2>
+            <div class="psk-jobs-content-block__body">{!! $pageSettings->how_to_apply_content !!}</div>
+        </div>
+    </section>
+    @endif
+
+    @if($pageSettings->eligibility_content)
+    <section class="ftco-section ftco-no-pt psk-jobs-content-block">
+        <div class="container">
+            <h2 class="psk-jobs-content-block__h2">Eligibility for Punjab Government Jobs</h2>
+            <div class="psk-jobs-content-block__body">{!! $pageSettings->eligibility_content !!}</div>
+        </div>
+    </section>
+    @endif
+
+    @if(!empty($pageSettings->faqs))
+    <section class="ftco-section ftco-no-pt psk-jobs-content-block" id="faq">
+        <div class="container">
+            <h2 class="psk-jobs-content-block__h2">Frequently Asked Questions</h2>
+            <div class="psk-faq-new">
+                <div class="psk-faq-new__list">
+                    @foreach($pageSettings->faqs as $i => $faq)
+                    @continue(empty($faq['question']) || empty($faq['answer']))
+                    <div class="psk-faq-new__item {{ $i === 0 ? 'psk-faq-new__item--open' : '' }}">
+                        <div class="psk-faq-new__q">
+                            <div class="psk-faq-new__num">{{ $i + 1 }}</div>
+                            <span class="psk-faq-new__q-text">{{ $faq['question'] }}</span>
+                            <span class="fa fa-chevron-down psk-faq-new__chevron"></span>
+                        </div>
+                        <div class="psk-faq-new__a">{{ $faq['answer'] }}</div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+
+@endif
+
+{{-- Disclaimer — same component used on /services, must appear on jobs
+     pages too since this is exactly the content most likely to read as
+     "official" to a first-time visitor. --}}
+<div class="psk-disclaimer-bar">
+    <div class="container">
+        <span class="fa fa-info-circle mr-2"></span>
+        <strong>Disclaimer:</strong> Punjab Saathi is a <strong>private information & assistance platform</strong>
+        and is <strong>not an official government website or recruitment board</strong>. Always verify
+        vacancy details, dates, and apply through the official notification/website linked on each posting.
+    </div>
+</div>
 
 @endsection
 

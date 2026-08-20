@@ -6,6 +6,35 @@
 @section('title', $metaTitle)
 @section('meta_description', $metaDesc)
 
+@push('head')
+<link rel="canonical" href="{{ $job->canonical_url }}">
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="{{ $metaTitle }}">
+<meta property="og:description" content="{{ $metaDesc }}">
+<meta property="og:url"         content="{{ $job->canonical_url }}">
+<meta property="og:site_name"   content="Punjab Saathi">
+@if($job->og_image_url)
+<meta property="og:image" content="{{ $job->og_image_url }}">
+@endif
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $metaTitle }}">
+<meta name="twitter:description" content="{{ $metaDesc }}">
+
+<meta name="robots" content="index, follow">
+
+<script type="application/ld+json">{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+
+@if($jobPostingSchema)
+<script type="application/ld+json">{!! json_encode($jobPostingSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endif
+
+@if($faqSchema)
+<script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endif
+@endpush
+
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('css/psk-job-show.css') }}">
@@ -19,7 +48,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('jobs.index') }}">Sarkari Naukri</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('jobs.index') }}">Job Saathi</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('jobs.category', $job->category->slug) }}">{{ $job->category->name }}</a></li>
                 <li class="breadcrumb-item active">{{ Str::limit($job->title, 50) }}</li>
             </ol>
         </nav>

@@ -14,6 +14,7 @@ use App\Models\GovJobAdmitCard;
 use App\Models\GovJobResult;
 use App\Models\GovJobAnswerKey;
 use App\Models\GovJobFormRequest;
+use App\Models\JobsPageSetting;
 use App\Services\FormNotificationService;
 use App\Support\FormSubmissionData;
 
@@ -22,6 +23,15 @@ class JobsController extends Controller
     // ── Main Jobs Listing ────────────────────────────────
     public function index(Request $request)
     {
+        // The base index used to also accept ?category= as an alternate
+        // way to reach a category, duplicating /jobs/category/{slug} at a
+        // second indexable URL. Nothing in the UI ever links to it (only
+        // the path-based route is used anywhere), so redirect it to the
+        // canonical URL instead of rendering duplicate content.
+        if ($request->filled('category')) {
+            return redirect()->route('jobs.category', $request->category, 301);
+        }
+
         $categories = GovJobCategory::where('is_active', true)
             ->withCount(['jobs', 'activeJobs'])
             ->orderBy('sort_order')
@@ -33,9 +43,6 @@ class JobsController extends Controller
             ->orderByDesc('is_featured')
             ->orderByDesc('created_at');
 
-        if ($request->filled('category')) {
-            $query->byCategory($request->category);
-        }
         if ($request->filled('search')) {
             $q = $request->search;
             $query->where(fn($s) => $s->where('title', 'like', "%$q%")->orWhere('department', 'like', "%$q%"));
@@ -54,7 +61,16 @@ class JobsController extends Controller
 
         $recentJobs = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
-        return view('jobs.index', compact('jobs', 'categories', 'stats', 'recentJobs'));
+        $pageSettings = JobsPageSetting::current();
+
+        [$metaTitle, $metaDesc, $canonical, $robotsMeta, $breadcrumbSchema, $itemListSchema, $faqSchema] =
+            $this->buildListingSeo($request, $jobs, $pageSettings->seo_title, $pageSettings->meta_description, route('jobs.index'), 'Job Saathi', $pageSettings->toFaqSchema());
+
+        return view('jobs.index', compact(
+            'jobs', 'categories', 'stats', 'recentJobs', 'pageSettings',
+            'metaTitle', 'metaDesc', 'canonical', 'robotsMeta',
+            'breadcrumbSchema', 'itemListSchema', 'faqSchema'
+        ));
     }
 
     // ── Jobs by Category ─────────────────────────────────
@@ -65,12 +81,21 @@ class JobsController extends Controller
         $categories = GovJobCategory::where('is_active', true)
             ->withCount('jobs')->orderBy('sort_order')->get();
 
-        $jobs = GovJob::published()
+        $query = GovJob::published()
             ->where('category_id', $category->id)
             ->with('category')
             ->punjabFirst()
-            ->orderByDesc('created_at')
-            ->paginate(15)->withQueryString();
+            ->orderByDesc('created_at');
+
+        if ($request->filled('search')) {
+            $q = $request->search;
+            $query->where(fn($s) => $s->where('title', 'like', "%$q%")->orWhere('department', 'like', "%$q%"));
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $jobs = $query->paginate(15)->withQueryString();
 
         $stats = [
             'total'    => GovJob::published()->count(),
@@ -80,7 +105,58 @@ class JobsController extends Controller
 
         $recentJobs = GovJob::published()->punjabFirst()->latest()->limit(5)->get();
 
-        return view('jobs.index', compact('jobs', 'categories', 'stats', 'recentJobs', 'category'));
+        [$metaTitle, $metaDesc, $canonical, $robotsMeta, $breadcrumbSchema, $itemListSchema, $faqSchema] =
+            $this->buildListingSeo($request, $jobs, $category->seo_title, $category->seo_description, $category->canonical_url, $category->name, null, $category->toBreadcrumbSchema());
+
+        return view('jobs.index', compact(
+            'jobs', 'categories', 'stats', 'recentJobs', 'category',
+            'metaTitle', 'metaDesc', 'canonical', 'robotsMeta',
+            'breadcrumbSchema', 'itemListSchema', 'faqSchema'
+        ));
+    }
+
+    // ── Shared SEO builder for the hub + category listing views ──
+    // Both render jobs.index and need the same canonical/robots/schema
+    // treatment for search & status filters (thin/duplicate query states)
+    // and the same pagination-aware ItemList of the current page's jobs.
+    private function buildListingSeo(Request $request, $jobs, string $metaTitle, string $metaDesc, string $baseUrl, string $breadcrumbLabel, ?array $faqSchema = null, ?array $breadcrumbSchemaOverride = null): array
+    {
+        $hasFilters = $request->hasAny(['search', 'status']);
+        $page       = max(1, (int) $request->query('page', 1));
+
+        $canonical  = $hasFilters
+            ? $baseUrl
+            : ($page > 1 ? $baseUrl . '?page=' . $page : $baseUrl);
+
+        $robotsMeta = $hasFilters ? 'noindex,follow' : 'index,follow';
+
+        $breadcrumbSchema = $breadcrumbSchemaOverride ?? [
+            '@context' => 'https://schema.org',
+            '@type'    => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => $breadcrumbLabel, 'item' => $baseUrl],
+            ],
+        ];
+
+        // Only the current page's items — never the full dataset — and
+        // only when this is a plain, indexable listing state.
+        $itemListSchema = null;
+        if (! $hasFilters && count($jobs->items())) {
+            $offset = ($jobs->currentPage() - 1) * $jobs->perPage();
+            $itemListSchema = [
+                '@context' => 'https://schema.org',
+                '@type'    => 'ItemList',
+                'itemListElement' => collect($jobs->items())->values()->map(fn ($job, $i) => [
+                    '@type'    => 'ListItem',
+                    'position' => $offset + $i + 1,
+                    'url'      => route('jobs.show', $job->slug),
+                    'name'     => $job->title,
+                ])->all(),
+            ];
+        }
+
+        return [$metaTitle, $metaDesc, $canonical, $robotsMeta, $breadcrumbSchema, $itemListSchema, $hasFilters ? null : $faqSchema];
     }
 
     // ── Single Job Detail ────────────────────────────────
@@ -116,7 +192,14 @@ class JobsController extends Controller
         $metaTitle = $job->meta_title ?: $job->title . ' | Punjab Saathi';
         $metaDesc  = $job->meta_description ?: $job->short_description;
 
-        return view('jobs.show', compact('job', 'relatedJobs', 'categories', 'metaTitle', 'metaDesc'));
+        $jobPostingSchema = $job->toJobPostingSchema();
+        $breadcrumbSchema = $job->toBreadcrumbSchema();
+        $faqSchema        = $job->toFaqSchema();
+
+        return view('jobs.show', compact(
+            'job', 'relatedJobs', 'categories', 'metaTitle', 'metaDesc',
+            'jobPostingSchema', 'breadcrumbSchema', 'faqSchema'
+        ));
     }
 
     // ── Admit Cards Listing ──────────────────────────────

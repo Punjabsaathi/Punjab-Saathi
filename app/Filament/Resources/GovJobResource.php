@@ -267,18 +267,77 @@ class GovJobResource extends Resource
                 Forms\Components\Tabs\Tab::make('SEO')
                     ->icon('heroicon-o-magnifying-glass')
                     ->schema([
-                        Forms\Components\TextInput::make('meta_title')
-                            ->label('Meta Title')
-                            ->maxLength(70)
-                            ->helperText('Leave blank to use job title. Max 70 characters.'),
-                        Forms\Components\Textarea::make('meta_description')
-                            ->label('Meta Description')
-                            ->rows(2)
-                            ->maxLength(160)
-                            ->helperText('Max 160 characters.'),
-                        Forms\Components\TextInput::make('meta_keywords')
-                            ->label('Meta Keywords')
-                            ->placeholder('psssb jobs, punjab govt jobs, clerk recruitment'),
+                        Forms\Components\Section::make('Meta Tags')->schema([
+                            Forms\Components\TextInput::make('meta_title')
+                                ->label('Meta Title')
+                                ->maxLength(70)
+                                ->helperText('Leave blank to use job title. Max 70 characters.'),
+                            Forms\Components\Textarea::make('meta_description')
+                                ->label('Meta Description')
+                                ->rows(2)
+                                ->maxLength(160)
+                                ->helperText('Max 160 characters.'),
+                            Forms\Components\TextInput::make('meta_keywords')
+                                ->label('Meta Keywords')
+                                ->placeholder('psssb jobs, punjab govt jobs, clerk recruitment'),
+                            Forms\Components\FileUpload::make('og_image')
+                                ->label('Social Share Image (OG Image)')
+                                ->image()
+                                ->directory('gov-jobs')
+                                ->helperText('Shown when this job is shared on WhatsApp/Facebook/Twitter. Leave blank to use the default site image.'),
+                        ]),
+
+                        Forms\Components\Section::make('Google Jobs / JobPosting Schema')
+                            ->description('Controls the structured data (JSON-LD) sent to Google so this posting can appear in Google\'s dedicated "Jobs" search results — not just regular search.')
+                            ->schema([
+                                Forms\Components\Toggle::make('schema_enabled')
+                                    ->label('Include this job in Google Jobs schema')
+                                    ->default(true)
+                                    ->inline(false)
+                                    ->helperText('Turn off only if this listing is a draft or missing key details — an incomplete/invalid schema can hurt trust with Google rather than help.'),
+
+                                Forms\Components\Grid::make(2)->schema([
+                                    Forms\Components\Select::make('employment_type')
+                                        ->label('Employment Type')
+                                        ->options([
+                                            'FULL_TIME'  => 'Full Time',
+                                            'PART_TIME'  => 'Part Time',
+                                            'CONTRACTOR' => 'Contract',
+                                            'TEMPORARY'  => 'Temporary',
+                                            'INTERN'     => 'Internship',
+                                            'OTHER'      => 'Other',
+                                        ])
+                                        ->default('FULL_TIME')
+                                        ->required(),
+
+                                    Forms\Components\TextInput::make('hiring_organization_name')
+                                        ->label('Hiring Organisation (for schema)')
+                                        ->placeholder('Leave blank to use the Department field')
+                                        ->helperText('The real government department/board — never "Punjab Saathi".')
+                                        ->maxLength(200),
+
+                                    Forms\Components\TextInput::make('hiring_organization_url')
+                                        ->label('Hiring Organisation Website (for schema)')
+                                        ->url()
+                                        ->placeholder('Leave blank to use Official Website field'),
+                                ]),
+
+                                Forms\Components\Grid::make(3)->schema([
+                                    Forms\Components\TextInput::make('salary_min')
+                                        ->label('Salary — Minimum')
+                                        ->numeric()
+                                        ->prefix('₹')
+                                        ->helperText('Optional. Enables the salary rich-result field.'),
+                                    Forms\Components\TextInput::make('salary_max')
+                                        ->label('Salary — Maximum')
+                                        ->numeric()
+                                        ->prefix('₹'),
+                                    Forms\Components\TextInput::make('salary_currency')
+                                        ->label('Currency')
+                                        ->default('INR')
+                                        ->maxLength(10),
+                                ]),
+                            ]),
                     ]),
 
                 // ── TAB 8: Publish Settings ────────────────────

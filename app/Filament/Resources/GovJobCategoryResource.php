@@ -53,12 +53,27 @@ class GovJobCategoryResource extends Resource
 
                 Forms\Components\Textarea::make('description')
                     ->rows(2)
+                    ->helperText('Shown as the intro paragraph at the top of this category\'s job listing page.')
                     ->columnSpanFull(),
 
                 Forms\Components\Toggle::make('is_active')
                     ->default(true)
                     ->inline(false),
             ]),
+
+            Forms\Components\Section::make('SEO')
+                ->description('Without these, this page silently reuses the main Jobs page\'s title/description — giving it its own means it can actually rank for its own department-specific searches.')
+                ->schema([
+                    Forms\Components\TextInput::make('meta_title')
+                        ->label('Meta Title')
+                        ->maxLength(70)
+                        ->placeholder('Leave blank to auto-generate from the category name'),
+                    Forms\Components\Textarea::make('meta_description')
+                        ->label('Meta Description')
+                        ->rows(2)
+                        ->maxLength(320)
+                        ->placeholder('Leave blank to auto-generate from the category name'),
+                ]),
         ]);
     }
 
