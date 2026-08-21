@@ -206,15 +206,6 @@
                 @endforeach
             </div>
 
-            <div class="row mt-5">
-        <div class="col-12 text-center">
-            <a href="{{ url('/services') }}" class="btn btn-primary px-5 py-3" style="border-radius:50px; font-size:1rem; letter-spacing:1px; box-shadow: 0 6px 20px rgba(252,94,40,0.35);">
-                <span class="fa fa-list mr-2"></span>
-                View All {{ $serviceCategories->flatten()->count() }}+ Services
-            </a>
-        </div>
-    </div>
-
         </div>
     </section>
 
@@ -345,21 +336,42 @@
                     <p class="text-muted">These are the services our customers apply for most frequently. Click to apply instantly.</p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row psk-service-grid">
                 @foreach($popularServices as $svc)
-                @php
-                    $svcCardImg = $svc->image_url ?: asset('images/forms.webp');
-                @endphp
-                <div class="col-md-4">
-                    <div class="project">
-                        <a href="{{ route('services.show', $svc->slug) }}" class="img image-popup d-flex align-items-center" style="background-image: url('{{ $svcCardImg }}');">
-                        </a>
-                        <div class="text">
-                            <span class="subheading">{{ $svc->tag }}</span>
-                            <h3>{{ $svc->title }}</h3>
-                            <p>{{ $svc->short_desc }}</p>
-                            <a href="{{ route('services.show', $svc->slug) }}" class="btn btn-sm btn-primary mt-1">Apply Now</a>
+                <div class="col-md-4 ftco-animate">
+                    <div class="psk-service-card {{ $svc->is_popular ? 'psk-service-card--popular' : '' }}">
+
+                        @if($svc->is_popular)
+                        <div class="psk-service-card__popular">⭐ Most Requested</div>
+                        @endif
+
+                        <div class="psk-service-card__cover" style="background:linear-gradient(135deg, {{ $svc->color }}0D 0%, {{ $svc->color }}26 100%);">
+                            <span class="psk-service-card__cover-icon">
+                                <span class="fa {{ $svc->icon }}" style="color:{{ $svc->color }};"></span>
+                            </span>
                         </div>
+
+                        <div class="psk-service-card__header">
+                            <div class="psk-service-card__icon" style="background:{{ $svc->color }}15;">
+                                <span class="fa {{ $svc->icon }}" style="color:{{ $svc->color }};"></span>
+                            </div>
+                            <div>
+                                <span class="psk-service-card__tag">{{ $svc->tag }}</span>
+                                <h4 class="psk-service-card__title">{{ $svc->title }}</h4>
+                            </div>
+                        </div>
+
+                        <p class="psk-service-card__desc">{{ $svc->short_desc }}</p>
+
+                        <div class="psk-service-card__footer">
+                            <span class="psk-service-card__time">
+                                <span class="fa fa-clock-o mr-1"></span> {{ \Illuminate\Support\Str::before($svc->processing_time, ' ·') }}
+                            </span>
+                            <a href="{{ route('services.show', $svc->slug) }}" class="btn btn-sm btn-primary">
+                                <span class="fa fa-paper-plane mr-1"></span> Apply Now
+                            </a>
+                        </div>
+
                     </div>
                 </div>
                 @endforeach
@@ -434,6 +446,7 @@
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/psk-services-list.css') }}">
     @endpush
 
     @push('plugin-scripts')

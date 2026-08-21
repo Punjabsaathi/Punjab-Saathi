@@ -10367,7 +10367,7 @@ textarea.form-control {
   transition:      background 0.28s ease;
 
   /* Ensure the icon circle does NOT stretch full width */
-  align-self:      flex-start;
+  align-self:      center;
 }
 
 /* Icon glyph (FontAwesome) */

@@ -20,7 +20,6 @@ class ServiceController extends Controller
         public function index(): View
     {
         $services = Service::active()
-            ->with(['documents' => fn($q) => $q->orderBy('sort_order')])
             ->orderBy('sort_order')
             ->get()
             ->groupBy('category');

@@ -499,10 +499,15 @@ $serviceSchema = json_encode([
         <div class="row psk-service-grid">
             @foreach($related as $svc)
             <div class="col-12 col-md-6 col-lg-4 ftco-animate">
-                <div class="psk-service-card">
+                <div class="psk-service-card {{ $svc->is_popular ? 'psk-service-card--popular' : '' }}">
                     @if($svc->is_popular)
                         <div class="psk-service-card__popular">⭐ Most Requested</div>
                     @endif
+                    <div class="psk-service-card__cover" style="background:linear-gradient(135deg, {{ $svc->color }}0D 0%, {{ $svc->color }}26 100%);">
+                        <span class="psk-service-card__cover-icon">
+                            <span class="fa {{ $svc->icon }}" style="color:{{ $svc->color }};"></span>
+                        </span>
+                    </div>
                     <div class="psk-service-card__header">
                         <div class="psk-service-card__icon" style="background:{{ $svc->color }}15;">
                             <span class="fa {{ $svc->icon }}" style="color:{{ $svc->color }};"></span>
@@ -514,35 +519,9 @@ $serviceSchema = json_encode([
                     </div>
                     <p class="psk-service-card__desc">{{ $svc->short_desc }}</p>
 
-                    @if($svc->documents->isNotEmpty())
-                    <div class="psk-service-card__docs">
-                        <p class="psk-service-card__docs-title">
-                            <span class="fa fa-paperclip mr-1"></span>
-                            <strong>DOCUMENTS TYPICALLY NEEDED:</strong>
-                        </p>
-                        <ul class="psk-service-card__docs-list">
-                            @foreach($svc->documents->take(3) as $doc)
-                            <li>
-                                <span class="fa fa-check text-primary mr-1"></span>
-                                <strong>{{ $doc->label }}</strong>
-                                @if($doc->note)
-                                    <span class="psk-service-card__doc-note"> — {{ $doc->note }}</span>
-                                @endif
-                            </li>
-                            @endforeach
-                            @if($svc->documents->count() > 3)
-                            <li class="psk-service-card__docs-more">
-                                <span class="fa fa-ellipsis-h mr-1"></span>
-                                +{{ $svc->documents->count() - 3 }} more documents
-                            </li>
-                            @endif
-                        </ul>
-                    </div>
-                    @endif
-
                     <div class="psk-service-card__footer">
                         <span class="psk-service-card__time">
-                            <span class="fa fa-clock-o mr-1"></span> {{ $svc->processing_time }}
+                            <span class="fa fa-clock-o mr-1"></span> {{ \Illuminate\Support\Str::before($svc->processing_time, ' ·') }}
                         </span>
                         <a href="{{ route('services.show', $svc->slug) }}"
                            class="btn btn-sm btn-primary">
@@ -609,3 +588,7 @@ $serviceSchema = json_encode([
 </a>
 
 @endsection
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/psk-services-list.css') }}">
+@endpush

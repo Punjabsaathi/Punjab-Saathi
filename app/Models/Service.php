@@ -84,6 +84,23 @@ class Service extends Model
         return $this->og_image ? Storage::disk('public')->url($this->og_image) : null;
     }
 
+    // A slightly softer shade of the service's own color, for the
+    // listing card's gradient cover — keeps every card visually
+    // consistent (no mixing real photos with plain color blocks)
+    // without needing a generated image file per service. Kept light
+    // (only ~20% darker) rather than a deep/near-black gradient, to
+    // match the site's generally bright, clean look.
+    public function getColorDarkAttribute(): string
+    {
+        $hex = ltrim($this->color ?: '#fc5e28', '#');
+        if (strlen($hex) === 3) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+        [$r, $g, $b] = [hexdec(substr($hex, 0, 2)), hexdec(substr($hex, 2, 2)), hexdec(substr($hex, 4, 2))];
+
+        return sprintf('#%02x%02x%02x', (int) ($r * 0.8), (int) ($g * 0.8), (int) ($b * 0.8));
+    }
+
     // ── Route model binding key ──────────────────────────────
 
     public function getRouteKeyName(): string

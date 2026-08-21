@@ -172,11 +172,38 @@
     border-radius: 0 14px 0 10px;
     letter-spacing: 0.3px;
 }
+/* Light tinted background + a white icon badge — the same "colored
+   icon on a light-tinted panel" language already used for the small
+   44px icon box on every card header, just filling the cover area
+   instead of introducing a separate, heavier visual style. */
 .psk-service-card__cover {
     margin: -22px -20px 16px -20px;
-    height: 140px;
-    background-size: cover;
-    background-position: center;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fb;
+}
+/* Cards with the top-right "Most Requested" ribbon (~24px tall) need
+   the icon nudged down so the gap above it (below the ribbon) and the
+   gap below it end up equal, instead of looking centered-but-cramped
+   against the ribbon. Scoped to popular cards only so plain cards
+   (no ribbon) keep a truly centered icon. */
+.psk-service-card--popular .psk-service-card__cover {
+    padding-top: 28px;
+}
+.psk-service-card__cover-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.psk-service-card__cover-icon .fa {
+    font-size: 1.5rem;
 }
 .psk-service-card__header {
     display: flex;
@@ -217,32 +244,6 @@
     margin-bottom: 14px;
     flex-grow: 0;
 }
-.psk-service-card__docs {
-    background: #f4f6f9;
-    border-radius: 8px;
-    border: 1px solid #e8eaed;
-    padding: 10px 14px;
-    margin-bottom: 14px;
-}
-.psk-service-card__docs-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #777;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-}
-.psk-service-card__docs ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.psk-service-card__docs ul li {
-    font-size: 0.78rem;
-    color: #555;
-    line-height: 1.85;
-}
-.doc-note { color: #94a3b8; }
 /* Cards on grey bg-half-light sections get stronger shadow */
 .bg-half-light .psk-service-card {
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
@@ -254,6 +255,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 8px;
     border-top: 1px solid #f0f0f0;
     padding-top: 12px;
     margin-top: auto;
@@ -262,6 +265,12 @@
     font-size: 0.78rem;
     font-weight: 600;
     color: #888;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-right: 8px;
+}
+.psk-service-card__footer .btn {
+    flex-shrink: 0;
 }
 
 /* ── FAQ ───────────────────────────────────────────── */

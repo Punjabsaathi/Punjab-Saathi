@@ -157,7 +157,7 @@
 <section class="ftco-section ftco-no-pb psk-filter-section" id="service-categories">
     <div class="container">
         <div class="row justify-content-center mb-4">
-            <div class="col-md-10 text-center ftco-animate">
+            <div class="col-md-10 text-center heading-section ftco-animate">
                 <span class="subheading">Browse by Category</span>
                 <h2 class="mb-3">All Services We Help You With</h2>
                 <p class="text-muted">Click any category below to jump directly to those services.</p>
@@ -205,15 +205,17 @@
             <div class="row psk-service-grid">
                 @foreach($services->get($key) as $svc)
                 <div class="col-md-4 ftco-animate psk-service-item" data-category="{{ $key }}">
-                    <div class="psk-service-card">
+                    <div class="psk-service-card {{ $svc->is_popular ? 'psk-service-card--popular' : '' }}">
 
                         @if($svc->is_popular)
                         <div class="psk-service-card__popular">⭐ Most Requested</div>
                         @endif
 
-                        @if($svc->image_url)
-                        <div class="psk-service-card__cover" style="background-image: url('{{ $svc->image_url }}');"></div>
-                        @endif
+                        <div class="psk-service-card__cover" style="background:linear-gradient(135deg, {{ $svc->color ?? $cat->color }}0D 0%, {{ $svc->color ?? $cat->color }}26 100%);">
+                            <span class="psk-service-card__cover-icon">
+                                <span class="fa {{ $svc->icon ?? $cat->icon }}" style="color:{{ $svc->color ?? $cat->color }};"></span>
+                            </span>
+                        </div>
 
                         <div class="psk-service-card__header">
                             <div class="psk-service-card__icon" style="background:{{ $svc->color ?? $cat->color }}15;">
@@ -227,34 +229,9 @@
 
                         <p class="psk-service-card__desc">{{ $svc->short_desc }}</p>
 
-                        @if($svc->documents->isNotEmpty())
-                        <div class="psk-service-card__docs">
-                            <p class="psk-service-card__docs-label">
-                                <span class="fa fa-paperclip mr-1"></span> Documents typically needed:
-                            </p>
-                            <ul>
-                                @foreach($svc->documents->take(4) as $doc)
-                                <li>
-                                    <span class="fa fa-check text-primary mr-1"></span>
-                                    {{ $doc->label }}
-                                    @if(!empty($doc->note))
-                                        <span class="doc-note">— {{ $doc->note }}</span>
-                                    @endif
-                                </li>
-                                @endforeach
-                                @if($svc->documents->count() > 4)
-                                <li style="color:#94a3b8;font-style:italic;">
-                                    <span class="fa fa-ellipsis-h mr-1"></span>
-                                    +{{ $svc->documents->count() - 4 }} more documents
-                                </li>
-                                @endif
-                            </ul>
-                        </div>
-                        @endif
-
                         <div class="psk-service-card__footer">
                             <span class="psk-service-card__time">
-                                <span class="fa fa-clock-o mr-1"></span> {{ $svc->processing_time }}
+                                <span class="fa fa-clock-o mr-1"></span> {{ \Illuminate\Support\Str::before($svc->processing_time, ' ·') }}
                             </span>
                             <a href="{{ route('services.show', $svc->slug) }}"
                                class="btn btn-sm btn-primary">
