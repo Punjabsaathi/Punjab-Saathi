@@ -20,6 +20,7 @@ use App\Http\Controllers\AgentRegistrationController;
 use App\Http\Controllers\Admin\ServiceImageController;
 use App\Http\Controllers\Admin\ServiceCategoryImageController;
 use App\Http\Controllers\CscDirectoryController;
+use App\Http\Controllers\GovUpdateController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -119,6 +120,12 @@ Route::prefix('jobs')->name('jobs.')->group(function () {
     Route::post('/form-help',               [JobsController::class, 'formHelpSubmit'])->name('form-help.submit');
     Route::get('/category/{slug}',          [JobsController::class, 'category'])->name('category');
     Route::get('/{slug}',                   [JobsController::class, 'show'])->name('show');
+});
+
+Route::prefix('news')->name('gov-updates.')->group(function () {
+    Route::get('/',                [GovUpdateController::class, 'index'])->name('index');
+    Route::get('/category/{slug}', [GovUpdateController::class, 'category'])->name('category');
+    Route::get('/{slug}',          [GovUpdateController::class, 'show'])->name('show');
 });
 
 

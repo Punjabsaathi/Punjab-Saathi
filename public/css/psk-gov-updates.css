@@ -1,0 +1,250 @@
+/* ═══════════════════════════════════════════════════════════════
+   Punjab Saathi — Government Updates / News Section
+   Reuses sitewide tokens already established elsewhere:
+     orange #fc5e28 · navy #040e26 · green #059669 · blue #3b82f6
+     amber #d97706 · red #e11d48
+   Reuses .psk-detail-hero / .psk-breadcrumb / .psk-sidebar-card
+   (psk-services-detail.css, loaded sitewide) and .psk-disclaimer-bar.
+   This file only adds what's unique to the updates listing/detail:
+   category pills, update cards, the important-badge, and the
+   article body typography.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Category pills (same shape as Jobs' .psk-job-pill) ── */
+.psk-update-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.psk-update-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border: 1px solid #e2e6ea;
+    color: #444;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.psk-update-pill:hover { border-color: #fc5e28; color: #fc5e28; text-decoration: none; }
+.psk-update-pill.active { background: #fc5e28; border-color: #fc5e28; color: #fff; }
+.psk-update-pill__count {
+    background: rgba(0,0,0,0.08);
+    border-radius: 20px;
+    padding: 1px 7px;
+    font-size: 0.72rem;
+}
+.psk-update-pill.active .psk-update-pill__count { background: rgba(255,255,255,0.25); }
+
+/* ── Section head ── */
+.psk-update-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+.psk-update-section-head h2 { font-size: 1.25rem; font-weight: 800; color: #040e26; margin: 0; }
+.psk-update-count { font-size: 0.82rem; color: #888; }
+
+/* ── Update list + row card — compact, list-style like the Jobs
+   cards, not a big image card. The detail page already carries the
+   full content, so the listing only needs enough to identify and
+   triage an update at a glance. ── */
+.psk-update-list { margin-bottom: 8px; }
+.psk-update-row {
+    display: block;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e2e6ea;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.psk-update-row:hover {
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    border-color: rgba(252,94,40,0.3);
+}
+.psk-update-row.psk-update-row--important { border-left: 3px solid #e11d48; }
+
+.psk-update-row__body { padding: 12px 18px; }
+.psk-update-row__title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #040e26;
+    margin-bottom: 4px;
+    line-height: 1.35;
+}
+.psk-update-row__title-text { color: #040e26; }
+.psk-update-row:hover .psk-update-row__title-text { color: #fc5e28; }
+.psk-update-row__excerpt {
+    font-size: 12.5px;
+    color: #9ca3af;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.psk-update-row__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f0f4f8;
+}
+.psk-update-row__meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #5a6a7a; }
+.psk-update-row__meta-item .fa,
+.psk-update-row__meta-item .fas { color: #fc5e28; font-size: 11px; width: 14px; text-align: center; }
+.psk-update-row__meta-item strong { color: #040e26; font-weight: 700; }
+.psk-update-row__readmore { margin-left: auto; color: #fc5e28; font-weight: 700; }
+.psk-update-row__readmore .fa { color: #fc5e28; }
+
+/* ── Badges — copied base from psk-jobs.css so this page doesn't
+   depend on that stylesheet (or its --psk-* color variables) too. ── */
+.psk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+.psk-badge--new { background: #fee2e2; color: #e11d48; animation: psk-update-badge-blink 1.5s ease-in-out infinite; }
+@keyframes psk-update-badge-blink { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
+.psk-badge--category { background: rgba(252,94,40,0.10); color: #fc5e28; }
+.psk-badge--important { background: #fee2e2; color: #e11d48; }
+
+.psk-update-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+}
+.psk-update-empty .fa { font-size: 2.4rem; margin-bottom: 14px; display: block; color: #e5e7eb; }
+
+/* ── Sidebar link list + WhatsApp block — copied from psk-jobs.css
+   rather than depending on that stylesheet being loaded here too. ── */
+.psk-sidebar-link-list { list-style: none; padding: 0; margin: 0; }
+.psk-sidebar-link-list li a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid #f5f5f5;
+    font-size: 0.83rem; font-weight: 600; color: #040e26;
+    text-decoration: none; transition: color 0.15s;
+}
+.psk-sidebar-link-list li:last-child a { border-bottom: none; }
+.psk-sidebar-link-list li a:hover,
+.psk-sidebar-link-list li a.psk-active { color: #fc5e28; text-decoration: none; }
+.psk-sidebar-link-list li a .fa,
+.psk-sidebar-link-list li a .fas { color: #fc5e28; width: 16px; margin-right: 4px; }
+.psk-sidebar-link-list__count {
+    background: rgba(252,94,40,0.10); color: #fc5e28;
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+}
+
+.psk-sidebar-wa {
+    background: linear-gradient(135deg, #25D366, #1da851);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+}
+.psk-sidebar-wa .fa,
+.psk-sidebar-wa .fab { font-size: 30px; color: #fff; display: block; margin-bottom: 6px; }
+.psk-sidebar-wa h6 { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+.psk-sidebar-wa p { font-size: 0.78rem; color: rgba(255,255,255,0.85); margin-bottom: 12px; }
+.psk-sidebar-wa a {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; color: #25D366 !important; font-weight: 700; font-size: 0.82rem;
+    padding: 9px 20px; border-radius: 20px; text-decoration: none;
+}
+.psk-sidebar-wa a:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+/* ── Sidebar: Important Updates list ── */
+.psk-sidebar-important-list { list-style: none; padding: 0; margin: 0; }
+.psk-sidebar-important-list li { padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+.psk-sidebar-important-list li:last-child { border-bottom: none; }
+.psk-sidebar-important-list a {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.83rem;
+    line-height: 1.4;
+}
+.psk-sidebar-important-list a:hover { color: #fc5e28; }
+.psk-sidebar-important-list .fa-exclamation-circle { color: #e11d48; margin-top: 2px; flex-shrink: 0; }
+
+/* ── Detail page: article body ── */
+.psk-update-article {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e8eaed;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 28px;
+    margin-bottom: 28px;
+}
+.psk-update-article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.82rem;
+    color: #888;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.psk-update-article__meta .fa { margin-right: 4px; color: #fc5e28; }
+.psk-update-article__cover {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    max-height: 380px;
+    object-fit: cover;
+}
+.psk-update-article__body { font-size: 0.94rem; line-height: 1.85; color: #333; }
+.psk-update-article__body h2 { font-size: 1.25rem; font-weight: 800; color: #040e26; margin: 24px 0 12px; }
+.psk-update-article__body h3 { font-size: 1.08rem; font-weight: 700; color: #040e26; margin: 20px 0 10px; }
+.psk-update-article__body p { margin-bottom: 14px; }
+.psk-update-article__body ul, .psk-update-article__body ol { padding-left: 22px; margin-bottom: 14px; }
+.psk-update-article__body li { margin-bottom: 6px; }
+
+.psk-update-related-cta {
+    background: linear-gradient(135deg, #fff8f5, #fde8d8);
+    border: 1px solid #fde8d8;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.psk-update-related-cta__text { font-size: 0.88rem; color: #444; }
+.psk-update-related-cta__text strong { color: #040e26; }
+
+/* ── Responsive ── */
+@media (max-width: 767.98px) {
+    .psk-update-grid { grid-template-columns: 1fr; gap: 18px; }
+    .psk-update-article { padding: 20px; }
+}

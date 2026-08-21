@@ -62,6 +62,7 @@ class SitemapController extends Controller
                 ['url' => url('/about'), 'priority' => '0.7', 'changefreq' => 'monthly'],
                 ['url' => route('services.index'), 'priority' => '0.9', 'changefreq' => 'weekly'],
                 ['url' => route('jobs.index'), 'priority' => '0.9', 'changefreq' => 'daily'],
+                ['url' => route('gov-updates.index'), 'priority' => '0.8', 'changefreq' => 'daily'],
                 ['url' => route('blog.index'), 'priority' => '0.7', 'changefreq' => 'weekly'],
                 ['url' => route('forms.index'), 'priority' => '0.7', 'changefreq' => 'weekly'],
                 ['url' => route('contact'), 'priority' => '0.5', 'changefreq' => 'yearly'],
@@ -135,6 +136,24 @@ class SitemapController extends Controller
             foreach (GovJobCategory::all(['slug', 'updated_at']) as $cat) {
                 $urls[] = [
                     'url' => route('jobs.category', $cat->slug),
+                    'lastmod' => $cat->updated_at?->toAtomString(),
+                    'priority' => '0.6',
+                    'changefreq' => 'weekly',
+                ];
+            }
+
+            // Government updates + categories
+            foreach (\App\Models\GovUpdate::published()->get(['slug', 'updated_at']) as $update) {
+                $urls[] = [
+                    'url' => route('gov-updates.show', $update->slug),
+                    'lastmod' => $update->updated_at?->toAtomString(),
+                    'priority' => '0.7',
+                    'changefreq' => 'weekly',
+                ];
+            }
+            foreach (\App\Models\GovUpdateCategory::where('is_active', true)->get(['slug', 'updated_at']) as $cat) {
+                $urls[] = [
+                    'url' => route('gov-updates.category', $cat->slug),
                     'lastmod' => $cat->updated_at?->toAtomString(),
                     'priority' => '0.6',
                     'changefreq' => 'weekly',
