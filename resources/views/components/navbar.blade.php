@@ -149,8 +149,10 @@
     .psk-mega-link {
         display: flex;
         align-items: center;
+        width: 100%;
         gap: 8px;
         font-size: 0.845rem;
+        line-height: 1.5;
         color: #444;
         padding: 8px 10px;
         margin: 0 -10px;
@@ -228,11 +230,22 @@
             white-space: normal;
         }
         /* The hover-only card/shadow treatment on service links doesn't
-           apply on touch — give them a bit more tap padding instead so
-           they're comfortably tappable in a stacked mobile list. */
+           apply on touch — give them more breathing room and a visible
+           divider instead, so a stacked list of many services doesn't
+           read as one cramped block of text. */
         .psk-mega-link {
-            padding: 10px;
+            padding: 13px 10px;
+            margin: 0;
             font-size: 0.9rem;
+            line-height: 1.5;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .psk-mega-col .psk-mega-link:last-child {
+            border-bottom: none;
+        }
+        .psk-mega-link:active {
+            background: #fff8f5;
+            color: #fc5e28;
         }
 
         .psk-simple-dropdown__menu {
@@ -245,8 +258,9 @@
             background: #fafafa;
         }
         .psk-simple-dropdown__menu a {
-            padding: 14px 20px 14px 32px;
+            padding: 15px 20px 15px 32px;
             font-size: 14px;
+            line-height: 1.5;
         }
 
         .navbar-nav:hover .nav-item.active .psk-nl {
