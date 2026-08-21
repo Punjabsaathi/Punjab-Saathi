@@ -467,7 +467,7 @@ $serviceSchema = json_encode([
                         <h3 class="psk-sidebar-card__title">Why Choose Us</h3>
                         <ul class="psk-trust-list">
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> Authorised CSC Operator</li>
-                            <li><span class="fa fa-check-circle" style="color:#059669;"></span> + Services Completed</li>
+                            <li><span class="fa fa-check-circle" style="color:#059669;"></span> 9,526+ Services Completed</li>
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> No Visit Required</li>
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> 100% Accurate — No Rejections</li>
                             <li><span class="fa fa-check-circle" style="color:#059669;"></span> Punjabi / Hindi Support</li>

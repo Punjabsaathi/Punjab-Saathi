@@ -74,8 +74,8 @@
         <div class="row no-gutters psk-trust-bar__inner">
             @php
             $trustItems = [
-                ['icon' => 'fa-check-circle', 'number' => '7500+',            'label' => 'Services Completed'],
-                ['icon' => 'fa-users',         'number' => '4900+',            'label' => 'Citizens Served'],
+                ['icon' => 'fa-check-circle', 'number' => '9,526+',           'label' => 'Services Completed'],
+                ['icon' => 'fa-users',         'number' => '8,975+',           'label' => 'Citizens Served'],
                 ['icon' => 'fa-list',          'number' => $totalServices . '+', 'label' => 'Services Available'],
                 ['icon' => 'fa-map-marker',    'number' => '22',                 'label' => 'Districts Covered'],
                 ['icon' => 'fa-clock-o',       'number' => '1–3 Days',           'label' => 'Average Turnaround'],

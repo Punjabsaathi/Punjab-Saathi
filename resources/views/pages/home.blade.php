@@ -46,7 +46,7 @@
                             We help you apply for government certificates online, with documents and applications processed <strong>fast, correctly, and affordably</strong> — without standing in long queues.
                         </p>
                         <p class="mb-4" style="font-size:0.95rem;opacity:0.85;">
-                            Aadhaar &middot; PAN &middot; Income Certificate &middot; Caste Certificate &middot; Voter ID &middot; and 50+ more services across Punjab.
+                            Aadhaar &middot; PAN &middot; Income Certificate &middot; Caste Certificate &middot; Voter ID &middot; and 20+ more services across Punjab.
                         </p>
                         <div class="d-flex flex-wrap align-items-center psk-hero-btns">
                             <a href="{{ url('/services') }}" class="btn btn-primary px-4 py-3">
@@ -82,7 +82,7 @@
                     <div class="media block-6 services services-2 d-flex">
                         <div class="icon justify-content-center align-items-center d-flex"><span class="flaticon-worker-1"></span></div>
                         <div class="media-body pl-4">
-                            <h3 class="heading mb-3">Trusted by 15000+ Citizens</h3>
+                            <h3 class="heading mb-3">Trusted by 8,975+ Citizens</h3>
                             <p>Serving families, students, farmers, and businesses across all districts of Punjab.</p>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                             <h2 class="mb-4">Punjab Saathi - Your Digital Service Partner</h2>
                             <div class="d-flex about">
                                 <div class="icon"><span class="flaticon-hammer"></span></div>
-                                <h3>Helping Punjab people with government paperwork</h3>
+                                <h3>Making government paperwork easier for everyone</h3>
                             </div>
                             <!-- <p>Punjab Saathi is a trusted, Common Service Centre (CSC) helping citizens across Punjab navigate complex government portals and document processes — quickly, affordably, and without stress.</p>
                             <p>Whether you need an income certificate for a scholarship, a caste certificate for a job, Aadhaar correction, or a PAN card for your business — our trained operators handle everything end-to-end so you don't have to.</p> -->
@@ -228,7 +228,7 @@
                             <div class="block-18 bg-primary d-flex align-items-center justify-content-between">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-engineer"></span></div>
                                 <div class="text">
-                                    <strong class="number" data-number="75000">0</strong>
+                                    <strong class="number" data-number="9526">0</strong>
                                     <span>Services Completed</span>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                             <div class="block-18 d-flex align-items-center justify-content-between">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-worker-1"></span></div>
                                 <div class="text">
-                                    <strong class="number" data-number="50000">0</strong>
+                                    <strong class="number" data-number="8975">0</strong>
                                     <span>Happy Citizens Served</span>
                                 </div>
                             </div>

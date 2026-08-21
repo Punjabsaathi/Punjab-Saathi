@@ -20,7 +20,7 @@
 
     <p class="subtitle">
         Punjab's first one-stop digital platform for all your government paperwork —
-        Aadhaar, PAN, Income Certificate, Caste Certificate, Ration Card, Pension Schemes, and 50+ more services,
+        Aadhaar, PAN, Income Certificate, Caste Certificate, Ration Card, Pension Schemes, and 20+ more services,
         all under one roof. No more running between offices, no more standing in queues.
     </p>
 

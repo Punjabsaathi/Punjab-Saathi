@@ -219,7 +219,7 @@
                         <div style="width:48px;height:48px;background:rgba(252,94,40,0.20);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
                             <span class="flaticon-engineer" style="color:#fc5e28;font-size:22px;"></span>
                         </div>
-                        <strong class="number" data-number="75000"
+                        <strong class="number" data-number="9526"
                             style="display:block;font-size:40px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px;">0</strong>
                         <span style="color:rgba(255,255,255,0.65);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:500;">Services Completed</span>
                         <div style="width:32px;height:3px;background:#fc5e28;border-radius:2px;margin-top:12px;"></div>
@@ -232,7 +232,7 @@
                         <div style="width:48px;height:48px;background:rgba(255,255,255,0.20);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
                             <span class="flaticon-worker-1" style="color:#fff;font-size:22px;"></span>
                         </div>
-                        <strong class="number" data-number="50000"
+                        <strong class="number" data-number="8975"
                             style="display:block;font-size:40px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px;">0</strong>
                         <span style="color:rgba(255,255,255,0.85);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:500;">Happy Citizens Served</span>
                         <div style="width:32px;height:3px;background:rgba(255,255,255,0.5);border-radius:2px;margin-top:12px;"></div>
@@ -258,9 +258,8 @@
                         <div style="width:48px;height:48px;background:rgba(252,94,40,0.20);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
                             <span class="flaticon-worker-1" style="color:#fc5e28;font-size:22px;"></span>
                         </div>
-                        <strong class="number" data-number="50"
-                            style="display:block;font-size:40px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px;">0</strong>
-                        <span style="color:rgba(255,255,255,0.65);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:500;">Govt. Services Available</span>
+                        <strong style="display:block;font-size:40px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px;"><span class="number" data-number="20">0</span>+</strong>
+                        <span style="color:rgba(255,255,255,0.65);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:500;">Services Available</span>
                         <div style="width:32px;height:3px;background:#fc5e28;border-radius:2px;margin-top:12px;"></div>
                     </div>
 
@@ -423,7 +422,7 @@
         <div class="row justify-content-center mb-5 pb-2">
             <div class="col-md-8 text-center heading-section ftco-animate">
                 <span class="subheading">Why Choose Us</span>
-                <h2 class="mb-4">Why 50,000+ Punjab People Trust Us</h2>
+                <h2 class="mb-4">Why 8,975+ Punjab People Trust Us</h2>
                 <p class="text-muted">There are many service centres in Punjab — here is what makes Punjab Saathi different.</p>
             </div>
         </div>
@@ -689,7 +688,7 @@
                     <span>E-Shram Card</span>
                     <span>PM Kisan</span>
                     <span>Driving Licence</span>
-                    <span>50+ More</span>
+                    <span>20+ More</span>
                 </div>
             </div>
         </div>
